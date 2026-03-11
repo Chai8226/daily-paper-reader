@@ -383,6 +383,21 @@ def fetch_papers_by_date_range(
         return ([], f"papers 查询异常：{e}")
 
 
+def _build_date_filter_payload(
+    start_dt: datetime | None,
+    end_dt: datetime | None,
+) -> Dict[str, str]:
+    """构造日期过滤参数（ISO 8601），供 RPC 在数据库侧做 WHERE 过滤。"""
+    out: Dict[str, str] = {}
+    if isinstance(start_dt, datetime):
+        dt = start_dt.astimezone(timezone.utc) if start_dt.tzinfo else start_dt.replace(tzinfo=timezone.utc)
+        out["filter_published_start"] = dt.isoformat()
+    if isinstance(end_dt, datetime):
+        dt = end_dt.astimezone(timezone.utc) if end_dt.tzinfo else end_dt.replace(tzinfo=timezone.utc)
+        out["filter_published_end"] = dt.isoformat()
+    return out
+
+
 def match_papers_by_embedding(
     *,
     url: str,
@@ -401,6 +416,8 @@ def match_papers_by_embedding(
     约定 RPC 参数：
       - query_embedding: vector(N)
       - match_count: int
+      - filter_published_start: timestamptz (可选，数据库侧 WHERE 过滤)
+      - filter_published_end:   timestamptz (可选，数据库侧 WHERE 过滤)
     """
     safe_rpc = _norm(rpc_name)
     if not safe_rpc:
@@ -410,9 +427,10 @@ def match_papers_by_embedding(
         return ([], "query embedding 为空")
     k = max(int(match_count or 1), 1)
     endpoint = f"{_base_rest_url(url)}/rpc/{safe_rpc}"
-    payload = {
+    payload: Dict[str, Any] = {
         "query_embedding": vec,
         "match_count": k,
+        **_build_date_filter_payload(start_dt, end_dt),
     }
     try:
         resp = _request_with_retries(
@@ -488,6 +506,8 @@ def match_papers_by_bm25(
     约定 RPC 参数：
       - query_text: text
       - match_count: int
+      - filter_published_start: timestamptz (可选，数据库侧 WHERE 过滤)
+      - filter_published_end:   timestamptz (可选，数据库侧 WHERE 过滤)
     """
     safe_rpc = _norm(rpc_name)
     if not safe_rpc:
@@ -497,9 +517,10 @@ def match_papers_by_bm25(
         return ([], "query_text 为空")
     k = max(int(match_count or 1), 1)
     endpoint = f"{_base_rest_url(url)}/rpc/{safe_rpc}"
-    payload = {
+    payload: Dict[str, Any] = {
         "query_text": q,
         "match_count": k,
+        **_build_date_filter_payload(start_dt, end_dt),
     }
     try:
         resp = _request_with_retries(
