@@ -25,3 +25,60 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: 机器人规划
+      description: 机器人整身规划与避障相关论文检索
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: collision avoidance
+          keyword_cn: 避障
+          query: collision avoidance
+        - keyword: motion planning
+          keyword_cn: 运动规划
+          query: motion planning
+        - keyword: swept volume
+          keyword_cn: 扫掠体
+          query: swept volume
+        - keyword: shape-aware
+          keyword_cn: 形状感知
+          query: shape-aware
+        - keyword: whole-body planning
+          keyword_cn: 整身运动规划
+          query: whole-body motion planning for robots
+        - keyword: whole-body obstacle avoidance
+          keyword_cn: 整身避障
+          query: whole-body collision avoidance algorithms
+      intent_queries:
+        - query: state of the art in robot whole body motion planning
+          query_cn: 机器人整身运动规划的前沿技术
+          enabled: true
+          source: manual
+          note: ''
+        - query: algorithms for whole body obstacle avoidance in complex environments
+          query_cn: 复杂环境下的机器人整身避障算法
+          enabled: true
+          source: manual
+          note: ''
+        - query: optimization based whole body trajectory planning
+          query_cn: 基于优化的整身轨迹规划
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-03-30T05:46:09.826Z'
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
