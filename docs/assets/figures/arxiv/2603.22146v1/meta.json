@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.22146v1/fig-001.webp",
+      "caption": "Fig. 2. Value learned directly on the corresponding 1 × 2 two-obstacle configuration at the slice θ = π.",
+      "page": 7,
+      "index": 1,
+      "width": 420,
+      "height": 373
+    },
+    {
+      "url": "assets/figures/arxiv/2603.22146v1/fig-002.webp",
+      "caption": "Fig. 1. Translated template value on the 1× 2 tiled configuration at the slice θ = π.",
+      "page": 7,
+      "index": 2,
+      "width": 420,
+      "height": 373
+    },
+    {
+      "url": "assets/figures/arxiv/2603.22146v1/fig-003.webp",
+      "caption": "Fig. 4. Hybrid closed-loop rollout for the Dubins-car example in a tiled clutter field. Circular obstacles are centered at the lattice points (46). The blue marker denotes the initial state and the orange marker denotes the terminal state at which the goal region is reached.",
+      "page": 8,
+      "index": 3,
+      "width": 420,
+      "height": 423
+    },
+    {
+      "url": "assets/figures/arxiv/2603.22146v1/fig-004.webp",
+      "caption": "Fig. 3. Absolute pointwise error between the translated template value and the directly trained 1× 2 value at the slice θ = π.",
+      "page": 8,
+      "index": 4,
+      "width": 420,
+      "height": 373
+    }
+  ]
+}

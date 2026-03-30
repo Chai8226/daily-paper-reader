@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.21421v1/fig-001.webp",
+      "caption": "Fig. 1: Our system solves reaching tasks while using a hybrid rigid-soft continuum arm system. Setup consists of a B3 (three bending actuators) soft continuum arm with a small RGB camera mounted on a 6DOF rigid manipulator. The setup also has a magnetic sensor (used only for data collection) that measures the pose of the end effector. We show two overlayed snapshots of the manipulator reaching toward a goal object through a cluttered environment.",
+      "page": 1,
+      "index": 1,
+      "width": 453,
+      "height": 329
+    },
+    {
+      "url": "assets/figures/arxiv/2603.21421v1/fig-002.webp",
+      "caption": "Fig. 2: Our pipeline for real-time reaching and control of a hybrid manipulator in complex, unstructured environments. The pipeline comprises goal detection, 3D reconstruction, shape-informed path planning, and a learned controller for hybrid manipulators. 3D reconstruction, integrated with an occupancy grid, enhances scene understanding and identifies traversable areas. Shape-informed path planning optimizes paths by effectively navigating around obstacles. Additionally, our hybrid manipulator controller enables actuation to any arbitrary pose within the workspace.",
+      "page": 2,
+      "index": 2,
+      "width": 1036,
+      "height": 356
+    },
+    {
+      "url": "assets/figures/arxiv/2603.21421v1/fig-003.webp",
+      "caption": "Fig. 5: Rigid Only baseline hardware setup. The soft segment in Fig. 1 was replaced with an equivalent length rigid link.",
+      "page": 7,
+      "index": 3,
+      "width": 371,
+      "height": 385
+    },
+    {
+      "url": "assets/figures/arxiv/2603.21421v1/fig-004.webp",
+      "caption": "Fig. 3: The hybrid arm controller takes as input the start pose, 𝑝𝑠 , and relative pose to the goal 𝑝𝑟𝑒𝑙 and outputs hybrid arm actuations. This fully learned controller successfully actuates the hybrid system to an arbitrary pose, avoiding the need for complex modeling of the hybrid system while enabling closed-loop control.",
+      "page": 4,
+      "index": 4,
+      "width": 465,
+      "height": 333
+    },
+    {
+      "url": "assets/figures/arxiv/2603.21421v1/fig-005.webp",
+      "caption": "Fig. 4: (a) Experimental Setups: The four experimental setups include No Obstacles , Obstacles , Clutter , and Hole . An image of the setup, along with the reconstruction obtained from Mast3r [35] is visualized. (b) Experimental results (one example test run for each setup): Shows initial view (start of the test), two intermediate views, and the final view (end of test) obtained from the tip camera. The final column shows the query/goal object that the hybrid arm was tasked to reach.",
+      "page": 5,
+      "index": 5,
+      "width": 1038,
+      "height": 394
+    }
+  ]
+}

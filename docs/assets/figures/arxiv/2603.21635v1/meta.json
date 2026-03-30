@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.21635v1/fig-001.webp",
+      "caption": "Figure 3: Figures for the Narrow Gap scenario on the left and Angled Obstacle scenario on the right.",
+      "page": 8,
+      "index": 1,
+      "width": 977,
+      "height": 485
+    },
+    {
+      "url": "assets/figures/arxiv/2603.21635v1/fig-002.webp",
+      "caption": "Figure 2: RTD-RAX architecture.",
+      "page": 6,
+      "index": 2,
+      "width": 748,
+      "height": 236
+    },
+    {
+      "url": "assets/figures/arxiv/2603.21635v1/fig-003.webp",
+      "caption": "Figure 4: Disturbance-aware scenario. Left: standard RTD collides due to disturbances. Right: RTD-RAX with online certification accounts for disturbances and repairs unsafe candidates.",
+      "page": 10,
+      "index": 3,
+      "width": 955,
+      "height": 264
+    },
+    {
+      "url": "assets/figures/arxiv/2603.21635v1/fig-004.webp",
+      "caption": "Figure 1: Narrow-gap scenario; the robot is depicted as a circle in the starting position, goal as a star, obstacles as rectangles, the offline reachable set in green, and the online reachable set in blue. (a) Standard RTD: incorrectly classifies as infeasible. (b) RTD-RAX: feasible and certified safe by the mixed-monotone verifier.",
+      "page": 2,
+      "index": 4,
+      "width": 598,
+      "height": 235
+    }
+  ]
+}

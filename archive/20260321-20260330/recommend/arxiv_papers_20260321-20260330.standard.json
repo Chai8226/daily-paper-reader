@@ -1,0 +1,838 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-30T05:51:43.468706+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 20,
+    "deep_cap": 6,
+    "deep_selected": 10,
+    "quick_candidates": 32,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2603.21421v1",
+      "source": "arxiv",
+      "title": "HyReach: Vision-Guided Hybrid Manipulator Reaching in Unseen Cluttered Environments",
+      "abstract": "As robotic systems increasingly operate in unstructured, cluttered, and previously unseen environments, there is a growing need for manipulators that combine compliance, adaptability, and precise control. This work presents a real-time hybrid rigid-soft continuum manipulator system designed for robust open-world object reaching in such challenging environments. The system integrates vision-based perception and 3D scene reconstruction with shape-aware motion planning to generate safe trajectories. A learning-based controller drives the hybrid arm to arbitrary target poses, leveraging the flexibility of the soft segment while maintaining the precision of the rigid segment. The system operates without environment-specific retraining, enabling direct generalization to new scenes. Extensive real-world experiments demonstrate consistent reaching performance with errors below 2 cm across diverse cluttered setups, highlighting the potential of hybrid manipulators for adaptive and reliable operation in unstructured environments.",
+      "authors": [
+        "Shivani Kamtikar",
+        "Kendall Koe",
+        "Justin Wasserman",
+        "Samhita Marri",
+        "Benjamin Walt",
+        "Naveen Kumar Uppalapati",
+        "Girish Krishnan",
+        "Girish Chowdhary"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-03-22T22:14:33+00:00",
+      "link": "https://arxiv.org/pdf/2603.21421v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "shape-aware motion planning for hybrid manipulators",
+      "llm_evidence_cn": "混合机械臂的形状感知运动规划",
+      "llm_evidence": "混合机械臂的形状感知运动规划",
+      "canonical_evidence": "混合机械臂的形状感知运动规划",
+      "llm_tldr_en": "Integrates 3D reconstruction with shape-aware motion planning for manipulators in cluttered environments.",
+      "llm_tldr_cn": "将3D重建与形状感知运动规划相结合，实现杂乱环境下的机械臂安全作业。",
+      "llm_tldr": "将3D重建与形状感知运动规划相结合，实现杂乱环境下的机械臂安全作业。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "shape-aware",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.23983v1",
+      "source": "arxiv",
+      "title": "SafeFlow: Real-Time Text-Driven Humanoid Whole-Body Control via Physics-Guided Rectified Flow and Selective Safety Gating",
+      "abstract": "Recent advances in real-time interactive text-driven motion generation have enabled humanoids to perform diverse behaviors. However, kinematics-only generators often exhibit physical hallucinations, producing motion trajectories that are physically infeasible to track with a downstream motion tracking controller or unsafe for real-world deployment. These failures often arise from the lack of explicit physics-aware objectives for real-robot execution and become more severe under out-of-distribution (OOD) user inputs. Hence, we propose SafeFlow, a text-driven humanoid whole-body control framework that combines physics-guided motion generation with a 3-Stage Safety Gate driven by explicit risk indicators. SafeFlow adopts a two-level architecture. At the high level, we generate motion trajectories using Physics-Guided Rectified Flow Matching in a VAE latent space to improve real-robot executability, and further accelerate sampling via Reflow to reduce the number of function evaluations (NFE) for real-time control. The 3-Stage Safety Gate enables selective execution by detecting semantic OOD prompts using a Mahalanobis score in text-embedding space, filtering unstable generations via a directional sensitivity discrepancy metric, and enforcing final hard kinematic constraints such as joint and velocity limits before passing the generated trajectory to a low-level motion tracking controller. Extensive experiments on the Unitree G1 demonstrate that SafeFlow outperforms prior diffusion-based methods in success rate, physical compliance, and inference speed, while maintaining diverse expressiveness.",
+      "authors": [
+        "Hanbyel Cho",
+        "Sang-Hun Kim",
+        "Jeonguk Kang",
+        "Donghan Koo"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI",
+        "eess.SY"
+      ],
+      "published": "2026-03-25T06:24:16+00:00",
+      "link": "https://arxiv.org/pdf/2603.23983v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "humanoid whole-body control with selective safety gating",
+      "llm_evidence_cn": "具有选择性安全门控的人形机器人全身控制",
+      "llm_evidence": "具有选择性安全门控的人形机器人全身控制",
+      "canonical_evidence": "具有选择性安全门控的人形机器人全身控制",
+      "llm_tldr_en": "A text-driven humanoid whole-body control framework with physics-guided generation and safety gating.",
+      "llm_tldr_cn": "一种结合物理引导运动生成与安全门控的人形机器人全身控制框架。",
+      "llm_tldr": "一种结合物理引导运动生成与安全门控的人形机器人全身控制框架。",
+      "llm_tags": [
+        "query:q6"
+      ],
+      "matched_query_tag": "query:q6",
+      "matched_query_text": "whole-body collision avoidance algorithms",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.22146v1",
+      "source": "arxiv",
+      "title": "From Singleton Obstacles to Clutter: Translation Invariant Compositional Avoid Sets",
+      "abstract": "This paper studies obstacle avoidance under translation invariant dynamics using an avoid-side travel cost Hamilton Jacobi formulation. For running costs that are zero outside an obstacle and strictly negative inside it, we prove that the value function is non-positive everywhere, equals zero exactly outside the avoid set, and is strictly negative exactly on it. Under translation invariance, this yields a reuse principle: the value of any translated obstacle is obtained by translating a single template value function. We show that the pointwise minimum of translated template values exactly characterizes the union of the translated single-obstacle avoid sets and provides a conservative inner certificate of unavoidable collision in clutter. To reduce conservatism, we introduce a blockwise composition framework in which subsets of obstacles are merged and solved jointly. This yields a hierarchy of conservative certificates from singleton reuse to the exact clutter value, together with monotonicity under block merging and an exactness criterion based on the existence of a common clutter avoiding control. The framework is illustrated on a Dubins car example in a repeated clutter field.",
+      "authors": [
+        "Prashant Solanki",
+        "Jasper Van Beers",
+        "Coen De Visser"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY",
+        "cs.RO"
+      ],
+      "published": "2026-03-23T16:10:40+00:00",
+      "link": "https://arxiv.org/pdf/2603.22146v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "obstacle avoidance under translation invariant dynamics in clutter",
+      "llm_evidence_cn": "杂乱环境下的平移不变动力学避障",
+      "llm_evidence": "杂乱环境下的平移不变动力学避障",
+      "canonical_evidence": "杂乱环境下的平移不变动力学避障",
+      "llm_tldr_en": "Characterizes avoid sets in cluttered environments using a reuse principle for Hamilton-Jacobi formulations.",
+      "llm_tldr_cn": "利用 Hamilton-Jacobi 方程的重用原理，表征复杂环境下的避障集合。",
+      "llm_tldr": "利用 Hamilton-Jacobi 方程的重用原理，表征复杂环境下的避障集合。",
+      "llm_tags": [
+        "query:q1"
+      ],
+      "matched_query_tag": "query:q1",
+      "matched_query_text": "collision avoidance",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.22201v1",
+      "source": "arxiv",
+      "title": "Make Tracking Easy: Neural Motion Retargeting for Humanoid Whole-body Control",
+      "abstract": "Humanoid robots require diverse motor skills to integrate into complex environments, but bridging the kinematic and dynamic embodiment gap from human data remains a major bottleneck. We demonstrate through Hessian analysis that traditional optimization-based retargeting is inherently non-convex and prone to local optima, leading to physical artifacts like joint jumps and self-penetration. To address this, we reformulate the targeting problem as learning data distribution rather than optimizing optimal solutions, where we propose NMR, a Neural Motion Retargeting framework that transforms static geometric mapping into a dynamics-aware learned process. We first propose Clustered-Expert Physics Refinement (CEPR), a hierarchical data pipeline that leverages VAE-based motion clustering to group heterogeneous movements into latent motifs. This strategy significantly reduces the computational overhead of massively parallel reinforcement learning experts, which project and repair noisy human demonstrations onto the robot's feasible motion manifold. The resulting high-fidelity data supervises a non-autoregressive CNN-Transformer architecture that reasons over global temporal context to suppress reconstruction noise and bypass geometric traps. Experiments on the Unitree G1 humanoid across diverse dynamic tasks (e.g., martial arts, dancing) show that NMR eliminates joint jumps and significantly reduces self-collisions compared to state-of-the-art baselines. Furthermore, NMR-generated references accelerate the convergence of downstream whole-body control policies, establishing a scalable path for bridging the human-robot embodiment gap.",
+      "authors": [
+        "Qingrui Zhao",
+        "Kaiyue Yang",
+        "Xiyu Wang",
+        "Shiqi Zhao",
+        "Yi Lu",
+        "Xinfang Zhang",
+        "Wei Yin",
+        "Qiu Shen",
+        "Xiao-Xiao Long",
+        "Xun Cao"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-23T16:59:00+00:00",
+      "link": "https://arxiv.org/pdf/2603.22201v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "humanoid whole-body control and motion retargeting",
+      "llm_evidence_cn": "人形机器人全身控制与动作重定向",
+      "llm_evidence": "人形机器人全身控制与动作重定向",
+      "canonical_evidence": "人形机器人全身控制与动作重定向",
+      "llm_tldr_en": "A neural motion retargeting framework for humanoid whole-body control to bridge the embodiment gap.",
+      "llm_tldr_cn": "一种用于人形机器人全身控制的神经动作重定向框架，旨在消除具身差异。",
+      "llm_tldr": "一种用于人形机器人全身控制的神经动作重定向框架，旨在消除具身差异。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.23182v1",
+      "source": "arxiv",
+      "title": "Path Planning and Reinforcement Learning-Driven Control of On-Orbit Free-Flying Multi-Arm Robots",
+      "abstract": "This paper presents a hybrid approach that integrates trajectory optimization (TO) and reinforcement learning (RL) for motion planning and control of free-flying multi-arm robots in on-orbit servicing scenarios. The proposed system integrates TO for generating feasible, efficient paths while accounting for dynamic and kinematic constraints, and RL for adaptive trajectory tracking under uncertainties. The multi-arm robot design, equipped with thrusters for precise body control, enables redundancy and stability in complex space operations. TO optimizes arm motions and thruster forces, reducing reliance on the arms for stabilization and enhancing maneuverability. RL further refines this by leveraging model-free control to adapt to dynamic interactions and disturbances. The experimental results validated through comprehensive simulations demonstrate the effectiveness and robustness of the proposed hybrid approach. Two case studies are explored: surface motion with initial contact and a free-floating scenario requiring surface approximation. In both cases, the hybrid method outperforms traditional strategies. In particular, the thrusters notably enhance motion smoothness, safety, and operational efficiency. The RL policy effectively tracks TO-generated trajectories, handling high-dimensional action spaces and dynamic mismatches. This integration of TO and RL combines the strengths of precise, task-specific planning with robust adaptability, ensuring high performance in the uncertain and dynamic conditions characteristic of space environments. By addressing challenges such as motion coupling, environmental disturbances, and dynamic control requirements, this framework establishes a strong foundation for advancing the autonomy and effectiveness of space robotic systems.",
+      "authors": [
+        "Álvaro Belmonte-Baeza",
+        "José Luis Ramón",
+        "Leonard Felicetti",
+        "Miguel Cazorla",
+        "Jorge Pomares"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY"
+      ],
+      "published": "2026-03-24T13:31:32+00:00",
+      "link": "https://arxiv.org/pdf/2603.23182v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "motion planning for free-flying multi-arm robots",
+      "llm_evidence_cn": "自由飞行多臂机器人的运动规划",
+      "llm_evidence": "自由飞行多臂机器人的运动规划",
+      "canonical_evidence": "自由飞行多臂机器人的运动规划",
+      "llm_tldr_en": "Integrates trajectory optimization and RL for motion planning and control of multi-arm space robots.",
+      "llm_tldr_cn": "结合轨迹优化与强化学习，实现空间多臂机器人的运动规划与控制。",
+      "llm_tldr": "结合轨迹优化与强化学习，实现空间多臂机器人的运动规划与控制。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.23278v1",
+      "source": "arxiv",
+      "title": "Learning Multi-Agent Local Collision-Avoidance for Collaborative Carrying tasks with Coupled Quadrupedal Robots",
+      "abstract": "Robotic collaborative carrying could greatly benefit human activities like warehouse and construction site management. However, coordinating the simultaneous motion of multiple robots represents a significant challenge. Existing works primarily focus on obstacle-free environments, making them unsuitable for most real-world applications. Works that account for obstacles, either overfit to a specific terrain configuration or rely on pre-recorded maps combined with path planners to compute collision-free trajectories. This work focuses on two quadrupedal robots mechanically connected to a carried object. We propose a Reinforcement Learning (RL)-based policy that enables tracking a commanded velocity direction while avoiding collisions with nearby obstacles using only onboard sensing, eliminating the need for precomputed trajectories and complete map knowledge. Our work presents a hierarchical architecture, where a perceptive high-level object-centric policy commands two pretrained locomotion policies. Additionally, we employ a game-inspired curriculum to increase the complexity of obstacles in the terrain progressively. We validate our approach on two quadrupedal robots connected to a bar via spherical joints, benchmarking it against optimization-based and decentralized RL baselines. Our hardware experiments demonstrate the ability of our system to locomote in unknown environments without the need for a map or a path planner. The video of our work is available in the multimedia material.",
+      "authors": [
+        "Francesca Bray",
+        "Simone Tolomei",
+        "Andrei Cramariuc",
+        "Cesar Cadena",
+        "Marco Hutter"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-24T14:42:20+00:00",
+      "link": "https://arxiv.org/pdf/2603.23278v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "multi-agent local collision-avoidance for quadrupedal robots",
+      "llm_evidence_cn": "四足机器人的多智能体局部避障",
+      "llm_evidence": "四足机器人的多智能体局部避障",
+      "canonical_evidence": "四足机器人的多智能体局部避障",
+      "llm_tldr_en": "RL-based policy for collaborative carrying with quadrupedal robots in obstacle-rich environments.",
+      "llm_tldr_cn": "基于强化学习的策略，实现四足机器人在障碍物环境下的协作搬运避障。",
+      "llm_tldr": "基于强化学习的策略，实现四足机器人在障碍物环境下的协作搬运避障。",
+      "llm_tags": [
+        "query:q8"
+      ],
+      "matched_query_tag": "query:q8",
+      "matched_query_text": "algorithms for whole body obstacle avoidance in complex environments",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.23995v1",
+      "source": "arxiv",
+      "title": "MIRROR: Visual Motion Imitation via Real-time Retargeting and Teleoperation with Parallel Differential Inverse Kinematics",
+      "abstract": "Real-time humanoid teleoperation requires inverse kinematics (IK) solvers that are both responsive and constraint-safe under kinematic redundancy and self-collision constraints. While differential IK enables efficient online retargeting, its locally linearized updates are inherently basin-dependent and often become trapped near joint limits, singularities, or active collision boundaries, leading to unsafe or stagnant behavior. We propose a GPU-parallelized, continuation-based differential IK that improves escape from such constraint-induced local minima while preserving real-time performance, promoting safety and stability. Multiple constrained IK quadratic programs are evaluated in parallel, together with a self-collision avoidance control barrier function (CBF), and a Lyapunov-based progression criterion selects updates that reduce the final global task-space error. The method is paired with a visual skeletal pose estimation pipeline that enables robust, real-time upper-body teleoperation on the THEMIS humanoid robot hardware in real-world tasks.",
+      "authors": [
+        "Junheng Li",
+        "Lizhi Yang",
+        "Aaron D. Ames"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-25T06:49:58+00:00",
+      "link": "https://arxiv.org/pdf/2603.23995v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "humanoid teleoperation with self-collision constraints",
+      "llm_evidence_cn": "具有自碰撞约束的人形机器人遥操作",
+      "llm_evidence": "具有自碰撞约束的人形机器人遥操作",
+      "canonical_evidence": "具有自碰撞约束的人形机器人遥操作",
+      "llm_tldr_en": "A GPU-parallelized IK solver for real-time humanoid teleoperation ensuring constraint safety and stability.",
+      "llm_tldr_cn": "一种用于实时人形机器人遥操作的GPU并行IK求解器，确保约束安全与稳定。",
+      "llm_tldr": "一种用于实时人形机器人遥操作的GPU并行IK求解器，确保约束安全与稳定。",
+      "llm_tags": [
+        "query:q6"
+      ],
+      "matched_query_tag": "query:q6",
+      "matched_query_text": "whole-body collision avoidance algorithms",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.24133v1",
+      "source": "arxiv",
+      "title": "Accelerated Spline-Based Time-Optimal Motion Planning with Continuous Safety Guarantees for Non-Differentially Flat Systems",
+      "abstract": "Generating time-optimal, collision-free trajectories for autonomous mobile robots involves a fundamental trade-off between guaranteeing safety and managing computational complexity. State-of-the-art approaches formulate spline-based motion planning as a single Optimal Control Problem (OCP) but often suffer from high computational cost because they include separating hyperplane parameters as decision variables to enforce continuous collision avoidance. This paper presents a novel method that alleviates this bottleneck by decoupling the determination of separating hyperplanes from the OCP. By treating the separation theorem as an independent classification problem solvable via a linear system or quadratic program, the proposed method eliminates hyperplane parameters from the optimisation variables, effectively transforming non-convex constraints into linear ones. Experimental validation demonstrates that this decoupled approach reduces trajectory computation times up to almost 60% compared to fully coupled methods in obstacle-rich environments, while maintaining rigorous continuous safety guarantees.",
+      "authors": [
+        "Dries Dirckx",
+        "Jan Swevers",
+        "Wilm Decré"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-25T09:53:04+00:00",
+      "link": "https://arxiv.org/pdf/2603.24133v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "spline-based motion planning as a single Optimal Control Problem with continuous collision avoidance",
+      "llm_evidence_cn": "基于样条的运动规划作为具有连续避障约束的最优控制问题",
+      "llm_evidence": "基于样条的运动规划作为具有连续避障约束的最优控制问题",
+      "canonical_evidence": "基于样条的运动规划作为具有连续避障约束的最优控制问题",
+      "llm_tldr_en": "Accelerates time-optimal motion planning by decoupling separating hyperplanes from the optimization problem.",
+      "llm_tldr_cn": "通过将分离超平面与优化问题解耦，加速了具有连续安全保证的时间最优运动规划。",
+      "llm_tldr": "通过将分离超平面与优化问题解耦，加速了具有连续安全保证的时间最优运动规划。",
+      "llm_tags": [
+        "query:q9"
+      ],
+      "matched_query_tag": "query:q9",
+      "matched_query_text": "optimization based whole body trajectory planning",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.24318v1",
+      "source": "arxiv",
+      "title": "Toward Generalist Neural Motion Planners for Robotic Manipulators: Challenges and Opportunities",
+      "abstract": "State-of-the-art generalist manipulation policies have enabled the deployment of robotic manipulators in unstructured human environments. However, these frameworks struggle in cluttered environments primarily because they utilize auxiliary modules for low-level motion planning and control. Motion planning remains challenging due to the high dimensionality of the robot's configuration space and the presence of workspace obstacles. Neural motion planners have enhanced motion planning efficiency by offering fast inference and effectively handling the inherent multi-modality of the motion planning problem. Despite such benefits, current neural motion planners often struggle to generalize to unseen, out-of-distribution planning settings. This paper reviews and analyzes the state-of-the-art neural motion planners, highlighting both their benefits and limitations. It also outlines a path toward establishing generalist neural motion planners capable of handling domain-specific challenges. For a list of the reviewed papers, please refer to https://davoodsz.github.io/planning-manip-survey.github.io/.",
+      "authors": [
+        "Davood Soleymanzadeh",
+        "Ivan Lopez-Sanchez",
+        "Hao Su",
+        "Yunzhu Li",
+        "Xiao Liang",
+        "Minghui Zheng"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-03-25T13:59:42+00:00",
+      "link": "https://arxiv.org/pdf/2603.24318v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "motion planning for robotic manipulators in cluttered environments and high dimensionality",
+      "llm_evidence_cn": "高维配置空间和杂乱环境下的机器人机械臂运动规划",
+      "llm_evidence": "高维配置空间和杂乱环境下的机器人机械臂运动规划",
+      "canonical_evidence": "高维配置空间和杂乱环境下的机器人机械臂运动规划",
+      "llm_tldr_en": "Discusses challenges and opportunities for neural motion planners in high-dimensional robotic manipulation tasks.",
+      "llm_tldr_cn": "探讨了神经运动规划器在高维机器人操纵任务和复杂环境中的挑战与机遇。",
+      "llm_tldr": "探讨了神经运动规划器在高维机器人操纵任务和复杂环境中的挑战与机遇。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 机器人整身规划与避障相关论文检索, especially work that connects or combines: collision avoidance; motion planning; swept volume; shape-aware; whole-body motion planning for robots; whole-body collision avoidance algorithms; state of the art in robot whole body motion planning; algorithms for whole body obstacle avoidance in complex environments; optimization based whole body trajectory planning.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.25259v1",
+      "source": "arxiv",
+      "title": "A Minimum-Energy Control Approach for Redundant Mobile Manipulators in Physical Human-Robot Interaction Applications",
+      "abstract": "Research on mobile manipulation systems that physically interact with humans has expanded rapidly in recent years, opening the way to tasks which could not be performed using fixed-base manipulators. Within this context, developing suitable control methodologies is essential since mobile manipulators introduce additional degrees of freedom, making the design of control approaches more challenging and more prone to performance optimization. This paper proposes a control approach for a mobile manipulator, composed of a mobile base equipped with a robotic arm mounted on the top, with the objective of minimizing the overall kinetic energy stored in the whole-body mobile manipulator in physical human-robot interaction applications. The approach is experimentally tested with reference to a peg-in-hole task, and the results demonstrate that the proposed approach reduces the overall kinetic energy stored in the whole-body robotic system and improves the system performance compared with the benchmark method.",
+      "authors": [
+        "Davide Tebaldi",
+        "Niccolò Paradisi",
+        "Fabio Pini",
+        "Luigi Biagiotti"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY"
+      ],
+      "published": "2026-03-26T10:01:34+00:00",
+      "link": "https://arxiv.org/pdf/2603.25259v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "whole-body mobile manipulator control and optimization",
+      "llm_evidence_cn": "全身移动操作臂控制与优化",
+      "llm_evidence": "全身移动操作臂控制与优化",
+      "canonical_evidence": "全身移动操作臂控制与优化",
+      "llm_tldr_en": "Proposes a minimum-energy control approach for whole-body redundant mobile manipulators.",
+      "llm_tldr_cn": "提出了一种用于冗余移动操作臂全身控制的最小能量控制方法。",
+      "llm_tldr": "提出了一种用于冗余移动操作臂全身控制的最小能量控制方法。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.21142v1",
+      "source": "arxiv",
+      "title": "Dynamic Control Barrier Function Regulation with Vision-Language Models for Safe, Adaptive, and Realtime Visual Navigation",
+      "abstract": "Robots operating in dynamic, unstructured environments must balance safety and efficiency under potentially limited sensing. While control barrier functions (CBFs) provide principled collision avoidance via safety filtering, their behavior is often governed by fixed parameters that can be overly conservative in benign scenes or overly permissive near hazards. We present AlphaAdj, a vision-to-control navigation framework that uses egocentric RGB input to adapt the conservativeness of a CBF safety filter in real time. A vision-language model(VLM) produces a bounded scalar risk estimate from the current camera view, which we map to dynamically update a CBF parameter that modulates how strongly safety constraints are enforced. To address asynchronous inference and non-trivial VLM latency in practice, we combine a geometric, speed-aware dynamic cap and a staleness-gated fusion policy with lightweight implementation choices that reduce end-to-end inference overhead. We evaluate AlphaAdj across multiple static and dynamic obstacle scenarios in a variety of environments, comparing against fixed-parameter and uncapped ablations. Results show that AlphaAdj maintains collision-free navigation while improving efficiency (in terms of path length and time to goal) by up to 18.5% relative to fixed settings and improving robustness and success rate relative to an uncapped baseline.",
+      "authors": [
+        "Jeffrey Chen",
+        "Rohan Chandra"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-22T09:35:18+00:00",
+      "link": "https://arxiv.org/pdf/2603.21142v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "control barrier functions provide principled collision avoidance via safety filtering",
+      "llm_evidence_cn": "控制屏障函数通过安全滤波提供原则性的避障",
+      "llm_evidence": "控制屏障函数通过安全滤波提供原则性的避障",
+      "canonical_evidence": "控制屏障函数通过安全滤波提供原则性的避障",
+      "llm_tldr_en": "Uses vision-language models to dynamically adjust control barrier function parameters for safe robot navigation.",
+      "llm_tldr_cn": "利用视觉语言模型动态调整控制屏障函数参数，实现安全的机器人视觉导航。",
+      "llm_tldr": "利用视觉语言模型动态调整控制屏障函数参数，实现安全的机器人视觉导航。",
+      "llm_tags": [
+        "query:q1"
+      ],
+      "matched_query_tag": "query:q1",
+      "matched_query_text": "collision avoidance",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2603.21723v1",
+      "source": "arxiv",
+      "title": "Can a Robot Walk the Robotic Dog: Triple-Zero Collaborative Navigation for Heterogeneous Multi-Agent Systems",
+      "abstract": "We present Triple Zero Path Planning (TZPP), a collaborative framework for heterogeneous multi-robot systems that requires zero training, zero prior knowledge, and zero simulation. TZPP employs a coordinator--explorer architecture: a humanoid robot handles task coordination, while a quadruped robot explores and identifies feasible paths using guidance from a multimodal large language model. We implement TZPP on Unitree G1 and Go2 robots and evaluate it across diverse indoor and outdoor environments, including obstacle-rich and landmark-sparse settings. Experiments show that TZPP achieves robust, human-comparable efficiency and strong adaptability to unseen scenarios. By eliminating reliance on training and simulation, TZPP offers a practical path toward real-world deployment of heterogeneous robot cooperation. Our code and video are provided at: https://github.com/triple-zeropp/Triple-zero-robot-agent",
+      "authors": [
+        "Yaxuan Wang",
+        "Yifan Xiang",
+        "Ke Li",
+        "Xun Zhang",
+        "BoWen Ye",
+        "Zhuochen Fan",
+        "Fei Wei",
+        "Tong Yang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.MA"
+      ],
+      "published": "2026-03-23T09:12:45+00:00",
+      "link": "https://arxiv.org/pdf/2603.21723v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "collaborative path planning for humanoid and quadruped robots",
+      "llm_evidence_cn": "人形与四足机器人的协作路径规划",
+      "llm_evidence": "人形与四足机器人的协作路径规划",
+      "canonical_evidence": "人形与四足机器人的协作路径规划",
+      "llm_tldr_en": "A zero-training framework for heterogeneous multi-robot collaborative navigation and path planning.",
+      "llm_tldr_cn": "一种无需训练的异构多机器人协作导航与路径规划框架。",
+      "llm_tldr": "一种无需训练的异构多机器人协作导航与路径规划框架。",
+      "llm_tags": [
+        "query:q2"
+      ],
+      "matched_query_tag": "query:q2",
+      "matched_query_text": "motion planning",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.20992v1",
+      "source": "arxiv",
+      "title": "Geometrically Plausible Object Pose Refinement using Differentiable Simulation",
+      "abstract": "State-of-the-art object pose estimation methods are prone to generating geometrically infeasible pose hypotheses. This problem is prevalent in dexterous manipulation, where estimated poses often intersect with the robotic hand or are not lying on a support surface. We propose a multi-modal pose refinement approach that combines differentiable physics simulation, differentiable rendering and visuo-tactile sensing to optimize object poses for both spatial accuracy and physical consistency. Simulated experiments show that our approach reduces the intersection volume error between the object and robotic hand by 73\\% when the initial estimate is accurate and by over 87\\% under high initial uncertainty, significantly outperforming standard ICP-based baselines. Furthermore, the improvement in geometric plausibility is accompanied by a concurrent reduction in translation and orientation errors. Achieving pose estimation that is grounded in physical reality while remaining faithful to multi-modal sensor inputs is a critical step toward robust in-hand manipulation.",
+      "authors": [
+        "Anil Zeybek",
+        "Rhys Newbury",
+        "Snehal Dikhale",
+        "Nawid Jamali",
+        "Soshi Iba",
+        "Akansel Cosgun"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-22T00:24:14+00:00",
+      "link": "https://arxiv.org/pdf/2603.20992v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "reduces intersection volume error between object and hand",
+      "llm_evidence_cn": "减少物体与手部之间的相交体积误差",
+      "llm_evidence": "减少物体与手部之间的相交体积误差",
+      "canonical_evidence": "减少物体与手部之间的相交体积误差",
+      "llm_tldr_en": "Refines object poses using differentiable simulation to ensure physical consistency and reduce intersections.",
+      "llm_tldr_cn": "利用可微仿真优化物体位姿，确保物理一致性并减少穿透体积误差。",
+      "llm_tldr": "利用可微仿真优化物体位姿，确保物理一致性并减少穿透体积误差。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "swept volume",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.21635v1",
+      "source": "arxiv",
+      "title": "RTD-RAX: Fast, Safe Trajectory Planning for Systems under Unknown Disturbances",
+      "abstract": "Reachability-based Trajectory Design (RTD) is a provably safe, real-time trajectory planning framework that combines offline reachable-set computation with online trajectory optimization. However, standard RTD implementations suffer from two key limitations: conservatism induced by worst-case reachable-set overapproximations, and an inability to account for real-time disturbances during execution. This paper presents RTD-RAX, a runtime-assurance extension of RTD that utilizes a non-conservative RTD formulation to rapidly generate goal-directed candidate trajectories, and utilizes mixed monotone reachability for fast, disturbance-aware online safety certification. When proposed trajectories fail safety certification under real-time uncertainty, a repair procedure finds nearby safe trajectories that preserve progress toward the goal while guaranteeing safety under real-time disturbances.",
+      "authors": [
+        "Evanns Morales-Cuadrado",
+        "Long Kiu Chung",
+        "Shreyas Kousik",
+        "Samuel Coogan"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY"
+      ],
+      "published": "2026-03-23T06:59:13+00:00",
+      "link": "https://arxiv.org/pdf/2603.21635v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "fast, safe trajectory planning under disturbances",
+      "llm_evidence_cn": "扰动下的快速安全轨迹规划",
+      "llm_evidence": "扰动下的快速安全轨迹规划",
+      "canonical_evidence": "扰动下的快速安全轨迹规划",
+      "llm_tldr_en": "Presents RTD-RAX for real-time, disturbance-aware trajectory planning and safety certification.",
+      "llm_tldr_cn": "提出RTD-RAX，用于实时、感知扰动的轨迹规划与安全认证。",
+      "llm_tldr": "提出RTD-RAX，用于实时、感知扰动的轨迹规划与安全认证。",
+      "llm_tags": [
+        "query:q2"
+      ],
+      "matched_query_tag": "query:q2",
+      "matched_query_text": "motion planning",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2603.21880v1",
+      "source": "arxiv",
+      "title": "Optimal Solutions for the Moving Target Vehicle Routing Problem with Obstacles via Lazy Branch and Price",
+      "abstract": "The Moving Target Vehicle Routing Problem with Obstacles (MT-VRP-O) seeks trajectories for several agents that collectively intercept a set of moving targets. Each target has one or more time windows where it must be visited, and the agents must avoid static obstacles and satisfy speed and capacity constraints. We introduce Lazy Branch-and-Price with Relaxed Continuity (Lazy BPRC), which finds optimal solutions for the MT-VRP-O. Lazy BPRC applies the branch-and-price framework for VRPs, which alternates between a restricted master problem (RMP) and a pricing problem. The RMP aims to select a sequence of target-time window pairings (called a tour) for each agent to follow, from a limited subset of tours. The pricing problem adds tours to the limited subset. Conventionally, solving the RMP requires computing the cost for an agent to follow each tour in the limited subset. Computing these costs in the MT-VRP-O is computationally intensive, since it requires collision-free motion planning between moving targets. Lazy BPRC defers cost computations by solving the RMP using lower bounds on the costs of each tour, computed via motion planning with relaxed continuity constraints. We lazily evaluate the true costs of tours as-needed. We compute a tour's cost by searching for a shortest path on a Graph of Convex Sets (GCS), and we accelerate this search using our continuity relaxation method. We demonstrate that Lazy BPRC runs up to an order of magnitude faster than two ablations.",
+      "authors": [
+        "Anoop Bhat",
+        "Geordan Gutow",
+        "Surya Singh",
+        "Zhongqiang Ren",
+        "Sivakumar Rathinam",
+        "Howie Choset"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-23T12:10:12+00:00",
+      "link": "https://arxiv.org/pdf/2603.21880v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "trajectories for agents to avoid static obstacles",
+      "llm_evidence_cn": "多智能体避障轨迹规划",
+      "llm_evidence": "多智能体避障轨迹规划",
+      "canonical_evidence": "多智能体避障轨迹规划",
+      "llm_tldr_en": "Solves vehicle routing with moving targets and static obstacles using a branch-and-price framework.",
+      "llm_tldr_cn": "使用分支定价框架解决带有移动目标和静态障碍物的车辆路径规划问题。",
+      "llm_tldr": "使用分支定价框架解决带有移动目标和静态障碍物的车辆路径规划问题。",
+      "llm_tags": [
+        "query:q2"
+      ],
+      "matched_query_tag": "query:q2",
+      "matched_query_text": "motion planning",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.21853v1",
+      "source": "arxiv",
+      "title": "Sim-to-Real of Humanoid Locomotion Policies via Joint Torque Space Perturbation Injection",
+      "abstract": "This paper proposes a novel alternative to existing sim-to-real methods for training control policies with simulated experiences. Unlike prior methods that typically rely on domain randomization over a fixed finite set of parameters, the proposed approach injects state-dependent perturbations into the input joint torque during forward simulation. These perturbations are designed to simulate a broader spectrum of reality gaps than standard parameter randomization without requiring additional training. By using neural networks as flexible perturbation generators, the proposed method can represent complex, state-dependent uncertainties, such as nonlinear actuator dynamics and contact compliance, that parametric randomization cannot capture. Experimental results demonstrate that the proposed approach enables humanoid locomotion policies to achieve superior robustness against complex, unseen reality gaps in both simulation and real-world deployment.",
+      "authors": [
+        "Junhyeok Rui Cha",
+        "Woohyun Cha",
+        "Jaeyong Shin",
+        "Donghyeon Kim",
+        "Jaeheung Park"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-03-23T11:43:16+00:00",
+      "link": "https://arxiv.org/pdf/2603.21853v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "humanoid locomotion policies and control",
+      "llm_evidence_cn": "类人机器人运动策略与控制",
+      "llm_evidence": "类人机器人运动策略与控制",
+      "canonical_evidence": "类人机器人运动策略与控制",
+      "llm_tldr_en": "Improves sim-to-real transfer for humanoid locomotion using joint torque space perturbations.",
+      "llm_tldr_cn": "通过关节力矩空间扰动注入，提升类人机器人运动策略的仿真到现实迁移效果。",
+      "llm_tldr": "通过关节力矩空间扰动注入，提升类人机器人运动策略的仿真到现实迁移效果。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.21831v1",
+      "source": "arxiv",
+      "title": "Directional Mollification for Controlled Smooth Path Generation",
+      "abstract": "Path generation, the problem of producing smooth, executable paths from discrete planning outputs, such as waypoint sequences, is a fundamental step in the control of autonomous robots, industrial robots, and CNC machines, as path following and trajectory tracking controllers impose strict differentiability requirements on their reference inputs to guarantee stability and convergence, particularly for nonholonomic systems. Mollification has been recently proposed as a computationally efficient and analytically tractable tool for path generation, offering formal smoothness and curvature guarantees with advantages over spline interpolation and optimization-based methods. However, this mollification is subject to a fundamental geometric constraint: the smoothed path is confined within the convex hull of the original path, precluding exact waypoint interpolation, even when explicitly required by mission specifications or upstream planners. We introduce directional mollification, a novel operator that resolves this limitation while retaining the analytical tractability of classical mollification. The proposed operator generates infinitely differentiable paths that strictly interpolate prescribed waypoints, converge to the original non-differentiable input with arbitrary precision, and satisfy explicit curvature bounds given by a closed-form expression, addressing the core requirements of path generation for controlled autonomous systems. We further establish a parametric family of path generation operators that contains both classical and directional mollification as special cases, providing a unifying theoretical framework for the systematic generation of smooth, feasible paths from non-differentiable planning outputs.",
+      "authors": [
+        "Alfredo González-Calvin",
+        "Juan F. Jiménez",
+        "Héctor García de Marina"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "math.DG"
+      ],
+      "published": "2026-03-23T11:18:43+00:00",
+      "link": "https://arxiv.org/pdf/2603.21831v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "smooth path generation for autonomous robots",
+      "llm_evidence_cn": "自主机器人的平滑路径生成",
+      "llm_evidence": "自主机器人的平滑路径生成",
+      "canonical_evidence": "自主机器人的平滑路径生成",
+      "llm_tldr_en": "Presents a mollification method for generating smooth, executable paths from discrete planning outputs.",
+      "llm_tldr_cn": "提出一种软化方法，用于从离散规划输出中生成平滑且可执行的路径。",
+      "llm_tldr": "提出一种软化方法，用于从离散规划输出中生成平滑且可执行的路径。",
+      "llm_tags": [
+        "query:q2"
+      ],
+      "matched_query_tag": "query:q2",
+      "matched_query_text": "motion planning",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2603.22508v1",
+      "source": "arxiv",
+      "title": "Parallel OctoMapping: A Scalable Framework for Enhanced Path Planning in Autonomous Navigation",
+      "abstract": "Mapping is essential in robotics and autonomous systems because it provides the spatial foundation for path planning. Efficient mapping enables planning algorithms to generate reliable paths while ensuring safety and adapting in real time to complex environments. Fixed-resolution mapping methods often produce overly conservative obstacle representations that lead to suboptimal paths or planning failures in cluttered scenes. To address this issue, we introduce Parallel OctoMapping (POMP), an efficient OctoMap-based mapping technique that maximizes available free space and supports multi-threaded computation. To the best of our knowledge, POMP is the first method that, at a fixed occupancy-grid resolution, refines the representation of free space while preserving map fidelity and compatibility with existing search-based planners. It can therefore be integrated into existing planning pipelines, yielding higher pathfinding success rates and shorter path lengths, especially in cluttered environments, while substantially improving computational efficiency.",
+      "authors": [
+        "Yihui Mao",
+        "Tian Tan",
+        "Xuehui Shen",
+        "Warren E. Dixon",
+        "Rushikesh Kamalapurkar"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY"
+      ],
+      "published": "2026-03-23T19:14:03+00:00",
+      "link": "https://arxiv.org/pdf/2603.22508v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "mapping for path planning in cluttered scenes",
+      "llm_evidence_cn": "复杂环境下的路径规划地图构建",
+      "llm_evidence": "复杂环境下的路径规划地图构建",
+      "canonical_evidence": "复杂环境下的路径规划地图构建",
+      "llm_tldr_en": "Develops a scalable OctoMap framework to improve free space representation for safer robot navigation.",
+      "llm_tldr_cn": "开发了一种可扩展的OctoMap框架，通过优化自由空间表示来提升机器人导航安全性。",
+      "llm_tldr": "开发了一种可扩展的OctoMap框架，通过优化自由空间表示来提升机器人导航安全性。",
+      "llm_tags": [
+        "query:q8"
+      ],
+      "matched_query_tag": "query:q8",
+      "matched_query_text": "algorithms for whole body obstacle avoidance in complex environments",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.21853v2",
+      "source": "arxiv",
+      "title": "Sim-to-Real of Humanoid Locomotion Policies via Joint Torque Space Perturbation Injection",
+      "abstract": "This paper proposes a novel alternative to existing sim-to-real methods for training control policies with simulated experiences. Unlike prior methods that typically rely on domain randomization over a fixed finite set of parameters, the proposed approach injects state-dependent perturbations into the input joint torque during forward simulation. These perturbations are designed to simulate a broader spectrum of reality gaps than standard parameter randomization without requiring additional training. By using neural networks as flexible perturbation generators, the proposed method can represent complex, state-dependent uncertainties, such as nonlinear actuator dynamics and contact compliance, that parametric randomization cannot capture. Experimental results demonstrate that the proposed approach enables humanoid locomotion policies to achieve superior robustness against complex, unseen reality gaps in both simulation and real-world deployment.",
+      "authors": [
+        "Junhyeok Rui Cha",
+        "Woohyun Cha",
+        "Jaeyong Shin",
+        "Donghyeon Kim",
+        "Jaeheung Park"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-03-23T11:43:16+00:00",
+      "link": "https://arxiv.org/pdf/2603.21853v2",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "sim-to-real methods for training humanoid locomotion policies",
+      "llm_evidence_cn": "人形机器人运动策略训练的虚实迁移方法",
+      "llm_evidence": "人形机器人运动策略训练的虚实迁移方法",
+      "canonical_evidence": "人形机器人运动策略训练的虚实迁移方法",
+      "llm_tldr_en": "Improves humanoid locomotion sim-to-real transfer by injecting state-dependent torque perturbations.",
+      "llm_tldr_cn": "通过注入状态相关的扭矩扰动，提升人形机器人运动策略从仿真到现实的迁移效果。",
+      "llm_tldr": "通过注入状态相关的扭矩扰动，提升人形机器人运动策略从仿真到现实的迁移效果。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.21913v1",
+      "source": "arxiv",
+      "title": "Collision-Free Velocity Scheduling for Multi-Agent Systems on Predefined Routes via Inexact-Projection ADMM",
+      "abstract": "In structured multi-agent transportation systems, agents often must follow predefined routes, making spatial rerouting undesirable or impossible. This paper addresses route-constrained multi-agent coordination by optimizing waypoint passage times while preserving each agent's assigned waypoint order and nominal route assignment. A differentiable surrogate trajectory model maps waypoint timings to smooth position profiles and captures first-order tracking lag, enabling pairwise safety to be encoded through distance-based penalties evaluated on a dense temporal grid spanning the mission horizon. The resulting nonlinear and nonconvex velocity-scheduling problem is solved using an inexact-projection Alternating Direction Method of Multipliers (ADMM) algorithm that combines structured timing updates with gradient-based collision-correction steps and avoids explicit integer sequencing variables. Numerical experiments on random-crossing, bottleneck, and graph-based network scenarios show that the proposed method computes feasible and time-efficient schedules across a range of congestion levels and yields shorter mission completion times than a representative hierarchical baseline in the tested bottleneck cases.",
+      "authors": [
+        "Seungyeop Lee",
+        "Jong-Han Kim"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY",
+        "math.OC"
+      ],
+      "published": "2026-03-23T12:34:18+00:00",
+      "link": "https://arxiv.org/pdf/2603.21913v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "collision-free velocity scheduling for multi-agent systems",
+      "llm_evidence_cn": "多智能体系统的无碰撞速度调度",
+      "llm_evidence": "多智能体系统的无碰撞速度调度",
+      "canonical_evidence": "多智能体系统的无碰撞速度调度",
+      "llm_tldr_en": "Optimizes waypoint timings to ensure collision-free coordination for agents on predefined routes.",
+      "llm_tldr_cn": "通过优化路径点时间，确保预定义路线上多智能体协同的无碰撞运行。",
+      "llm_tldr": "通过优化路径点时间，确保预定义路线上多智能体协同的无碰撞运行。",
+      "llm_tags": [
+        "query:q1"
+      ],
+      "matched_query_tag": "query:q1",
+      "matched_query_text": "collision avoidance",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2603.22604v1",
+      "source": "arxiv",
+      "title": "Trajectory Generation for Underactuated Soft Robot Manipulators using Discrete Elastic Rod Dynamics",
+      "abstract": "Soft robots are well suited for contact-rich tasks due to their compliance, yet this property makes accurate and tractable modeling challenging. Planning motions with dynamically-feasible trajectories requires models that capture arbitrary deformations, remain computationally efficient, and are compatible with underactuation. However, existing approaches balance these properties unevenly: continuum rod models provide physical accuracy but are computationally demanding, while reduced-order approximations improve efficiency at the cost of modeling fidelity. To address this, our work introduces a control-oriented reformulation of Discrete Elastic Rod (DER) dynamics for soft robots, and a method to generate trajectories with these dynamics. The proposed formulation yields a control-affine representation while preserving certain first-principles force-deformation relationships. As a result, the generated trajectories are both dynamically feasible and consistent with the underlying actuation assumptions. We present our trajectory generation framework and validate it experimentally on a pneumatic soft robotic limb. Hardware results demonstrate consistently improved trajectory tracking performance over a constant-curvature-based baseline, particularly under complex actuation conditions.",
+      "authors": [
+        "Beibei Liu",
+        "Akua K. Dickson",
+        "Ran Jing",
+        "Andrew P. Sabelhaus"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-23T22:01:14+00:00",
+      "link": "https://arxiv.org/pdf/2603.22604v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "generate trajectories for underactuated soft robot manipulators",
+      "llm_evidence_cn": "为欠驱动软体机器人机械臂生成运动轨迹",
+      "llm_evidence": "为欠驱动软体机器人机械臂生成运动轨迹",
+      "canonical_evidence": "为欠驱动软体机器人机械臂生成运动轨迹",
+      "llm_tldr_en": "Introduces a control-oriented reformulation of rod dynamics for efficient trajectory generation in soft robots.",
+      "llm_tldr_cn": "引入了一种面向控制的离散弹性杆动力学重构方法，用于软体机器人的高效轨迹生成。",
+      "llm_tldr": "引入了一种面向控制的离散弹性杆动力学重构方法，用于软体机器人的高效轨迹生成。",
+      "llm_tags": [
+        "query:q2"
+      ],
+      "matched_query_tag": "query:q2",
+      "matched_query_text": "motion planning",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

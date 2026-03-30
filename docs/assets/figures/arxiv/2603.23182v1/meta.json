@@ -1,0 +1,126 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-001.webp",
+      "caption": "Figure 8. End-effector position during the maneuver",
+      "page": 11,
+      "index": 1,
+      "width": 1017,
+      "height": 411
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-002.webp",
+      "caption": "Figure 7. End-effector interaction forces",
+      "page": 11,
+      "index": 2,
+      "width": 1017,
+      "height": 409
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-003.webp",
+      "caption": "Figure 3. Overview of the Reinforement Learning-Driven control methodology. The policy network receives as input an observed robot state, and outputs desired joint positions and thruster forces for the robot. These are fed to the physics simulation, yielding a new state. The transition is used to update the network parameters via an RL algorithm of choice, and the loop is repeated until convergence.",
+      "page": 7,
+      "index": 3,
+      "width": 1031,
+      "height": 346
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-004.webp",
+      "caption": "Figure 5. Position and orientation of the robot base during the trajectory",
+      "page": 10,
+      "index": 4,
+      "width": 1017,
+      "height": 257
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-005.webp",
+      "caption": "Figure 6. Robot base thruster force and acceleration with and without thrusters",
+      "page": 10,
+      "index": 5,
+      "width": 1027,
+      "height": 303
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-006.webp",
+      "caption": "Figure 15. End-effector positions and forces during the maneuver",
+      "page": 14,
+      "index": 6,
+      "width": 1017,
+      "height": 410
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-007.webp",
+      "caption": "Figure 16. Case 2: Tracking performance using RL-driven control policy",
+      "page": 14,
+      "index": 7,
+      "width": 1029,
+      "height": 544
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-008.webp",
+      "caption": "Figure 1. Overview of the hybrid approach proposed in this paper. TO-based motion planning provides a reference motion for the robot with constraints specific to an on-orbit application, while the RL-driven motion control robustly and adaptively tracks this reference motion.",
+      "page": 3,
+      "index": 8,
+      "width": 875,
+      "height": 555
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-009.webp",
+      "caption": "Figure 14. Robot base thruster forces during the second case trajectory.",
+      "page": 13,
+      "index": 9,
+      "width": 506,
+      "height": 352
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-010.webp",
+      "caption": "Figure 11. End-effector position and interaction forces considering 2, 3, 4 a 5 polynomials per segment.",
+      "page": 13,
+      "index": 10,
+      "width": 504,
+      "height": 473
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-011.webp",
+      "caption": "Figure 2. Visualization of the described system architecture and on-orbit operational environment.",
+      "page": 4,
+      "index": 11,
+      "width": 504,
+      "height": 414
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-012.webp",
+      "caption": "Figure 9. Case 1.1: Tracking performance using the RL-driven control policy",
+      "page": 12,
+      "index": 12,
+      "width": 1014,
+      "height": 530
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-013.webp",
+      "caption": "Figure 10. Case 1.2: Tracking performance using the RL-driven control policy",
+      "page": 12,
+      "index": 13,
+      "width": 981,
+      "height": 511
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-014.webp",
+      "caption": "Figure 4. Multi-arm robot used in our experiments.",
+      "page": 9,
+      "index": 14,
+      "width": 504,
+      "height": 321
+    },
+    {
+      "url": "assets/figures/arxiv/2603.23182v1/fig-015.webp",
+      "caption": "Table 1. System Contraints for the OCP",
+      "page": 5,
+      "index": 15,
+      "width": 477,
+      "height": 295
+    }
+  ]
+}

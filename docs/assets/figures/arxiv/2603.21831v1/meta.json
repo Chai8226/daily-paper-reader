@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.21831v1/fig-001.webp",
+      "caption": "Fig. 2: Representation of the conventional and directional mollification of the strictly increasing function f(x) = x ind(−∞,0)(x)+30x ind[0,∞)(x). The black plot represents the original function f , while the green one is its conventional mollification, and the red one its directional mollification, both with ε = 0.5, and mollifier of Theorem 3.2.",
+      "page": 8,
+      "index": 1,
+      "width": 351,
+      "height": 368
+    },
+    {
+      "url": "assets/figures/arxiv/2603.21831v1/fig-002.webp",
+      "caption": "Fig. 6: Comparison and representation of a family of curves using (6.1), where the mollifier used is the one presented in Theorem 3.2 with ε = 0.4. The left picture represents in black the path created by linearly interpolating points in R 2 represented as black dots. It also shows in blue a cubic spline, in red a B-spline, and in green a Quintic Hermite polynomial spline. All of them are created such that they intersect the waypoints. The right picture also represents as a black plot the original function, while in red and blue the conventional and directional mollification of f , respectively. The dashed green lines represent Gγ ε as in (6.1), for the values γ ∈ {−1,−0.5, 0, 0.5, 1, 1.5, 2}.",
+      "page": 19,
+      "index": 2,
+      "width": 515,
+      "height": 330
+    },
+    {
+      "url": "assets/figures/arxiv/2603.21831v1/fig-003.webp",
+      "caption": "Fig. 5: Representation of the conventional and directional mollification approaches for a curve defined by linearly interpolating six points in R 2. The black plot represents the original function f , while the green and red ones represent, respectively, the conventional and directional mollification of f , with ε = 0.5, and the mollifier of (3.1).",
+      "page": 16,
+      "index": 3,
+      "width": 358,
+      "height": 344
+    }
+  ]
+}
