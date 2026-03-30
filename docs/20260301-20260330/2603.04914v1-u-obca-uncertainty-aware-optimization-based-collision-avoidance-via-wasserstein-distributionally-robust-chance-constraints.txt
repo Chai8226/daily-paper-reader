@@ -1,0 +1,2509 @@
+Title: U-OBCA: Uncertainty-Aware Optimization-Based Collision Avoidance via Wasserstein Distributionally Robust Chance Constraints
+
+URL Source: https://arxiv.org/pdf/2603.04914v1
+
+Published Time: Fri, 06 Mar 2026 01:39:45 GMT
+
+Number of Pages: 19
+
+Markdown Content:
+> 1
+
+# U-OBCA: Uncertainty-Aware Optimization-Based Collision Avoidance via Wasserstein Distributionally Robust Chance Constraints 
+
+Zehao Wang, Yuxuan Tang, Han Zhang, Jingchuan Wang and Weidong Chen 
+
+Abstract —Uncertainties arising from localization error, trajec-tory prediction errors of the moving obstacles and environmental disturbances pose significant challenges to robot’s safe navigation. Existing uncertainty-aware planners often approximate polygon-shaped robots and obstacles using simple geometric primitives such as circles or ellipses. Though computationally convenient, these approximations substantially shrink the feasible space, leading to overly conservative trajectories and even planning failure in narrow environments. In addition, many such methods rely on specific assumptions about noise distributions, which may not hold in practice and thus limit their performance guarantees. To address these limitations, we extend the Optimization-Based Collision Avoidance (OBCA) framework to an uncertainty-aware formulation, termed U-OBCA . The proposed method explicitly accounts for the collision risk between polygon-shaped robots and obstacles by formulating OBCA-based chance constraints, and hence avoiding geometric simplifications and reducing unnec-essary conservatism. These probabilistic constraints are further tightened into deterministic nonlinear constraints under mild distributional assumptions, which can be solved efficiently by standard numerical optimization solvers. The proposed approach is validated through theoretical analysis, numerical simulations and real-world experiments. The results demonstrate that U-OBCA significantly mitigates the conservatism in trajectory planning and achieves higher navigation efficiency compared to existing baseline methods, particularly in narrow and cluttered environments. 
+
+Note to Practitioners —Mobile robots that operates in confined spaces—such as parking garages, warehouses, hospital corridors, or assisted-living facilities—often face a trade-off between safety and efficiency. To stay safe under the existence of localization error, trajectory prediction errors of the moving obstacles and environmental disturbances, many existing planning systems intentionally keep robots far away from obstacles. While this strategy reduces the collision risk, it can also make robots overly cautious, slow, or even unable to maneuver in tight spaces. The method presented in this paper is intended for practitioners who need to operate robots safely without sacrificing maneuverabil-ity in narrow environments. Instead of simplifying the robot and surrounding obstacles into overly conservative shapes, the proposed approach directly uses their actual geometric outlines while still accounting for uncertainty in perception, trajectory 
+
+The authors are with School of Automation and Intelligent Sensing, Shanghai Jiao Tong University and Institute of Medical Robotics, Shanghai Jiao Tong University, Shanghai 200240, China. And they are also with the Key Laboratory of System Control and Information Processing, Ministry of Education of China, and Shanghai Engineering Research Center of Intelligent Control and Management, Shanghai 200240, China. Han Zhang is the corresponding author (email: zhanghan tc@sjtu.edu.cn). Zehao Wang and Yuxuan Tang have the equal contribution. This work is supported by the National Natural Science Foundation of China (Grant 62573287), Natural Science Foundation of Shanghai under Grant 25ZR1401208 and the Science and Technology Commission of Shanghai Municipality (Grant 20DZ2220400). 
+
+prediction and disturbances. This allows the robot to move closer to obstacles in a controlled and quantifiable manner, rather than relying on large safety margins chosen by trial and error. From an implementation perspective, the method can be integrated into existing optimization-based planners and solved using standard numerical optimization tools. It does not require detailed tuning of noise distributions or specialized probabilistic models, making it suitable for systems whose perception noise, moving obstacles trajectory prediction error and environmental disturbances vary with environment, hardware, or operating conditions. Although the proposed method incurs higher computational cost than planners based on simplified geometry, it remains feasible for trajectory planning on modern computing hardware. In practice, it is particularly well suited for low-speed navigation, precision maneuvers, and tasks performed in highly constrained environ-ments, where safety and efficient use of limited space are more critical than achieving maximum speed. 
+
+Index Terms —Motion planning, collision avoidance, optimiza-tion and optimal control, autonomous vehicle navigation. 
+
+I. I NTRODUCTION 
+
+Ensuring safety is one of the central challenges in mobile robot and autonomous vehicle navigation in real-world envi-ronments. A major source of difficulty arises from uncertain-ties induced by perception noise, prediction error and environ-mental disturbances, which inevitably degrade the reliability of collision avoidance. This challenge becomes particularly critical in narrow environments, such as parking garages or confined corridors, where the robot must operate in close prox-imity to obstacles. In such scenarios, even small uncertainties may significantly increase the collision risk or fail to plan any feasible trajectories (a.k.a freezing robot problem). A variety of approaches have been proposed to address this issue, including dynamic window-based methods [1], robust collision avoidance schemes [2], and velocity obstacle formulations [3]. More recently, uncertainty-aware trajectory planning methods have incorporated probabilistic tools—such as chance constraints [4]–[12], value-at-risk [13], and condi-tional value-at-risk [14]–[17]—to provide safety guarantees in terms of collision probability. However, most of these planners [6]–[9], [13], [16], [17] approximate the robot and obstacles using circles or ellipses, even though many practical systems, such as vehicles, were more accurately modeled as polygons. While such approximations lead to low-dimensional nonlinear programs that can be efficiently solved using gradient-based methods, they inevitably introduce conservatism. As illustrated in Fig. 1(a), this conservatism may result in overly cautious tra-jectories or even infeasibility in narrow environments. There-
+
+> arXiv:2603.04914v1 [cs.RO] 5 Mar 2026 2
+
+fore, explicitly accounting for polygonal shapes is essential for reliable navigation in constrained spaces. To provide rigorous safety guarantees for polygon-shaped robots and obstacles, [4], [5] model chance-constrained col-lision avoidance as a disjunction of linear inequalities. This formulation introduces binary variables, yielding a Mixed-Integer Nonlinear Programming (MINLP) problem whose computational complexity grows exponentially with the num-ber of obstacles. Moreover, these methods only consider the uncertainty in obstacle position, while the uncertainty in ob-stacle orientation—which can significantly affect the occupied space—is neglected.        
+
+> (a) Polygon-shaped vehicle and obstacle are collision-free, while their circle or ellipse approximations violate collision constraints.
+> (b) Obstacle shape with and without uncertainty in position and orientation. Fig. 1. Motivation: collision risk assessment between polygonal shapes under pose uncertainty.
+
+On the other hand, several nonlinear constraints have been proposed for collision avoidance between polygons [18]–[21]. Although these methods guarantee safety in deterministic settings, they do not directly account for the uncertainty in ob-stacle pose. A common workaround is to enforce a minimum safety distance between the robot and obstacles; however, selecting such a distance is often heuristic, time-consuming, and leads to excessive conservatism. Furthermore, as shown in Fig. 1(b), the uncertainty in obstacle orientation induces highly irregular risk regions, making distance-based tuning particu-larly challenging. Consequently, the existing approaches fail to simultaneously achieve uncertainty-aware safety guarantees, preservation of feasible space, and computational efficiency for polygon-shaped robots and obstacles. In this work, we propose an Uncertainty-aware Optimization-Based Collision Avoidance (U-OBCA) framework. We introduce chance constraints to explicitly bound the collision probability between polygonal robots and obstacles. To enable efficient numerical optimization, these chance constraints are further tightened and reformulated as deterministic nonlinear constraints, which preserve feasible space while avoiding integer variables and maintaining low computational cost. In particular, the main contribution of this paper is three-fold:  
+
+> •
+
+We generalize the Optimization-Based Collision Avoid-ance (OBCA) framework [21] to uncertainty-aware set-tings using chance constraints. Unlike ellipse-based ap-proximations, the proposed formulation directly handles polygonal shapes and significantly reduces conservatism, enabling safe navigation in narrow environments.  
+
+> •
+
+We strengthen the chance constraints using Wasserstein distributionally robust formulations and further transform them into deterministic nonlinear constraints, making the consequent optimization problem suitable for being solved numerically. This reformulation does not require Gaussian assumptions on the uncertainty and relies only on mild assumptions on the distribution.  
+
+> •
+
+Through simulations and experiments, we demonstrate that the proposed method substantially reduces conser-vatism and improves the navigation efficiency compared with the state-of-the-art baselines. 
+
+Notations : The ℓ2-norm on Rn is denoted by ∥ · ∥ . In×n ∈
+
+Rn×n and 0m×n ∈ Rm×n denote the identity matrix and zero matrix, respectively. For integers n1 and n2, n1 : n2 denotes the sequence n1, n 1 + 1 , . . . , n 2. Bold italic symbols represent stochastic variables. P(·) denotes probability, while E[X] and 
+
+PX denote the expectation and distribution of the random variable X, respectively. II. P ROBLEM STATEMENT 
+
+In this work, we consider the motion planning problem of a vehicle in a narrow environment with Nr round-shaped and Np
+
+polygon-shaped obstacles under uncertainties caused by per-ception noise, prediction error and environmental disturbance. More specifically, we denote the index set of the round-shaped obstacles as Or := {1 : Nr }, and the index set of the polygon-shaped obstacles as Op := {Nr +1 : Nr +Np}. Consequently, the index set of all obstacles is defined as O := {1 : Nr +Np}.The trajectory of the vehicle is discretized with a sampling period ∆t = TN , where T denotes the planning time horizon and N denotes the sampling number. On the other hand, the nominal discrete-time kinematics of the vehicle takes the form 
+
+¯svk+1 = ¯ svk + f (¯ svk, u k) · ∆t, k = 1 : N, (1) where f (·) is the nominal kinematic of the vehicle, ¯svk ∈ Rnv
+
+is the vehicle’s nominal state at the k-th time step, and nv is the dimension of the vehicle’s state. Moreover, the vehicle’s nominal state at time step k must include the vehicle’s position 
+
+(¯ xvk, ¯yvk ) and orientation ¯θvk in the world frame . Other state components, such as velocities, can be specified according to users’ practical demands. uk ∈ Rnu is the vehicle’s control input at the k-th time step, where nu is the dimension of the control input. Similarly, we denote the nominal poses of the j-th obstacle at the k-th time step as the [¯ xoj 
+
+> k
+
+, ¯yoj 
+
+> k
+
+, ¯θoj 
+
+> k
+
+]T , which includes the position and orientation information also in the 
+
+world frame .Based on the nominal poses, we further formulate the states under the uncertainties caused by perception and disturbance. In particular, let wvk , woj 
+
+> k
+
+∈ R3 be the stochastic disturbances and perception noise that affect the vehicle’s pose at time step 
+
+k. Consequently, we model the pose of the vehicle at the k-th time step as 
+
+
+
+xvk
+
+yvk
+
+θvk
+
+ =
+
+
+
+¯xvk
+
+¯yvk
+
+¯θvk
+
++
+
+
+
+wvx,k 
+
+wvy,k 
+
+wvθ,k 
+
+| {z }
+
+> wvk
+
+,
+
+
+
+xoj
+
+> k
+
+yoj
+
+> k
+
+θoj
+
+> k
+
+ =
+
+
+
+¯xoj
+
+> k
+
+¯yoj
+
+> k
+
+¯θoj
+
+> k
+
++
+
+
+
+woj
+
+> x,k
+
+woj
+
+> y,k
+
+woj
+
+> θ,k
+
+| {z }
+
+> wojk
+
+, k = 0 : N. 3
+
+Notably, our goal is to plan the “collision-free” future trajec-tory {¯svk}Nk=1 (without losing the generality, let the current time step be k = 0 ) based on the perception at the current time step k = 0 . Consequently, wv 
+
+> 0
+
+and {woj 
+
+> k
+
+}Nk=0 in the above formulation shall be interpreted as the observation noise in pose perception and prediction, while {wvk }Nk=1 shall be interpreted as the environment disturbances. Moreover, we make the following assumptions regarding the noises. 
+
+Assumption 1. It is assumed that the expectations of the noises wvk and woj 
+
+> k
+
+are zeros and the covariance matrices of the noises are known a priori. Moreover, the noises in the positions and the orientations are assumed to be independent, and the noises of the vehicle wvk and the obstacles woj 
+
+> k
+
+are independent as well. 
+
+Assumption 2. Let wvθ,k and woj 
+
+> θ,k
+
+denote the noises com-ponent that acts on the vehicle’s and j-th obstacle’s ori-entation at k-th time step, respectively. Their distributions are symmetric about zero. It is further assumed that we can off-line estimate or compute the expectations and co-variances of the sin and cos functions of the noises, i.e.,  sin( wvθ,k ), cos( wvθ,k ), sin( woj
+
+> θ,k
+
+), cos( woj
+
+> θ,k
+
+) .
+
+As we shall see later, based on the expectation and the covariance of these noises functions, we can directly compute the expectation and the covariance of the cos θvk , sin θvk ,
+
+cos θoj 
+
+> k
+
+and sin θoj 
+
+> k
+
+.
+
+Assumption 3. Given a specific measurable function h, we assume the Wasserstein distance between the distribution Ph
+
+and the Gaussian distribution PR 
+
+> h
+
+= N (E[h], Σh) is smaller than a known constant bound θw.
+
+In particular, Wasserstein distance measures the “distance” between two distributions. The definition of the Wasserstein distance will be explained in detail in Sec. III-C. 
+
+Assumption 4. The shapes and the sizes of the vehicle and the obstacles are deterministic and the uncertainties only exist in the poses of the vehicle and the obstacles. 
+
+Notably, the above assumptions are mild since: i) we do not require the noises to have any specific distributions (e.g. Gaussian distribution); ii) we can estimate the moments of these noises’ functions through off-line identification experi-ments; and iii) the assumption on the “distance” between Ph
+
+PR 
+
+> h
+
+always holds as long as we choose a large enough θw.Next, we formulate the “space” that is occupied by the vehi-cle and the obstacles. Suppose there are Nr round-shaped ob-stacles and Np polygon-shaped obstacles. Let tvk = xvk yvk
+
+T
+
+and toj 
+
+> k
+
+= xoj 
+
+> k
+
+yoj
+
+> k
+
+T denote the positions of the vehicle and the j-th obstacle in the world coordinate frame at the k-th time step, respectively. Then, denote ¯V and ¯Oj , j ∈ O as the “space” that is occupied by the vehicle and j-th obstacle in their ego frame . Furthermore, let V and Oj denote the “space” that is occupied by the vehicle and the j-th obstacle in the 
+
+world frame . Our aim is to derive the explicit expression for 
+
+V and Oj .To this end, for the vehicle and polygon-shaped obstacles, the occupied space in their ego frame take the form ¯V := 
+
+{¯p ∈ R2 : ¯Av ¯p ⪯ ¯bv } and ¯Oj := {¯p ∈ R2 : ¯Aoj ¯p ⪯ ¯boj }, j ∈Op, where ¯Av ∈ Rlv ×2, ¯bv ∈ Rlv , ¯Aoj ∈ Rloj ×2, ¯boj ∈
+
+Rloj and lv , l oj are the number of the vehicle’s and the j-th obstacle’s edges. Similarly, for round-shaped obstacles, the occupied space in their ego frame take the form ¯Oj := {¯p ∈
+
+R2 : ∥¯p∥ ≤ roj }, j ∈ O r , where roj is the radius of the j-th obstacle. Consequently, for the round-shaped obstacles, the occupied space in world frame at the k-th time step shall take the form 
+
+Ojk := {p ∈ R2 : ∥p − toj 
+
+> k
+
+∥ ≤ roj }, j ∈ O r . Moreover, for the vehicle and the polygon-shaped obstacles, it follows from coordinate transformations that their occupied space at the k-th time step in the world frame shall take the form Vk := {p ∈
+
+R2 : Avkp ⪯ bvk} and Ojk := {p ∈ R2 : Aoj 
+
+> k
+
+p ⪯ boj 
+
+> k
+
+}, j ∈ O ,where 
+
+Avk = ¯Av R−1(θvk ),
+
+Aoj 
+
+> k
+
+= ¯Aoj R−1(θoj 
+
+> k
+
+),
+
+bvk = ¯Av R−1(θvk )tvk + ¯bv ,
+
+boj 
+
+> k
+
+= ¯Aoj R−1(θoj 
+
+> k
+
+)toj 
+
+> k
+
++ ¯boj , k = 1 : N, 
+
+(2) and R(θ) is the rotation matrix that corresponds to rotation angle θ, namely, R(θ) = 
+
+cos θ − sin θ
+
+sin θ cos θ
+
+
+
+.Next, to guarantee the vehicle and the obstacles are collision-free, we consider the distance between the vehicle Vk
+
+and the j-th obstacle Ojk at the k-th time step. As illustrated in Fig. 2, the distance between the vehicle and the j-th obstacle at the k-th time step takes the form 
+
+dist( Vk, Ojk) := min  
+
+> t
+
+{∥ t∥ : ( Vk + t) ∩ Ojk̸ = ∅} . (3) Therefore, we see generating a collision-free trajectory for      
+
+> (a) When the obstacle is round-shaped.
+> (b) When the obstacle is polygon-shaped. Fig. 2. The distance between the vehicle and the obstacle.
+
+the vehicle as always ensuring the distance (3) greater than a minimum safety distance dmin , namely, dist( Vk, Ojk) ≥
+
+dmin ≥ dmin , k = 1 , . . . , N − 1. Nevertheless, under the uncertainties caused by wvk and woj 
+
+> k
+
+, the occupied space 
+
+Vk and Ojk become also stochastic. To guarantee the safety 4
+
+under the uncertainties, we use the chance collision avoidance constraints to enforce the vehicle’s trajectory collision-free up to a confidence level of 1 − α, i.e., 
+
+P(dist( Vk, Ojk) ≥ dmin ) ≥ 1 − α, 
+
+∀k = 1 : N, ∀j ∈ O . (4) And consequently, the overall trajectory planning problem shall take the form in probabilistic optimization as follows 
+
+min  
+
+> ¯s,u
+
+J(¯ s, u ), (5a) s.t. Nominal kinematic constraints (1) , (5b) 
+
+Collision avoidance constraints :
+
+P(dist( Vk, Ojk) ≥ dmin ) ≥ 1 − α, 
+
+∀k = 1 , . . . , N, ∀j ∈ O , (5c) 
+
+State and control constraints , (5d) where ¯s, u are short-hand notations for {¯svk}Nk=0 and {uk}N −1 
+
+> k=0
+
+.And J(¯ s, u ) is the user defined cost function. The state and control constraints include, but are not limited to, the boundary constraints, state and control bounds, etc. Note that we do not give the explicit expressions of the nominal kinematic constraints as well as the state and control constraints because they are not the focus of this work. In other words, our framework can be easily extended to a variety of robot systems by replacing the kinematics, the state and control constraints in (5) with any user-defined form. Notably, the key challenge in solving the optimization problem (5) lies in evaluating the probability in the chance constraints (4). This is mainly due to the fact that  
+
+> •
+
+The expression of the distance (3) is intractable and;  
+
+> •
+
+There is no explicit formulae to compute the chance constraints. To address these difficulties, we need to reformulate (4) through dual variables and then approximate the chance constraints as nonlinear deterministic constraints, which are suitable for efficient computation. This will be explained in detail in the next section. III. T HE PRELIMINARY RESULTS 
+
+In this section, we introduce the preliminary results to support further developments in Section IV. More specifically, we first introduce the OBCA method [21] to reformulate the distance between the vehicle and the obstacles through the dual variables. Then, in order to deal with the uncertainties with the arbitrary distributions, we utilize the worst-case chance constraints with Wasserstein distributional ambiguity. Therefore, for the sake of self-containment, we state some preliminary theorems regarding the chance constraints and the Wasserstein distributional ambiguity set. 
+
+A. Optimization-Based Collision Avoidance Without Uncer-tainties 
+
+To proceed, we need to introduce the Optimization-Based Collision Avoidance (OBCA) [21] to reformulate (3) into a tractable constraint. More precisely, when there are no uncer-tainties, the following theorem holds for the space occupied by the vehicle Vk and the j-th obstacle Ojk at the k-th time step. 
+
+Theorem 1. (OBCA [21, Prop. 1, Prop. 3]): On one hand, for the j-th round-shaped obstacle, the minimum distance constraint dist( Vk, Ojk) ≥ dmin is equivalent to 
+
+∃μjk ⪰ 0 : ∥Av,T k μjk∥ ≤ 1,
+
+(Avktoj 
+
+> k
+
+− bvk)T μjk ≥ dmin + roj , ∀k = 1 : N, ∀j ∈ O r ,
+
+(6) 
+
+where μjk ∈ Rlv are dual variables. On the other hand, for the j-th polygon-shaped obstacle, the minimum distance constraints dist( V, Oj ) ≥ dmin is equivalent to 
+
+∃λjk, μ jk ⪰ 0 : ∥Aoj ,T k λjk∥ ≤ 1,
+
+− bv,T k μjk − boj ,T k λjk ≥ dmin ,Av,T k μjk + Aoj ,T k λjk = 02×1, ∀k = 1 : N, ∀j ∈ O p,
+
+(7) 
+
+where λjk ∈ Rloj , μ jk ∈ Rlv are dual variables. B. Bounds on Disjunctive Chance Constraints 
+
+Note that the chance constraints (5c) has a conjunctive form. To further deal with such constraints later, we need the following theorem. 
+
+Theorem 2. (Bounds on Conjunctive Probability [22, Lem. 1]): For given events Ei, i ∈ { 1 : NE } and α ∈ [0 , 1] ,we have 
+
+P
+
+ NE^
+
+> i=1
+
+Ei
+
+
+
+≥ 1 − α ⇐ (
+
+> NE
+
+^
+
+> i=1
+
+P(Ei) ≥ 1 − αi)
+
+∧ (0 ≤ αi ≤ 1) ∧ (
+
+> NE
+
+X
+
+> i=1
+
+αi ≤ α).
+
+(8) 
+
+C. Worst-Case Chance Constraints with the Wasserstein Dis-tributional Ambiguity 
+
+Recall in Assumption 1, 2, 3 and 4, we do not assume any specific noises distributions. To handle these noises {wvk }
+
+and {woj 
+
+> k
+
+}, we use the worst-case chance constraints with the Wasserstein distributional ambiguity. To this end, we first define the Wasserstein distance and the corresponding Wasserstein distributional ambiguity set, and then introduce the worst-case chance constraints based on the ambiguity set. 
+
+1) Wasserstein distance and Wasserstein ambiguity set: 
+
+Intuitively speaking, the Wasserstein ambiguity set can be viewed as a ball in the space of distributions with respect to the Wasserstein distance. The exact definition of the Wasserstein ambiguity set is as follows. 
+
+Definition 3. (Wasserstein Distance): Equipped with a general norm ∥·∥ on Rn, the Wasserstein distance dw(P1, P2) between two distributions P1 and P2 on Rn is defined as the minimal transportation cost of moving P1 to P2, under the premise that the cost of moving a unit mass from m1 to m2 with amounts 
+
+∥m1 − m2∥. Namely, 
+
+dw(P1, P2) := inf  
+
+> P∈Q(P1,P2)
+
+EP[∥ ˜m1 − ˜m2∥], (9) 5
+
+where ˜m1 (respectively, ˜m2) follows the distribution P1 (re-spectively, P2) and Q(P1, P2) is the set of all joint distributions on Rn × Rn with marginals P1 and P2.
+
+Definition 4. (Wasserstein Ambiguity Set [23]): The Wasser-stein ambiguity set Fw(PR, θ w) is defined as a ball of radius 
+
+θw ≥ 0 with respect to the Wasserstein distance, around a prescribed reference distribution PR. Namely, 
+
+Fw(PR, θ w) := {P : dw(P, PR) ≤ θw}, (10) 
+
+where θw is called as Wasserstein radius. 2) Elliptical distributions: We denote an elliptical distribu-tion [24] as PE (μ, Σ, g ) with a location parameter μ ∈ Rn, a positive definite matrix Σ ∈ Rn×n, and a measurable and such that the normalization constant is finite function g : R 7 → R,where its probability density function f takes the form 
+
+f (x) = k · g( 12 (x − μ)T Σ−1(x − μ)) 
+
+with a positive normalization scalar k. Moreover, if the standard elliptical distribution P0(0 , 1, g ) is generated by g,then its probability density function of the standard elliptical distribution is kg (z2/2) and the corresponding cumulative distribution function is 
+
+Φ( a) = 
+
+Z a
+
+> −∞
+
+kg ( z2
+
+2 )dz, (11) where its inverse is denoted by Φ−1(·). Moreover, Gaussian distribution N (μ, Σ, e −z ) is a special case of the elliptical dis-tribution. In addition, we define the value-at-risk at confidence level 1 − α as 
+
+Px- VaR 1−α(x) = inf 
+
+> a∈R
+
+{a|P (x ≥ a) ≤ α}.
+
+Equipped with the above knowledge, the following theorem holds: 
+
+Theorem 5. (Dual Variables Reformulation [25, Thm. 4.8]): Suppose the reference distribution PR(μ, Σ, g ) is an n di-mensional elliptical distribution, where Σ postive definite. Moreover, let the Wasserstein distance is defined through the Mahalanobis norm associated with Σ. Then for the given Wasserstein radius θw > 0 and the risk level α ∈ (0 , 0.5] ,the worst-case value-at-risk is given by 
+
+sup   
+
+> Px∈F w(PR,θ w)
+
+Px- VaR 1−α(eTS x) = eTS μ + η∗
+
+q
+
+eTS ΣeS ,
+
+where eS is the indicator vector whose i-th entry takes value one if i ∈ S ⊆ { 1, . . . , n }. And η∗ is the minimizer to the following optimization problem 
+
+min  
+
+> η
+
+η
+
+s.t. η ≥ Φ−1(1 − α),η Φ( η)−(1 −α)−
+
+Z η2/2 
+
+> 12(Φ −1(1 −α)) 2
+
+k·g(z)dz ≥ θw.
+
+(12) 
+
+Corollary 6. Under the assumption of Theorem 5, for the one dimensional stochastic variable x ∈ R with the expectation 
+
+E[x] = μ and variance Σ, let the reference distribution 
+
+PR(μ, Σ, g ) be a one dimensional elliptical distribution. Then, the worst-case chance constraint has an equivalent determin-istic form as 
+
+inf   
+
+> Px∈F w(PR,θ w)
+
+P(x ≥ a) ≥ 1 − α ⇔ μ ≥ a + η∗Σ 12 , (13) 
+
+where η∗ is the minimizer to (12) .Proof. The left hand side of (13) can be rewritten as 
+
+inf    
+
+> Px∈F w(PR,θ w)
+
+P(x − a ≥ 0) ≥ 1 − α
+
+⇔ sup   
+
+> Px∈F w(PR,θ w)
+
+P(a − x ≥ 0) ≤ α
+
+⇔ sup   
+
+> Px∈F w(PR,θ w)
+
+Px- VaR 1−α(a − x) ≤ 0
+
+(14) Furthermore, let S : R 7 → R be the coordinate transformation 
+
+˜x = S(x) := a−x. Since S(·) is isometry and S = S−1, then it hold for the Wasserstein distance that dw(Px ◦S−1, PR) = 
+
+dw(Px, PR ◦S) = dw(Px, PR ◦S−1). Hence it holds for the image S(Fw(PR, θ w)) = Fw(PR ◦S−1, θ w). Since 
+
+PR(μ, Σ, g ) is one dimensional elliptical distribution, the den-sity of PR ◦S−1 is k · g( 12 ( ˜ x − (a − μ)) T Σ−1( ˜ x − (a − μ)) ,and therefore by Thm. 5 
+
+sup   
+
+> Px∈F w(PR,θ w)
+
+Px- VaR 1−α(a − x) ≤ 0
+
+⇔ sup    
+
+> P˜x∈F w(PR◦S−1,θ w)
+
+P˜x- VaR 1−α( ˜ x) ≤ 0
+
+⇔ a − μ + η∗Σ 12 ≤ 0 ⇔ μ ≥ a + η∗Σ 12 .
+
+■
+
+IV. U NCERTAINTY -AWARE OPTIMIZATION -B ASED 
+
+COLLISION AVOIDANCE 
+
+Notably, when the uncertainties in the poses of the vehicle and the obstacles are further considered in the trajectory plan-ning process, the constraints (6), (7) are no longer sufficient to guarantee the safety. Therefore, we use a probability frame-work to quantify the collision risk through chance constraints. More specifically, given a maximum collision probability α
+
+threshold, we generalize the OBCA constraints (6), (7) into the following uncertainty-aware form for the time instants 
+
+k = 1 : N
+
+Round-shaped obstacle chance constraints: (15a) 
+
+P
+
+
+
+∃μjk ⪰ 0 : ∥Av,T k μjk∥ ≤ 1,
+
+(Avktoj 
+
+> k
+
+− bvk)T μjk ≥ dmin + roj
+
+
+
+≥ 1 − α, ∀j ∈ O r ,
+
+Polygon-shaped obstacle chance constraints: (15b) 
+
+P
+
+
+
+∃λjk, μ jk ⪰ 0 : ∥Aoj ,T k λjk∥ ≤ 1,
+
+− bv,T k μjk − boj ,T k λjk ≥ dmin ,
+
+Av,T k μjk +Aoj ,T k λjk = 02×1
+
+
+
+≥ 1 − α, ∀j ∈ O p
+
+Notably, Avk, Aoj 
+
+> k
+
+, bvk, boj 
+
+> k
+
+, toj 
+
+> k
+
+in (15) are all stochastic matrices and vectors, and we guarantee the vehicle’s safety by constraining the probability of satisfying the OBCA con-straints to be greater than a threshold 1 − α. Next, to make 6
+
+the optimization with the chance constraints (15) numerically solvable, we reformulate the constraints (15) into deterministic constraints. 
+
+A. Round-Shaped Obstacles 
+
+To proceed, we first focus on the collision-avoidance with round-shaped obstacles Oj , j ∈ { 1 : Nr }. The difficulties in quantifying the probability in (15a) lies in the fact that: 1) the value of dual variables μjk are changing together with the value of the stochastic variables; 2) the distributions of stochastic variables (including the noises) in (15a) are unknown. To address these difficulties, we first fix the values of the dual variables to obtain a sufficient condition of (15a). Then, we tighen the sufficient condition into worst-case chance constraints and transform the worst-case chance constraints into deterministic nonlinear constraints so that it can be solved by optimization solvers. More precisely, we have the following theorem. 
+
+Theorem 7. Suppose Assumption 1-4 holds. Denote pjk := ¯Av R−1(θvk )δtjk + ¯bv , where δtjk := tvk − toj 
+
+> k
+
+, and suppose it holds for the distribution Pϕjk
+
+of the random variable 
+
+ϕjk := −pj,T k μjk that Pϕjk
+
+∈ F w(PR
+
+> ϕjk
+
+, θ w), where the reference distribution PR
+
+> ϕjk
+
+:= N (− E[pj,T k ]μjk, μ j,T k Σpjk
+
+μjk). Then the deterministic constraint 
+
+∃μjk ⪰ 0 : ∥ ¯Av,T μjk∥ ≤ 1,
+
+E[pjk]T μjk +d min +roj +η∗
+
+q
+
+μj,T k Σpjk
+
+μjk ≤ 0, (16) 
+
+is a sufficient condition to (15a) for ∀j ∈ O r , where η∗ is computed off-line in a similar way to (12) and the computation of E[pjk] and Σpjk
+
+is described in Appendix A. Proof. Note that the rotation matrix R is orthogonal, i.e. 
+
+R−1(θ) = RT (θ) even if θ is stochastic, we first rewrite the term ∥Av,T k μjk∥ in (15a) into the following deterministic form 
+
+∥Av,T k μjk∥ =
+
+q
+
+μj,T k AvkAv,T k μjk
+
+=
+
+q
+
+μj,T k ¯Av R−1(θvk )R(θvk ) ¯Av,T μjk
+
+=
+
+q
+
+μj,T k ¯Av ¯Av,T μjk = ∥ ¯Av,T μjk∥.
+
+And we can further rewrite the term Avktoj 
+
+> k
+
+− bvk in (15a) as 
+
+Avktoj 
+
+> k
+
+− bvk = ¯Av R−1(θvk )toj 
+
+> k
+
+− ( ¯Av R−1(θvk )tvk + ¯bv )= − ¯Av R−1(θvk )δtjk − ¯bv = −pjk.
+
+Therefore, (15a) is equivalent to 
+
+P
+
+
+
+∃μjk ⪰ 0 : ∥ ¯Av,T μjk∥ ≤ 1,
+
+− pj,T k μjk ≥ dmin + roj
+
+
+
+≥ 1 − α, ∀j ∈ O r .
+
+(17) Next, we exchange the order of the existential quantifier and the probability in (17). This yields tightening of the constraints which is more conservative: if there exists a fixed μkj satisfying the probabilistic constraint, then the original probabilistic statement with the existential quantifier inside is also satisfied. Namely, it holds that 
+
+∃μjk ⪰ 0 : ∥ ¯Av,T μjk∥ ≤ 1, P(−pj,T k μjk ≥ dmin +roj ) ≥ 1−α ⇒ (17) (18) Moreover, we further tighten the constraint and apply the Corollary 6, which yields (17) ⇐ ∃ μjk ⪰ 0 : ∥ ¯Av,T μjk∥ ≤ 1,
+
+P(−pj,T k μjk ≥ dmin + roj ) ≥ 1 − α, 
+
+⇐ ∃ μjk ⪰ 0 : ∥ ¯Av,T μjk∥ ≤ 1,
+
+inf    
+
+> Pϕjk
+> ∈F w(PR
+> ϕj,k ,θ w)
+
+P(ϕjk ≥ dmin + roj ) ≥ 1 − α,  
+
+> Corollary 6
+
+⇐=====⇒ (16) ,
+
+where the second sufficient condition holds as we consider the worst-case condition in Pϕj,k ∈ F w(PR 
+
+> ϕj,k
+
+, θ w). Thus the statement is proved. ■
+
+B. Polygon-Shaped Obstacles 
+
+In Theorem 7, we have tighten the chance constraints for round-shaped obstacles into nonlinear deterministic constraints by fixing the dual variables and using the Wasserstein distribu-tionally robust constraints. Next, we will deal with the chance constraints for polygon-shaped obstacles in a similar way. Note that the difference between (15a) and (15b) is that there is an extra equality constraint in (15b). For such equality constraint, we can not take the dual variables λjk and μjk out of the probability measure P in the same way as (16). To address this issue, we eliminate the equality constraint in (15b) by finding the general solution of the equality constraint. Then, similarly to (16), we find the sufficient condition for (15b) by fixing the value of dual variables, then tighten the sufficient condition into worst-case chance constraints and consequently transform the worst-case chance constraints into deterministic nonlinear constraints. To proceed, we present the following lemma, which indi-cates the general solution of the equality constraint in (15b) has a concise expression. 
+
+Lemma 8. If the shape of the vehicle is rectangular, namely, 
+
+¯Av =
+
+1 0 −1 00 1 0 −1
+
+T
+
+=
+
+ I2×2
+
+−I2×2
+
+
+
+, it holds from the equality constraint Av,T k μjk + Aoj ,T k λjk = 02×1 that 
+
+μjk = ξjk − RTg (δθjk) ¯Aoj ,T λjk, (19) 
+
+where ξjk := ξj, 1 
+
+> k
+
+ξj, 2 
+
+> k
+
+ξj, 1 
+
+> k
+
+ξj, 2
+
+> k
+
+T ∈ R4, Rg (δθjk) := 
+
+R(δθjk) 02×2
+
+ ∈ R2×4 and δθjk := θvk − θoj 
+
+> k
+
+is the difference between the orientation angle of the vehicle and the j-th obstacle. 7
+
+Proof. Note that R−1(θ) = RT (θ) = R(−θ), the equation 
+
+Av,T k μjk + Aoj ,T k λjk = 02×1 can be reformulated as 
+
+Av,T k μjk + Aoj ,T k λjk = 02×1
+
+⇔ R(θvk ) ¯Av,T μjk + R(θoj 
+
+> k
+
+) ¯Aoj ,T λjk = 02×1
+
+⇔ ¯Av,T μjk + R−1(θvk )R(θoj 
+
+> k
+
+) ¯Aoj ,T λjk = 02×1
+
+⇔ ¯Av,T μjk + R(θoj 
+
+> k
+
+− θvk ) ¯Aoj ,T λjk = 02×1
+
+⇔ ¯Av,T μjk = −R(−δθjk) ¯Aoj ,T λjk.
+
+(20) Since the null space of ¯Av is spanned by 1 0 1 0 T and 
+
+0 1 0 1 T . By substituting ¯Av into the last equation in (20), we can write μjk as 
+
+μjk =ξj, 1
+
+> k
+
+
+
+1010
+
++ξj, 2
+
+> k
+
+
+
+0101
+
+−
+
+R(−δθjk)
+
+02×2
+
+
+
+¯Aoj ,T λjk
+
+=ξjk − RTg (δθjk) ¯Aoj ,T λjk.
+
+Hence the lemma is proved. ■
+
+Through Lemma 8, we can eliminate the equality constraint in (15b) by plugging in (19). Consequently, the following proposition holds. 
+
+Proposition 9. If the assumption in Lemma 8 holds, given any α1, α 2, α 3 ∈ [0 , 1] such that 0 ≤ α1 + α2 + α3 ≤ α, the following 
+
+∃λjk ⪰ 0, ξ j, 1 
+
+> k
+
+, ξ j, 2 
+
+> k
+
+≥ 0 : ∥ ¯Aoj ,T λjk∥ ≤ 1,
+
+P(ξj, 1 
+
+> k
+
+− qj, 1,T k λjk ≥ 0) ≥ 1 − α1,
+
+P(ξj, 2 
+
+> k
+
+− qj, 2,T k λjk ≥ 0) ≥ 1 − α2,
+
+P(rj,T k λjk − bv,T k ξjk ≥ dmin ) ≥ 1 − α3,
+
+(21) 
+
+is a sufficient condition to (15b) for ∀j ∈ O p, where 
+
+qj, 1 
+
+> k
+
+:= ¯Aoj cos δθjk sin δθjk
+
+T ,
+
+qj, 2 
+
+> k
+
+:= ¯Aoj − sin δθjk cos δθjk
+
+T ,
+
+rjk := ¯Aoj Rg (δθjk)bvk −boj 
+
+> k
+
+.
+
+(22) 
+
+and ξjk := ξj, 1 
+
+> k
+
+ξj, 2 
+
+> k
+
+ξj, 1 
+
+> k
+
+ξj, 2
+
+> k
+
+T .Proof. Similar to Sec. IV-A, ∥Aoj ,T k λjk∥ can be reformulated as the following deterministic form: 
+
+∥Aoj ,T k λjk∥ = ∥ ¯Aoj ,T λjk∥, (23) and note that by substituting (19) into the term −bv,T k μjk −
+
+boj ,T k λjk in the chance constraints, it holds that 
+
+− bv,T k μjk − boj ,T k λjk
+
+= − bv,T k
+
+
+
+ξjk − RTg (δθjk) ¯Aoj ,T λjk
+
+
+
+− boj ,T k λjk
+
+= − bv,T k ξjk +
+
+ ¯Aoj Rg (δθjk)bvk − boj
+
+> k
+
+T
+
+λjk
+
+= rj,T k λjk − bv,T k ξjk.
+
+(24) Hence the following equivalence holds (15b) ⇔ P (∃λjk, μ jk ⪰ 0 : ∥ ¯Aoj ,T λjk∥ ≤ 1,
+
+− bv,T k μjk − boj ,T k λjk ≥ dmin ,
+
+Av,T k μjk + Aoj ,T k λjk = 02×1) ≥ 1 − α. 
+
+⇔ P (∃λjk ⪰ 0, ξ j, 1 
+
+> k
+
+, ξ j, 2 
+
+> k
+
+∈ R : ∥ ¯Aoj ,T λjk∥ ≤ 1,ξjk − RTg (δθjk) ¯Aoj ,T λjk ⪰ 0,
+
+rj,T k λjk − bv,T k ξjk ≥ dmin ) ≥ 1 − α, 
+
+⇔ P (∃λjk ⪰ 0, ξ j, 1 
+
+> k
+
+, ξ j, 2 
+
+> k
+
+≥ 0 : ∥ ¯Aoj ,T λjk∥ ≤ 1,ξj, 1 
+
+> k
+
+− qj, 1,T k λjk ≥ 0, ξ j, 2 
+
+> k
+
+− qj, 1,T k λjk ≥ 0,
+
+rj,T k λjk − bv,T k ξjk ≥ dmin ) ≥ 1 − α, 
+
+(25) where the third equivalence results from separating each rows of the inequality constraint. Then, by extracting λjk, ξj, 1 
+
+> k
+
+and 
+
+ξj, 2 
+
+> k
+
+from the probability measure P(·) similar to (17), and applying Theorem 2, we get the following sufficient condition form for (25) and hence for (15b) (15b) ⇐ ∃ λjk ⪰ 0, ξ j, 1 
+
+> k
+
+, ξ j, 2 
+
+> k
+
+≥ 0 : ∥ ¯Aoj ,T λjk∥ ≤ 1,
+
+P(ξj, 1 
+
+> k
+
+− qj, 1,T k λjk ≥ 0, ξ j, 2 
+
+> k
+
+− qj, 2,T k λjk ≥ 0,
+
+rj,T k λjk − bv,T k ξjk ≥ dmin ) ≥ 1 − α, ⇐ (21) (26) 
+
+■
+
+So far, we have eliminated the equality constraint and tighten the constraint (15b) with its sufficient condition (21). Nevertheless, as the distribution of stochastic variables rjk,
+
+qj, 1 
+
+> k
+
+and qj, 2 
+
+> k
+
+in (21) are unknown, the chance constraints in (21) are still intractable. To address this issue, similar to Theorem 7, we further tighten the sufficient condition into worst-case chance constraints through Wasserstein ambiguity set and then transform the worst-case chance constraints into deterministic nonlinear constraints. More specifically, under the Assumptions in Section II, the following theorem holds. 
+
+Theorem 10. Suppose Assumption 1-4 holds. Denote 
+
+ψj,k, 1 := −qj, 1,T k λjk, ψj,k, 2 := −qj, 2,T k λjk and ψj,k, 3 := 
+
+rj,T k λjk − bv,T k ξjk, and suppose it holds that the distribution 
+
+Pψj,k,i ∈ F w(PR 
+
+> ψj,k,i
+
+, θ wi ), i ∈ { 1, 2, 3}, where the reference distribution PR 
+
+> ψj,k,i
+
+= N (E[ψj,k,i ], Σψj,k,i ), i ∈ {1, 2, 3}.Then 
+
+∃λjk ⪰ 0, ξ j, 1 
+
+> k
+
+, ξ j, 2 
+
+> k
+
+≥ 0 : ∥ ¯Aoj ,T λjk∥ ≤ 1,ξj, 1 
+
+> k
+
+−E[qj, 1 
+
+> k
+
+]T λjk ≥ η∗
+
+> 1
+
+q
+
+λj,T k Σqj, 1
+
+> k
+
+λjk,ξj, 2 
+
+> k
+
+−E[qj, 2 
+
+> k
+
+]T λjk ≥ η∗
+
+> 2
+
+q
+
+λj,T k Σqj, 2
+
+> k
+
+λjk,
+
+E[rjk]T λjk − E[bvk]T ξjk ≥ dmin + η∗ 
+
+> 3
+
+Σ 12
+
+> ψj,k, 3
+
+,
+
+(27) 
+
+is a sufficient deterministic condition for (21) , where η∗ 
+
+> 1
+
+, η∗
+
+> 2
+
+and η∗ 
+
+> 3
+
+are computed in a similar way to (12) and the expec-tation E[qj, 1 
+
+> k
+
+], E[qj, 2 
+
+> k
+
+], E[rjk], E[bvk], the covariance matrices 
+
+Σqj, 1
+
+> k
+
+, Σqj, 2
+
+> k
+
+, Σψj,k, 3 are computed in detail in Appendix B. 8
+
+Proof. Similar to the proof of Theorem 7, it holds that (21) ⇐ ∃ λjk ⪰ 0, ξ j, 1 
+
+> k
+
+, ξ j, 2 
+
+> k
+
+≥ 0 : ∥ ¯Aoj ,T λjk∥ ≤ 1,
+
+inf 
+
+> Pψj,k, 1
+
+P(ξj, 1 
+
+> k
+
+−qj, 1,T k λjk ≥ 0) ≥ 1−α1,
+
+inf 
+
+> Pψj,k, 2
+
+P(ξj, 2 
+
+> k
+
+−qj, 2,T k λjk ≥ 0) ≥ 1−α2,
+
+inf 
+
+> Pψj,k, 3
+
+P(rj,T k λjk −bv,T k ξjk ≥ dmin ) ≥ 1−α3, 
+
+> Corollary 6
+
+⇐=====⇒ (27) .
+
+■
+
+Through Theorem 7 and Theorem 10, we tighten the chance constraints (15) into deterministic ones, i.e., 
+
+Round-shaped obstacle deterministic constraints: (28) 
+
+μjk ⪰ 0, ∥ ¯Av,T μjk∥ ≤ 1,
+
+E[pjk]T μjk +d min +roj +η∗
+
+q
+
+μj,T k Σpjk
+
+μjk ≤ 0,
+
+∀k = 1 , . . . , N, ∀j ∈ O r ,
+
+Polygon-shaped obstacle deterministic constraints: (29) 
+
+λjk ⪰ 0, ξ j, 1 
+
+> k
+
+≥ 0, ξ j, 2 
+
+> k
+
+≥ 0, ∥ ¯Aoj ,T λjk∥ ≤ 1,ξj, 1 
+
+> k
+
+−E[qj, 1 
+
+> k
+
+]T λjk ≥ η∗
+
+> 1
+
+q
+
+λj,T k Σqj, 1
+
+> k
+
+λjk,ξj, 2 
+
+> k
+
+−E[qj, 2 
+
+> k
+
+]T λjk ≥ η∗
+
+> 2
+
+q
+
+λj,T k Σqj, 2
+
+> k
+
+λjk,
+
+E[rjk]T λjk − E[bvk]T ξjk ≥ dmin + η∗ 
+
+> 3
+
+Σ 12
+
+> ψj,k, 3
+
+∀k = 1 : N, ∀j ∈ O p.
+
+And consequently, we transform the probabilistic motion plan-ning problem (5) into the following deterministic nonlinear optimization problem 
+
+min  
+
+> ¯s,u,λ,μ,ξ
+
+J(¯ s, u ),
+
+s.t. Nominal kinematic constraints (1) ,
+
+Deterministic safety constraints (28) , (29) ,
+
+State and control constraints ,
+
+(30) where λ, μ, ξ are short hand notations for all of the dual variables. Through such reformulation, (30) can be solved efficiently by gradient-based nonlinear solvers. 
+
+Remark 11. In practice, we estimate the covariance matrix 
+
+Σpjk
+
+, Σqj, 1
+
+> k
+
+, Σqj, 2
+
+> k
+
+and Σqj, 3
+
+> k
+
+in Theorem 7 and Theorem 10 by replacing the variables ¯xvk, ¯yvk , ¯θvk , k = 1 : N and 
+
+¯xoj 
+
+> k
+
+, ¯yoj 
+
+> k
+
+, ¯θoj 
+
+> k
+
+, j ∈ { 1, . . . , N r + Np}, k = 1 : N in Appendix A and Appendix B with the initial guess of these decision variables. This would further accelerate the numerical com-putation as the covariance matrix can be computed through the initial guess before the numerical solving process. With such approximation, the OCP (30) can be efficiently solved. However, the trade-off of the computational advantage is that there exists deviations between the estimated uncertainties and true uncertainties, yet we claim the deviation is tolerable as long as we can guarantee the assumptions in Theorem 7 and Theorem 10 are satisfied by choosing large enough θw in (16) 
+
+and θw1 , θw2 , θw3 in (27) .
+
+V. S IMULATION RESULTS 
+
+We implement the proposed algorithm in MATLAB R2022b and execute it on a laptop equipped with an Intel Core i5-12500H CPU and 16 GB RAM. Two scenarios—the par-allel parking scenario and the narrow corridor navigation scenario—are considered to evaluate the performance of the proposed method in narrow environments and to compare it against benchmark approaches. 
+
+A. Global Planning: Parallel Parking Trajectory Planning for a Four Wheel Steering Vehicle 1) The Simulation Settings: As shown in Fig. 3, in the parallel parking lot scenario, a 4.8m × 1.962 m four-wheel-steering vehicle needs to park into a 8.4m × 2.4m parking space while avoiding collision with the static and moving obstacles. The uncertainties exist in the perception of the obstacles, motion of the moving obstacles and the tracking control errors caused by environmental disturbances. More-over, to minimize the total parking time, we let the sampling period ∆t also be the decision variable in the optimization and choose the number of the time step as N = 100 , the risk level as α1 = α2 = 0 .2α, α3 = 0 .6α, and Wasserstein radius 
+
+θw = θw1 = θw2 = θw3 = 0 .001 . For the numerical solver, we choose the interior-point solver IPOPT [26] and set the linear solver as “MA27” [27] in AMPL [28]. In the parking scenario, the state and control inputs of the four-wheel-steering vehicle are defined as sv =[xv , yv , θv , φ r , φ f , v ]T and u = [ wr , w f , a ]T , where φr , φ f
+
+and v are the rear steering angle, front steering angle and the velocity of the vehicle, respectively. wr , w f and a are the angular velocities of the steering angles as well as the accel-eration of the vehicle. Thus, the nominal vehicle kinematics are modeled as 
+
+¯xvk+1 = ¯ xvk + vk cos ¯θvk · ∆t, 
+
+¯yvk+1 = ¯ yvk + vk sin ¯θvk · ∆t, 
+
+¯θvk+1 = ¯θvk + vk
+
+tan φf,k cos φr,k − sin φr,k 
+
+L · ∆t, φr,k +1 = φr,k + wr,k · ∆t, φf,k +1 = φf,k + wf,k · ∆t, vk+1 = vk + ak · ∆t, k = 0 : N − 1,
+
+where L = 2.8m is the length between the axles. More-over, we assume to have a low-level controller to track the planned trajectory, and the tracking errors caused by the environmental disturbances as well as the pose percep-tion error shall have the distribution [wvx,k , wvy,k , wvθ,k ]T ∼N
+
+
+
+03×1, diag(10 −3 m2, 10 −3 m2, 0.1 deg 2)
+
+
+
+, k = 1 : N .Furthermore, we assume there are four static polygon-shaped obstacles in the scenario. We simulate their observations noises as [woj 
+
+> x
+
+, woj 
+
+> y
+
+, woj 
+
+> θ
+
+]T ∼N
+
+
+
+03×1, diag(10 −2 m2, 10 −2 m2, 1 deg 2)
+
+
+
+, j = 1 : 3
+
+and the moving polygon-shaped obstacle shall have ahorizontal constant velocity vobs = 0 .8m/s. For the bottom obstacle (j = 4) , we let it be a deterministic obstacle without any noises to make sure that the collision avoidance constraints could be satisfied at the goal position. To 9
+
+model the uncertainty growth in the predicted positions of the moving obstacles over the planning horizon, the trajectory prediction error is simulated via a discretized random-walk process. Namely, [woj
+
+> x,k
+
+, woj
+
+> y,k
+
+, woj
+
+> θ,k
+
+]T ∼N
+
+
+
+03×1, diag( k × 10 −3 m2, k × 10 −3 m2, k × 0.1 deg 2)
+
+
+
+,
+
+k = 1 : N, j = 5 .We penalize the parking time, terminal error and control effort in the optimization problem. In particular, we take the cost function as 
+
+J(¯ s, u, ∆t) = ( N −1)∆ t+∥¯svN −¯sg ∥2 
+
+> Q
+
++ 
+
+> N−1
+
+X
+
+> k=0
+
+∥uk∥2
+
+> R
+
+,
+
+where ¯sg is the goal state of the parking lot, Q =diag(10 , 10 , 10) and R = diag(0 .01 , 0.01) are weighting matrices. 
+
+2) The Simulation Results: In this simulation, we compare our method with the uncertainty-aware methods: Robust Col-lision Avoidance (RCA) [2], Linearized Chance Constraints (LCC) [6], Ellipsoid Chance Constraints (ECC) [7]. Since they approximate the obstacles and the vehicle with ellipses, they fail to find a feasible solution due to over-conservatism. Therefore, we only compare our method against the nominal OBCA method [21] to validate the ability of guaranteeing the safety under uncertainties. The results of OBCA and U-OBCA are shown in Fig.3(a), 3(c). More specifically, as shown in Fig.3(a), OBCA chooses to get into the parking space before the moving obstacle passes by the parking space. The trajectory is more efficient when the pose of the obstacles are deterministic, however, when there exists uncertainties, the tra-jectory is too aggressive. In contrast, our method adapts to the collision probability uncertainties, resulting in the trajectory that avoids the obstacle first, and then parks into the parking spaces after the moving obstacle leaves. Moreover, to further quantitatively verify the effectiveness of U-OBCA, we evaluate its robustness against collision via a Monte-Carlo simulation with 1000 trials. In each trial, for a given nominal trajectory that consists N = 100 discrete time steps, random perturbations are independently sampled and added to the nominal poses of both the vehicle and the obstacles according to the noises distributions described in Sec. V-A1. A collision check is performed at every time step by calculating the distance between the vehicle and obstacles under the perturbed poses. If a collision occurs at any time step within a trial, that trial is counted as a trajectory-level collision. A trajectory is regarded as successful in a Monte-Carlo trial if no collision is detected at all time steps in that trial. The results of the collision test are shown in Table I. From Table I, under a confidence level of α = 0 .01 , U-OBCA reduces the number of collisions by 99.0% compared with the OBCA method and achieves a success rate of 97.1%. Moreover, under a risk level of α = 0 .1, U-OBCA selects trajectories similar to the OBCA method, but still reduces the collision count by 94.4% and attains a success rate of 87.0%. In contrast, the OBCA method results in 3210 collisions and achieves a success rate of only 1.4%. However, the trade-off is that U-OBCA takes longer time to finish the task than OBCA. As a summary, U-OBCA guarantees the safety by reducing the number of collisions and improving the success rate significantly under the existence of the uncertainties.                       
+
+> (a) Trajectory of OBCA. (b) Legend.
+> (c) Trajectory of U-OBCA (α=0.1) .
+> (d) Trajectory of U-OBCA (α=0.01) .Fig. 3. The simulation results in the parallel parking scenario. TABLE I SIMULATION RESULTS COMPARISON OF DIFFERENT METHODS IN PARKING SCENARIO
+> Methods Cost Collision Num Success Rate
+> U-OBCA (α= 0 .01) 37.18 32 97.1%
+> U-OBCA (α= 0 .1) 10.54 178 87.0% OBCA [21] 10.32 3210 1.4%
+
+B. Local Planning: Navigation in a Narrow Corridor 1) The Simulation Settings: As shown in Fig. 4 , we further consider the navigation task for a 1.25m × 0.7m smart wheelchair in a 5m -wide narrow corridor. In particular, the wheelchair needs to reach the goal while avoiding collision with static and moving obstacles. The uncertainties exist in the perception of the obstacles’ and vehicle’s pose, trajectory prediction of the moving obstacles and the tracking control errors caused by environmental disturbances. Moreover, we fix the sampling period ∆t = 0 .25 s and choose the number of the time steps as N = 20 . We then plan a local trajectory in a receding horizon way. The risk level is set as α = 0 .01 ,
+
+α1 = α2 = 0 .002 , α3 = 0 .006 and the Wasserstein radius is set as θw = θw1 = θw2 = θw3 = 0 .001 . For the numerical solver, we choose the interior-point solver IPOPT [26] and set the linear solver as “mumps” [29] in CasADi [30]. The state and control inputs of the wheelchair are defined as svk := [ xvk, yvk , θvk , v k, ω k]T and uk; = [ avk, a ωk ]T , where 
+
+vk, ωk are the velocity and angular velocity, avk, a ωk are the acceleration and angular acceleration respectively. Thus, the 10                                                
+
+> TABLE II SIMULATION RESULT COMPARISON OF THE DIFFERENT METHODS IN RANDOM CORRIDOR SCENARIOS
+> Methods Success Rate (%) Finishing Time (s) Mean Cost Value Min Distance (m) Mean Computation Time (s)
+> U-OBCA 97 11.887 ±0.956 197.423 ±49.518 0.174 ±0.069 0.114 ±0.071 OBCA [21] 35 11.679 ±0.839 181.757 ±41.100 0.043 ±0.045 0.109 ±0.049 RCA [2] 84 13.446 ±2.994 232.375 ±85.929 0.558 ±0.503 0.066 ±0.044
+> LCC [6] 82 13.338 ±3.061 232.247 ±109.238 0.316 ±0.177 0.089 ±0.059 ECC [7] 82 13.616 ±3.212 246.505 ±110.087 0.561 ±0.251 0.085 ±0.063 RC [10] 84 12.884 ±2.966 226.178 ±99.326 0.367 ±0.114 0.088 ±0.138 DRCC [17] 82 13.058 ±2.632 224.066 ±81.373 0.527 ±0.226 0.082 ±0.053
+> (a) The trajectory of U-OBCA.
+> (b) The trajectory of OBCA.
+> (c) The trajectory of RCA.
+> (d) The trajectory of LCC.
+> (e) The trajectory of ECC.
+> (f) The trajectory of RC.
+> (g) The trajectory of DRCC.
+> (h) The figure legend. Fig. 4. The simulation results in the narrow corridor scenario.
+
+nominal vehicle kinematics take the form 
+
+¯xvk+1 = ¯ xvk + vk cos ¯θvk · ∆t, 
+
+¯yvk+1 = ¯ yvk + vk sin ¯θvk · ∆t, 
+
+¯θvk+1 = ¯θvk + wk · ∆t, vk+1 = vk + avk · ∆t, wk+1 = wk + aωk · ∆t, k = 0 : N − 1.
+
+(31) Specifically, we set one static obstacle, one moving round-shaped obstacle and one moving polygon-shaped (rectangular) obstacle in the scenario. The distributions of the random variables that corresponds to the pose perception noise of the smart wheelchair, the static and moving obstacles, as well as the environmental disturbances are identical to those in Sec. V-A. The nominal trajectories of the moving obstacle are generated by social force model [31]. Moreover, we penalize the terminal error and control effort in the corridor navigation scenario. Namely, the cost function takes the form 
+
+J(¯ s, u ) = ∥¯svN − ¯sg ∥2 
+
+> QN
+
++ 
+
+> N−1
+
+X
+
+> k=1
+
+∥¯svk − ¯sg ∥2 
+
+> Q
+
++ 
+
+> N−1
+
+X
+
+> k=0
+
+∥uk∥2
+
+> R
+
+,
+
+where ¯sg is the navigation goal state, Q = diag(0 .1, 0.1, 1) ,
+
+QN = 100 Q and R = diag(0 .1, 0.1) are positive definite weighting matrices. 
+
+2) The Simulation Results: In this simulation, we compare U-OBCA with the nominal OBCA method [21] and other optimization-based uncertainty-aware methods to validate the effectiveness of the proposed method. In particular, we choose RCA [2], LCC [6], ECC [7], Risk Contours (RC) [10], and Distributionally Robust Chance Constraints (DRCC) [17] as baselines. These methods all approximate the shape of the vehicle and the obstacles with ellipses. To make the com-parison fair, we test our method and the baselines under the same receding horizon setting, weighting matrices, risk level and noise distributions. The trajectories of a typical narrow corridor navigation scenario are shown in Fig. 4. As illustrated in Fig. 4(a) and 4(b), U-OBCA enables the smart wheelchair to safely navigate through the narrow corridor while avoiding the static and moving obstacles. However, OBCA chooses a more aggressive trajectory when interacting with the obstacles, however the trajectory is too close to the obstacles, which results in safety issues. Moreover, the trajectories in Fig.4(d) -4(f) are more conservative due to the elliptical approximation. They stuck for a few seconds in front of the static obstacles to wait for the yellow moving obstacle passing by. Hence, they reach the navigation goal slower than U-OBCA. Furthermore, to quantitatively compare the proposed U-OBCA with the baselines, we further generate 100 random 11  
+
+> Fig. 5. The smart wheelchair platform.
+
+corridor scenarios, where the number, starting and goal po-sitions, size and shape of the obstacles are randomly gener-ated. In these scenarios, we compare the success rate, mean finishing time, minimum distance to the obstacles as well as the mean computation time of these methods. The results are summarized in Table.II. In particular, the finishing time and the mean cost value only take the successful navigation trials into account. From Table.II, we conclude that U-OBCA has the highest navigation success rate since it considers the uncer-tainties in a more precise manner, while OBCA has the lowest success rate as it does not consider the uncertainties. Moreover, our method improves the navigation efficiency as it has shorter finishing time and lower cost value than other uncertainty-aware methods. The minimum distance to obstacles and the mean cost value of U-OBCA are also smaller than that of the other uncertainty-aware methods, which indicates that it avoids over-conservatism yet still attains a 97% success rate. The trade-off of this method is that it needs more computation time compared to others. This is not surprising as we introduce the dual variables into the optimization and the expression of the collision avoidance constraints in U-OBCA is more complex than others. Nevertheless, the average computation time of U-OBCA is about 0.11 s, which is promising to be implemented in a real-time re-planning framework. VI. E XPERIMENTS 
+
+In this section, we present real-world experimental results in two representative scenarios— narrow corridor navigation 
+
+and parking —to demonstrate the effectiveness of the proposed motion planning algorithm. 
+
+A. Experimental Platform Setup 
+
+All experiments are conducted on a smart wheelchair de-veloped by our research group. The experimental platform is equipped with the following hardware components (see Fig. 5): 1) Main computation unit : An Intel NUC 13 equipped with an i7-1370P CPU, 64 GB RAM, and a maximum clock frequency of 5.2 GHz. 2) Sensor data processing unit : Since the experiments involve dynamic obstacle avoidance (e.g., bicycles and pedestrians), an additional computing unit is deployed to execute the moving obstacle detection and trajectory prediction modules. More specifically, an ASUS TUF Gaming A16 laptop with an AMD Ryzen 7 H260 CPU, 16 GB RAM, a maximum clock frequency of 5.6 GHz, and an RTX 5060 GPU is used. This unit is connected to the main computation unit via a Thunderbolt 4 interface. 3) RGB-D camera : An Intel RealSense D435i with a resolution of 1920 × 1080 , a frame rate of 30 FPS, and a Field of View (FoV) of 69 .4◦ × 42 .5◦. The camera is also equipped with an onboard Bosch BMI055 IMU operating at 200 Hz. 4) LiDAR : A Robosense RS-LiDAR-16 featuring a 360 ◦
+
+horizontal FoV, a ±15 ◦ vertical FoV, a frame rate of 20 Hz, and an angular resolution of 0.4◦ × 2.0◦.The proposed algorithm is implemented in C++ using the Robot Operating System (ROS). The overall software archi-tecture of the experimental platform is illustrated in Fig. 6.  
+
+> Fig. 6. Software architecture of the experimental platform.
+
+The system consists of the following software modules: 1) Localization and global planning module : This mod-ule runs on the main computation unit. It subscribes to sensor data from the LiDAR, RGB-D camera, IMU, and odometer to localize the wheelchair, and generates a global path using the A ⋆ algorithm. The localization algorithm follows the method proposed in [32]. The estimated wheelchair’s pose and the planned global path are published for downstream modules. 2) Moving obstacle detection and trajectory prediction module : This module subscribes to sensor data and detects dynamic obstacles (i.e., pedestrians and bicycles) 12 
+
+> Fig. 7. Detection and trajectory prediction results using the algorithm in [33].
+
+using the algorithm proposed in [33]. Since this algo-rithm is GPU-intensive, it is deployed on the sensor data processing unit. The module offers the obstacles’ poses and predicts their trajectories in ego-vehicle frame over a horizon of 12 steps with a time interval of 0.2 s. Example detection and prediction results are shown in Fig. 7. The module publishes obstacle information at a frequency of 7 Hz, including their sizes, poses, motion states, and predicted trajectories. Pedestrians are modeled as circular obstacles, while bicycles are represented as rectangular polygonal obstacles. 3) Local motion planning module : This module runs on the main computation unit and corresponds to the proposed U-OBCA planner. It subscribes to the global path, predicted trajectories of moving obstacles, and the current wheelchair pose, and generates a locally feasible trajectory in real time. 4) Tracking module : This module also runs on the main computation unit. It subscribes to the wheelchair pose and the planned local trajectory, and computes the corresponding linear and angular velocity commands. The controller described in [34, Eq. (3)] is employed to track the planned trajectory. 
+
+B. Estimating the Statistics of the Uncertainties 
+
+The safety constraints derived in Theorem 7 and Theo-rem 10 rely on the statistical properties of the underlying random variables. In particular, the expectations and covari-ance matrices of the uncertainties are required to construct deterministic approximations of the chance constraints. Since the smart wheelchair operates on dry terrain at relatively low velocities, wheel slippage is negligible. Consequently, environmental disturbances are not explicitly considered in the uncertainty modeling. However, neither the moving obstacle detection and trajectory prediction module [33] nor the lo-calization and global planning module [32] provides explicit statistical information on these uncertainties. Therefore, we estimate the following quantities offline: 1) the localization error of the smart wheelchair, 2) the pose perception errors of obstacles, 3) the predicted pose errors of moving obstacles. 
+
+1) Smart Wheelchair’s Localization Error: To estimate the expectation and variance of the smart wheelchair localization error, we temporarily equip the wheelchair with a high-precision RTK-GPS module to obtain ground-truth poses. The ground-truth and estimated poses are synchronized according to their timestamps, resulting in 200 localization error sam-ples. The expectations and variances of the x-, y-, and θ-components are then computed. The results are summarized in Table III. From the table, the expectation of the localization error is observed to be close to zero. Therefore, consistent with Assumption 1, we set E([ wvx,k , wvy,k , wvθ,k ]T ) = 03×1. Since U-OBCA incorporates Wasserstein ambiguity sets, this zero-mean approximation does not compromise robustness. Con-sequently, the covariance of the smart wheelchair localiza-tion error is set as cov([ wvx,k , wvy,k , wvθ,k ]T ) = diag(7 .28 ×
+
+10 −4 m2, 3.17 × 10 −4 m2, 5.89 × 10 −2 deg 2), k ∈{1, . . . , N }.                         
+
+> TABLE III ESTIMATED EXPECTATION AND VARIANCE OF THE SMART WHEELCHAIR ’SLOCALIZATION ERROR
+> Expectation Variance
+> x−5.27 ×10 −3m7.28 ×10 −4m2
+> y−3.22 ×10 −3m3.17 ×10 −4m2
+> θ3.70 ×10 −2deg 5.89 ×10 −2deg 2
+
+2) Pose Perception Error of Static Obstacles: To identify the pose perception error of obstacles, we first fix the smart wheelchair at Point A (illustrated in Fig. 9(b)), with its orientation aligned with the bicycle lane, corresponding to the experimental scenario shown in Fig. 9(a). The obstacles are then placed at eight predefined poses. At each pose, the obstacle poses are measured by the perception module, and the corresponding noise variances are estimated. More specifically, the obstacles are placed in front of the wheelchair at distances of 0.5 m, 1.0 m, 1.5 m, and 2.0 m (Poses 1–4), with their orientations facing toward the wheelchair. Poses 5–8 share the same positions as Poses 1–4, respectively, but with the obstacle orientation rotated clockwise by 90 ◦.Recall that in Sec. II, obstacle poses are represented in the world frame. Therefore, the error statistics of both obsta-cle poses and their predicted trajectories must be estimated in the world frame. However, the perception module pro-vides obstacle poses and predicted trajectories in the ego-vehicle frame. Consequently, localization errors of the smart wheelchair propagate into the obstacle pose uncertainties when transformed to the world frame. To account for this effect, we approximate the distribution of the localization error ob-tained in Sec. VI-B1 using histograms and randomly sample perturbation vectors from it. These perturbations are injected 13 
+
+into the coordinate transformation from the ego frame to the world frame, generating world-frame obstacle pose samples. The expectations and variances of the resulting estimation errors are then computed from these samples. On the other hand, since ground-truth obstacle poses are difficult to obtain, we assume that the obstacle detection and trajectory prediction module [33] provides unbiased pose estimates. Under this assumption, the expectations of both the static obstacle pose perception errors and the predicted pose errors of moving obstacles are set to zero, and the estimation procedure focuses solely on the covariance matrices. Moreover, as stated in Assumption 1, the components are assumed to be mutually independent. Therefore, it suffices to estimate the variances of each component independently. For each pose, 100 samples of obstacle poses are collected, and the resulting variances are summarized in Table IV. To ensure safety during navigation, the covariance matrices are constructed by selecting, for each state component, the largest variance observed among the eight poses. Specifi-cally, for round-shaped obstacles, we set cov([ woj 
+
+> x
+
+, woj 
+
+> y
+
+]T ) = diag(11 .33 × 10 −4 m2, 5.22 × 10 −4 m2). For polygon-shaped obstacles, we set cov([ woj 
+
+> x
+
+, woj 
+
+> y
+
+, woj 
+
+> θ
+
+]T ) = diag(16 .67 ×
+
+10 −4 m2, 5.78 × 10 −4 m2, 15 .92 × 10 −2 deg 2).
+
+3) Predicted Pose Error of Moving Obstacles: The smart wheelchair is fixed as in Sec. VI-B2, while the moving obsta-cles (pedestrians and bicycles) repeatedly follow a predefined trajectory passing consecutively from Pose 4 to Pose 1. This process is repeated 20 times. Each time an obstacle reaches a milestone pose, its predicted future poses are recorded. For each prediction step, the variance of the predicted pose errors in the world frame is computed using the same perturbation-based procedure described in Sec. VI-B2. The results are illustrated in Fig. 8. In particular, the variances of the x- and y-components exhibit approximately linear growth with respect to the predic-tion step. Therefore, the slope of the fitted line is adopted as the prediction error growth rate. In contrast, as shown in Fig. 8, the θ-variance of the polygon-shaped obstacle does not exhibit significant growth as the prediction horizon increases. To ensure safety, the largest observed value is therefore adopted as the variance of the θ-component. Consequently, the estimated  
+
+> Fig. 8. An example of predicted pose error for a polygon-shaped obstacle at pose 3.
+
+variances at different poses are summarized in Table V. When constructing the covariance matrices of the predicted pose errors, the largest value across different poses is selected for each component. Specifically, for moving round obstacles, we set cov([ woj
+
+> x,k
+
+, woj
+
+> y,k
+
+]T ) = diag(6 .72 ×k×10 −4 m2, 9.17 ×
+
+k × 10 −4 m2), k ∈ { 1, . . . , N }. For moving polygon-shaped obstacles, we set cov([ woj
+
+> x,k
+
+, woj
+
+> y,k
+
+, woj
+
+> θ,k
+
+]T ) = diag(7 .20 × k ×
+
+10 −4 m2, 12 .32 × k × 10 −4 m2, 10 .17 × 10 −2 deg 2), k ∈{1, . . . , N }, where k denotes the prediction step.  
+
+> (a) Real world scenario of narrow corridor.
+> (b) The approximate trajectories and target points of bicycle, pedestrian and wheelchair. Fig. 9. The experiment scenario of narrow corridor.
+
+C. Navigation in a Narrow Corridor 1) The Experiment Scenario: The experimental field is a bicycle lane with a width of 2.5 m, which serves as a narrow corridor. An electric scooter is parked on the road and is viewed as a static obstacle with a nominal size of 0.6
+
+m×1.5 m, and a bicycle is parked and viewed as another static obstacle with a nominal size of 0.5 m × 1.5 m; neither of these static obstacles is pre-built into the navigation map. In the experiment, the smart wheelchair is required to navigate toward the goal while avoiding collisions with two static obstacles, a pedestrian, and a moving bicycle. The experimental scenario is illustrated in Fig. 9. 
+
+2) The Experiment Settings: We set the sampling period 
+
+∆t = 0.2s and choose the number of prediction steps as N = 12 . Moreover, the risk levels α1, α 2, α 3 are set to 0.002 , 0.002 and 0.006 , respectively. We further set the Wasserstein radius θw = θw1 = θw2 = θw3 = 0 .001 and adopt the estimated uncertainty statistics in Sec.VI-B in the experiments. We also use IPOPT [26] for the numerical solver, and we set the solver as “mumps” [29] in CasADi [30]. The state and control inputs of wheelchair are kept the same as those in Sec. V-B (see (31)). Moreover, to achieve a better 14 
+
+TABLE IV ESTIMATED VARIANCES OF STATIC OBSTACLE POSE PERCEPTION ERROR 
+
+Variance Pose 1 Pose 2 Pose 3 Pose 4 Pose 5 Pose 6 Pose 7 Pose 8 
+
+Round obstacle x (×10 −4 m2) 10.37 8.75 9.38 11.33 11.05 9.29 8.93 10.02 Round obstacle y (×10 −4 m2) 5.22 4.70 4.23 4.78 4.95 4.44 4.02 4.68 Polygon obstacle x (×10 −4 m2) 15.85 13.21 11.03 13.68 14.45 13.89 14.58 16.67 
+
+Polygon obstacle y (×10 −4 m2) 4.07 4.19 4.22 4.72 5.11 4.80 5.02 5.78 
+
+Polygon obstacle θ (×10 −2 deg 2) 10.22 8.31 11.67 10.38 15.92 11.28 9.73 10.69 TABLE V ESTIMATED VARIANCES OF MOVING OBSTACLE PREDICTED POSE ERROR 
+
+Variance Pose 1 Pose 2 Pose 3 Pose 4 
+
+x (Round) ( ×k × 10 −4 m2) 6.72 6.37 5.63 5.45 
+
+y (Round) ( ×k × 10 −4 m2) 8.28 9.17 8.35 8.97 
+
+x (Polygon) ( ×k × 10 −4 m2) 6.92 6.60 6.54 7.20 
+
+y (Polygon) ( ×k × 10 −4 m2) 12.32 11.64 9.58 10.62 
+
+θ (Polygon) ( ×10 −2 deg 2) 10.17 8.37 9.52 9.21 
+
+(a) The finishing time of different methods. 
+
+(b) The minium distance to obstacles of different methods. Fig. 10. Comparison of the navigation finishing time and the minium distance to obstacles between methods. 
+
+(a) Real-world scenario of the parking experiment. 
+
+(b) The approximate trajectory and target point of wheelchair. 
+
+(c) The front view of the parking lot. Fig. 11. The experiment scenario of the parking experiment. 15                                    
+
+> TABLE VI COMPARISON OF DIFFERENT METHODS IN REAL WORLD NARROW CORRIDOR NAVIGATION SCENARIOS
+> Methods Finishing Time (s) Mean Cost Mean Computation Time (ms) Mean Distance (m) Min Distance (m)
+> U-OBCA 32.44 267.08 557.98 1.37 0.30 RCA [2] 42.23 324.32 427.75 1.73 0.69 LCC [6] 42.16 337.09 435.62 1.70 0.69 ECC [7] 40.33 302.67 467.88 1.72 0.68 RC [10] 40.43 311.16 493.28 1.95 0.72 DRCC [17] 40.35 296.08 478.02 1.83 0.67
+
+navigation performance, we introduce a global path planned by A ⋆ into the cost function J as a reference trajectory. In particular, the reference trajectory shall have the same number of steps and the time interval as the predicted local trajectory. And consequently, the modified J take the form 
+
+J(¯ s, u ) = 
+
+> N
+
+X
+
+> k=1
+
+∥¯svk − ¯srk∥2 
+
+> Q
+
++ 
+
+> N−1
+
+X
+
+> k=0
+
+∥uk∥2
+
+> R
+
+,
+
+where ¯srk is the state of the k-th point in reference trajectory, 
+
+Q and R are positive definite weighting matrices. Here Q =diag(0 .5, 0.5, 0.7) , and R = diag(0 .1, 0.1) . To this end, the following steps are used to turn the global path planned by A⋆ algorithm into a reference trajectory for navigation: 1) Orientation setting: For each path point, the orientation is set to point toward the position of the subsequent path point. 2) Path length computing: For each path point, we com-pute its Euclidean distance to the next point, then we accumulate the distance to obtain the path length from the start point to every path point. 3) Path resampling: We then resample the path with a fixed interval distance of 0.1m, and timestamp the first N =12 resampled points with ∆t = 0 .2s time interval. These points are then used as the reference trajectory ¯srk in J.4) Pose interpolation: Since some of the resampled trajec-tory points do not necessarily coincide with the global path points, such pose interpolation is still needed. In particular, for the trajectory points that locates between two global path points, we perform linear interpolation to obtain its position and Spherical Linear intERPolation (SLERP) [35] to obtain its orientation. 
+
+3) The Experiment Results: We choose RCA [2], LCC [6], ECC [7], RC [10], and DRCC [17] as the comparison baselines, just as it is in Sec. V-B. To guarantee a fair comparison, all of the above methods run under the same time-horizon length, weighting matrices, risk level and noise distributions. Moreover, we repeat the same experiment 10 
+
+times for each method, and compare the Success Rate, Mean Finishing Time, Mean Cost Value, Minium and Mean Dis-tance to Obstacles and Mean Computation Time. All methods successfully accomplish the navigation task each time and the results are illustrated in Table. VI. From Table. VI, we conclude that our proposed U-OBCA has the lowest minimum distance to obstacles yet still guar-antees a full success rate. This indicates that it has the lowest safety over-conservatism. Therefore, it is not surprising that U-OBCA has the lowest finishing time and the lowest mean cost value. Nevertheless, U-OBCA has the highest computation time, which is the price to pay since we introduce dual variables into the problem. In addition, we notice that the computation time of real-world experiment is much higher than those in the simulations. This is because the localization and tracking module is necessary for real-world experiments and they both run on main computation unit, which cause extra burden (especially the localization module) and slow the planning speed. Moreover, to further illustrate the performance advantage of our method, the box plots of the navigations’ finishing time as well as the minimum distance to the obstacles across the methods are depicted in Fig. 10. 
+
+D. Parking Experiment 1) The Experiment Scenario: The experimental field is a 
+
+2.2m-wide bicycle parking space between the planting strips, where two bicycles are already parked, leaving an 1.1m-wide free space between them. In view of the bicycles’ front wheel (as shown in Fig. 11(c)), the minium width of the free space is about 1.0m. In the experiment, two static rectangular obstacles are introduced to represent the parked bicycles, forming the boundaries of a 1.1 m × 1.5 m parking space. Each static rectangular obstacle has the size of 0.5 m × 1.5 m. The objective is to park our 0.6 m × 1.1 m smart wheelchair into the parking space while avoiding collisions with the static obstacles. The experimental scenario is shown in Fig. 11. 
+
+2) The Experiment Settings: All the experiment settings are the same as those in Sec.VI-C. 
+
+3) The Experiment Results: We choose the same com-parison baselines as those in Sec. VI-C. All the methods also run under the same receding horizon setting, weighting matrices, risk level and noise distributions so as to have a fair comparison. Similar to Sec. VI-C, we repeat the experiment 
+
+10 times for each methods. U-OBCA exhibits full success rate in the parking task, while none of the baselines successfully complete the task. This is reasonable because all other methods take elliptical approximation for the polygon-shaped static obstacles, which make the tiny parking space unreachable for the wheelchair. We hence only list the mean finishing time, minimum distance to obstacles and mean computation time of U-OBCA in Table. VII and do not depict the box plots of the finishing time and the minimum distance to obstacles as we do in Sec.VI-C. VII. C ONCLUSION 
+
+In this paper, we extend the Optimization-Based Collision Avoidance (OBCA) method to Uncertainty-aware OBCA (U-16 
+
+TABLE VII U-OBCA EXPERIMENT RESULTS IN REAL WORLD PARKING SCENARIOS 
+
+Finishing Time (s) Mean Computation Time (ms) Min distance (m) 
+
+7.96 400.13 0.17 
+
+OBCA) for vehicle trajectory planning in uncertain narrow en-vironments. More precisely, we first use the chance constraints to tightly bound the collision risks between the polygons. Moreover, we prove that the chance constraints can be further relaxed into deterministic nonlinear constraints, which can be efficiently solved. The numerical simulation and the real-world experiment results show the proposed method avoids the over-conservatism in trajectory planning and improves the navigation efficiency. APPENDIX 
+
+A. Computation of the expectation and the covariance matrix in Theorem 7 
+
+To compute the expectation and covariance of pjk =[δxjk, δ yjk]T , recall that pjk = ¯Av R−1(θvk )δtjk + ¯bv , we obtain 
+
+R−1(θvk )δtjk =
+
+ δxjk cos θvk +δyjk sin θvk
+
+−δxjk sin θvk +δyjk cos θvk
+
+
+
+=: 
+
+ηj,k, 1
+
+ηj,k, 2
+
+
+
+.
+
+Hence, 
+
+E[pjk] = ¯Av E
+
+h ηj,k, 1 ηj,k, 2
+
+T i
+
++ ¯bv ,
+
+Σpjk
+
+= ¯Av Σ
+
+ηj,k, 1 ηj,k, 2
+
+T  ¯Av,T .
+
+(32) Note δxjk = xvk − xoj 
+
+> k
+
+= ¯ xvk + wvk − ¯xoj 
+
+> k
+
+− woj 
+
+> k
+
+= δ¯xjk + δwjx,k .Similarly, δyjk = δ ¯yjk + δwjy,k , and recall that θvk = ¯θvk + wvθ,k .By Assumption 2, it holds that E[sin( wvθ,k )] = 0 , E[δwjx,k ] = 
+
+E[wvx,k ] − E[woj
+
+> x,k
+
+] = 0 and E[δwjy,k ] = E[wvy,k ] − E[woj
+
+> y,k
+
+] = 0. Moreover, by Assumption 1, the noises in positions and orientations are independent, it follows that 
+
+E[ηj,k, 1] = E[δxjk cos θvk +δyjk sin θvk ]= E[( δ¯xjk + δw) 
+
+> x,k
+
+cos θvk )] + E[( δ ¯yjk + δwjy,k ) sin θvk ]= δ¯xjk E[cos θvk ] + E[δwjx,k ]
+
+| {z }
+
+> =0
+
+E[cos θvk ]+ δ ¯yjk E[sin θvk ] + E[δwjy,k ]
+
+| {z }
+
+> =0
+
+E[sin θvk ]= δ¯xjk E[cos θvk ] + δ ¯yjk E[sin θvk ].
+
+(33) It further holds that 
+
+E[ηj,k, 1] = δ¯xjk E[cos( ¯θvk + wvθ,k )] + δ ¯yjk E[sin( ¯θvk + wvθ,k )] = δ¯xjk cos ¯θvk E[cos wvθ,k ] − δ¯xjk cos ¯θvk E[sin wvθ,k ]
+
+| {z }
+
+> =0
+
++ δ ¯yjk sin ¯θvk E[cos wvθ,k ] + δ ¯yjk cos ¯θvk E[sin wvθ,k ]
+
+| {z }
+
+> =0
+
+= ( δ¯xjk cos ¯θvk + δ ¯yjk sin ¯θvk ) E[cos wvθ,k ],
+
+and similarly, it holds that 
+
+E[ηj,k, 2] = ( −δ¯xjk sin ¯θvk +δ ¯yjk cos ¯θvk ) E[cos wvθ,k ]. (34) Now consider the 6-dimensional random vector 
+
+ws,j,k := 
+
+
+
+cos wvθ,k 
+
+sin wvθ,k 
+
+δwjx,k cos wvθ,k 
+
+δwjy,k cos wvθ,k 
+
+δwjx,k sin wvθ,k 
+
+δwjy,k sin wvθ,k 
+
+
+
+(35) whose covariance Σws,j,k := Cov( ws,j,k ) is known a priori since it can be computed off-line from the definition by Assumption 2. On the other hand, note that ηj,k, 1 and ηj,k, 2
+
+can be written: 
+
+ηj,k, 1 = V T 
+
+> ηj,k, 1
+
+ws,j,k ,
+
+ηj,k, 2 = V T 
+
+> ηj,k, 2
+
+ws,j,k , (36) where 
+
+Vηj,k, 1 = δ¯xjk cos ¯θvk + δ ¯yjk sin ¯θvk ,
+
+−δ¯xjk sin ¯θvk + δ ¯yjk cos ¯θvk ,
+
+cos ¯θvk , sin ¯θvk , − sin ¯θvk , cos ¯θvk
+
+T ,Vηj,k, 2 =  − δ¯xjk sin ¯θvk + δ ¯yjk cos ¯θvk ,
+
+− δ¯xjk cos ¯θvk − δ ¯yjk sin ¯θvk ,
+
+− sin ¯θvk , cos ¯θvk , − cos ¯θvk , − sin ¯θvk
+
+T .
+
+(37) Hence 
+
+σ2(ηj,k, 1) = VT 
+
+> ηj,k, 1
+
+Σws,j,k Vηj,k, 1 ,σ2(ηj,k, 2) = VT 
+
+> ηj,k, 2
+
+Σws,j,k Vηj,k, 2 ,
+
+Cov( ηj,k, 1, ηj,k, 2) = VT 
+
+> ηj,k, 1
+
+Σws,j,k Vηj,k, 2 ,
+
+(38) and finally substitute (33)–(38) into (32). 
+
+B. Computation of the expectation and the covariance matrix in Theorem 10 
+
+In this section, we compute the expectation and covariance matrix in Theorem 10 in detail. Similar to Appendix A, we first decompose the variables in to the expression of the vehicle’s and the obstacles’ poses (xvk, yvk , θvk ), (xoj 
+
+> k
+
+yoj 
+
+> k
+
+, θoj 
+
+> k
+
+), and then compute the expectations and the covariances based on the expectations and the covariances of the noises’ functions. Here we only give the final expression for brevity. More precisely, 
+
+E[qj, 1 
+
+> k
+
+] = ¯Aoj E
+
+h  cos δθjk sin δθjk
+
+T i
+
+,
+
+E[qj, 2 
+
+> k
+
+] = ¯Aoj E
+
+h − sin δθjk cos δθjk
+
+T i
+
+,
+
+Σqj, 1
+
+> k
+
+= ¯Aoj Σ
+
+ cos δθjk sin δθjk
+
+T  ¯Aoj ,T ,
+
+Σqj, 2
+
+> k
+
+= ¯Aoj Σ
+
+− sin δθjk cos δθjk
+
+T  ¯Aoj ,T ,17 
+
+where similarly to Appendix A, recall that δθjk = δ ¯θjk +δwjθ,k ,we have 
+
+E[cos δθjk] ≈ cos δ ¯θjk E[cos δwjθ,k ],
+
+E[sin δθjk] ≈ sin δ ¯θjk E[cos δwjθ,k ],σ2(cos δθjk) = [cos δ ¯θjk,−sin δ ¯θjk]Σ δwjθ,k 
+
+[cos δ ¯θjk,−sin δ ¯θjk]T ,σ2(sin δθjk) = [sin δ ¯θjk, cos δ ¯θjk]Σ δwjθ,k 
+
+[sin δ ¯θjk, cos δ ¯θjk]T ,
+
+Cov(cos δθjk, sin δθjk)= [cos δ ¯θjk,−sin δ ¯θjk]Σ δwjθ,k 
+
+[sin δ ¯θjk, cos δ ¯θjk]T ,
+
+where Σδwjθ,k 
+
+∈ R2×2 is the covariance matrix of the vector 
+
+h
+
+cos δwjθ,k sin δwjθ,k 
+
+iT
+
+.Next, we compute the expectation of rjk and bvk. Recall that 
+
+bvk = ¯Av R−1(θvk )tvk + ¯bv , we obtain 
+
+R−1(θvk )tvk =
+
+ xvk cos θvk +yvk sin θvk
+
+−xvk sin θvk +yvk cos θvk
+
+
+
+=: 
+
+ζv,k, 1
+
+ζv,k, 2
+
+
+
+.
+
+Hence 
+
+E[bvk] = E  ¯Av R−1(θvk )tvk + ¯bv 
+
+= ¯Av E R−1(θvk )tvk
+
+ + ¯bv
+
+= ¯Av E
+
+h ζv,k, 1 ζv,k, 2
+
+T i
+
++ ¯bv .
+
+Then, the computation of E[ζv,k, 1], E[ζv,k, 2] is similar to (33)-(34), here we directly give the final expression as follows 
+
+E[ζv,k, 1] = ¯xvk cos ¯θvk E[cos wvθ,k ]+ ¯ yvk sin ¯θvk E[cos wvθ,k ].
+
+E[ζv,k, 2] = −¯xvk sin ¯θvk E[cos wvθ,k ]+ ¯ yvk cos ¯θvk E[cos wvθ,k ].
+
+To compute E[rjk], we first denote 
+
+κj,k, 1 := δxjk cos θoj 
+
+> k
+
++δyjk sin θoj 
+
+> k
+
++¯bv 
+
+> 1
+
+cos δθjk −¯bv 
+
+> 2
+
+sin δθjk,
+
+κj,k, 2 := −δxjk sin θoj 
+
+> k
+
++δyjk cos θoj 
+
+> k
+
++¯bv 
+
+> 1
+
+sin δθjk +¯bv 
+
+> 2
+
+cos δθjk,
+
+where ¯bv 
+
+> 1
+
+, ¯bv 
+
+> 2
+
+represent the 1st , 2nd element in ¯bv , respectively. Then, recall that rjk = ¯Aoj Rg (δθjk)bvk − boj 
+
+> k
+
+, Rg (δθjk) =
+
+R(δθjk) 02×2
+
+ and ¯Av =
+
+1 0 −1 00 1 0 −1
+
+T
+
+=
+
+ I2×2
+
+−I2×2
+
+
+
+, we obtain 
+
+rjk = ¯Aoj R(δθjk) 02×2
+
+   I2×2
+
+−I2×2
+
+
+
+R−1(θvk )tvk + ¯bv 
+
+−
+
+ ¯Aoj R−1(θoj 
+
+> k
+
+)toj 
+
+> k
+
++ ¯boj
+
+
+
+= ¯Aoj R(δθjk)R−1(θvk )tvk − ¯Aoj R−1(θoj 
+
+> k
+
+)toj
+
+> k
+
++ ¯Aoj Rg (δθjk)¯bv − ¯boj
+
+= ¯Aoj R−1(θoj 
+
+> k
+
+) tvk − toj
+
+> k
+
+ + ¯Aoj Rg (δθjk)¯bv − ¯boj
+
+= ¯Aoj κj,k, 1 κj,k, 2
+
+T − ¯boj .
+
+Hence 
+
+E[rjk] = E
+
+h ¯Aoj κj,k, 1 κj,k, 2
+
+T − ¯boj
+
+i
+
+= ¯Aoj E
+
+h κj,k, 1 κj,k, 2
+
+T i
+
+− ¯boj ,
+
+and 
+
+E[κj,k, 1] = ( δ¯xjk cos ¯θoj 
+
+> k
+
++δ ¯yjk sin ¯θoj 
+
+> k
+
+) E[cos woj
+
+> θ,k
+
+],
+
++ ( ¯bv 
+
+> 1
+
+cos δ ¯θjk − ¯bv 
+
+> 2
+
+sin δ ¯θjk) E[cos δwjθ,k ],
+
+E[κj,k, 2] = ( −δ¯xjk sin ¯θoj 
+
+> k
+
++δ ¯yjk cos ¯θoj 
+
+> k
+
+) E[cos woj
+
+> θ,k
+
+],
+
++ ( ¯bv 
+
+> 1
+
+sin δ ¯θjk + ¯bv 
+
+> 2
+
+cos δ ¯θjk) E[cos δwjθ,k ].
+
+To compute the covariance matrix Σψj,k, 3 , recall that 
+
+ψj,k, 3 := rj,T k λjk − bv,T k ξjk, we obtain 
+
+Σψj,k, 3 = −ξj,T k λj,T k
+
+ Σ[bvk ;rjk ]
+
+−ξjk
+
+λjk
+
+
+
+.
+
+Next, we compute Σ[bvk ;rjk ]. More precisely, recall that bvk =¯Av ζv,k, 1 ζv,k, 2
+
+T + ¯bv and rjk = ¯Aoj
+
+κj,k, 1 κj,k, 2
+
+T − ¯boj ,hence 
+
+Σ[bvk ;rjk ] =
+
+" Σbvk Σbvk ,rjk
+
+Σrjk ,bvk
+
+Σrjk
+
+#
+
+=
+
+ ¯Av Σζv,k 
+
+¯Av,T ¯Av Σζv,k ,κj,k 
+
+¯Aoj ,T 
+
+¯Aoj Σκj,k ,ζv,k 
+
+¯Av,T ¯Aoj Σκj,k 
+
+¯Aoj ,T 
+
+
+
+,
+
+where ζv,k , κj,k are short-hand notation for ζv,k, 1 ζv,k, 2
+
+T ,
+
+κj,k, 1 κj,k, 2
+
+T , respectively. Moreover, 
+
+Σζv,k =
+
+ σ2(ζv,k, 1) Cov( ζv,k, 1, ζv,k, 2)Cov( ζv,k, 2, ζv,k, 1) σ2(ζv,k, 2)
+
+
+
+,
+
+Σκj,k =
+
+ σ2(κj,k, 1) Cov( κj,k, 1, κj,k, 2)Cov( κj,k, 2, κj,k, 1) σ2(κj,k, 2)
+
+
+
+,
+
+Σζv,k ,κj,k = Σ T 
+
+> κj,k ,ζv,k
+
+=
+
+Cov( ζv,k, 1, κj,k, 1) Cov( ζv,k, 1, κj,k, 2)Cov( ζv,k, 2, κj,k, 1) Cov( ζv,k, 2, κj,k, 2)
+
+
+
+.
+
+Then, similar to (35), consider the 14 -dimensional random vector 
+
+Wψ,j,k := 
+
+
+
+cos woj 
+
+> θ,k
+
+sin woj
+
+> θ,k
+
+δwjx,k cos woj 
+
+> θ,k
+
+δwjx,k sin woj
+
+> θ,k
+
+δwjy,k cos woj 
+
+> θ,k
+
+δwjy,k sin woj
+
+> θ,k
+
+cos δwjθ,k sin δwjθ,k 
+
+cos wvθ,k sin wvθ,k 
+
+wvx,k cos wvθ,k wvx,k sin wvθ,k 
+
+wvy,k cos wvθ,k wvy,k sin wvθ,k 
+
+
+
+∈ R7×2,
+
+wψ,j,k := vec( W Tψ,j,k ) ∈ R14 ×1,
+
+whose covariance Σwψ,j,k := Cov( wψ,j,k ) is known a priori since it can be computed off-line by Assumption 2. On the other hand, note that the first 8 dimensions are related to κj,k, 1
+
+and κj,k, 2, and the last 6 dimensions are related to ζv,k, 1 and 
+
+ζv,k, 2, and we can rewrite them as 
+
+ζv,k, 1 = V T 
+
+> ζv,k, 1
+
+wψ,j,k , ζv,k, 2 = V T 
+
+> ζv,k, 2
+
+wψ,j,k ,
+
+κj,k, 1 = V T 
+
+> κj,k, 1
+
+wψ,j,k , κj,k, 2 = V T 
+
+> κj,k, 2
+
+wψ,j,k .18 
+
+Then, the covariance of the vector [ζv,k , κj,k ] shall take the form σ2(ζv,k, 1) = V T 
+
+> ζv,k, 1
+
+Σwψ,j,k Vζv,k, 1 ,σ2(ζv,k, 2) = V T 
+
+> ζv,k, 2
+
+Σwψ,j,k Vζv,k, 2 ,σ2(κj,k, 1) = V T 
+
+> κj,k, 1
+
+Σwψ,j,k Vκj,k, 1 ,σ2(κj,k, 2) = V T 
+
+> κj,k, 2
+
+Σwψ,j,k Vκj,k, 2 ,σ(ζv,k, 1, ζv,k, 2) = V T 
+
+> ζv,k, 1
+
+Σwψ,j,k Vζv,k, 2 ,σ(κj,k, 1, κj,k, 2) = V T 
+
+> κj,k, 1
+
+Σwψ,j,k Vκj,k, 2 ,σ(ζv,k, 1, κj,k, 1) = V T 
+
+> ζv,k, 1
+
+Σwψ,j,k Vκj,k, 1 ,σ(ζv,k, 1, κj,k, 2) = V T 
+
+> ζv,k, 1
+
+Σwψ,j,k Vκj,k, 2 ,σ(ζv,k, 2, κj,k, 1) = V T 
+
+> ζv,k, 2
+
+Σwψ,j,k Vκj,k, 1 ,σ(ζv,k, 2, κj,k, 2) = V T 
+
+> ζv,k, 2
+
+Σwψ,j,k Vκj,k, 2 ,
+
+and 
+
+Vζv,k, 1 = [ 01×8, ¯xvk cos ¯θvk + ¯ yvk sin ¯θvk ,
+
+− ¯xvk sin ¯θvk + ¯ yvk cos ¯θvk ,
+
+cos ¯θvk , sin ¯θvk ,−sin ¯θvk , cos ¯θvk , ]T ,Vζv,k, 2 = [ 01×8, −¯xvk sin ¯θvk + ¯ yvk cos ¯θvk ,
+
+− ¯xvk cos ¯θvk − ¯yvk sin ¯θvk ,
+
+− sin ¯θvk , cos ¯θvk ,−cos ¯θvk ,−sin ¯θvk ]T ,Vκj,k, 1 = [ δ¯xjk cos ¯θoj 
+
+> k
+
++ δ ¯yjk sin ¯θoj 
+
+> k
+
+,
+
+−δ¯xjk sin ¯θoj 
+
+> k
+
++ δ ¯yjk cos ¯θoj 
+
+> k
+
+,
+
+cos ¯θoj 
+
+> k
+
+, sin ¯θoj 
+
+> k
+
+, − sin ¯θoj 
+
+> k
+
+, cos ¯θoj 
+
+> k
+
+,
+
+¯bv 
+
+> 1
+
+cos δ ¯θjk − ¯bv 
+
+> 2
+
+sin δ ¯θjk,
+
+−¯bv 
+
+> 1
+
+sin δ ¯θjk − ¯bv 
+
+> 2
+
+cos δ ¯θjk, 01×6]T ,Vκj,k, 2 = [ −δ¯xjk sin ¯θoj 
+
+> k
+
++ δ ¯yjk cos ¯θoj 
+
+> k
+
+,
+
+−δ¯xjk cos ¯θoj 
+
+> k
+
+− δ ¯yjk sin ¯θoj 
+
+> k
+
+,
+
+− sin ¯θoj 
+
+> k
+
+, cos ¯θoj 
+
+> k
+
+, − cos ¯θoj 
+
+> k
+
+, − sin ¯θoj 
+
+> k
+
+,
+
+¯bv 
+
+> 1
+
+sin δ ¯θjk + ¯bv 
+
+> 2
+
+cos δ ¯θjk,
+
+¯bv 
+
+> 1
+
+cos δ ¯θoj 
+
+> k
+
+− ¯bv 
+
+> 2
+
+sin δ ¯θjk, 01×6]T .
+
+In practice, we compute the covariance matrix by replacing the nominal state value with the initial guess of the nominal state, this will accelerate the computation when solving the optimization problem. REFERENCES [1] E. J. Molinos, A. Llamazares, and M. Oca˜ na, “Dynamic window based approaches for avoiding obstacles in moving,” Robotics and Autonomous Systems , vol. 118, pp. 112–130, 2019. [2] M. Kamel, J. Alonso-Mora, R. Siegwart, and J. Nieto, “Robust collision avoidance for multiple micro aerial vehicles using nonlinear model predictive control,” in 2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) . IEEE, 2017, pp. 236–243. [3] J. L´ opez, P. Sanchez-Vilarino, M. D. Cacho, and E. L. Guill´ en, “Obstacle avoidance in dynamic environments based on velocity space optimiza-tion,” Robotics and Autonomous Systems , vol. 131, p. 103569, 2020. [4] L. Blackmore, M. Ono, and B. C. Williams, “Chance-constrained optimal path planning with obstacles,” IEEE Transactions on Robotics ,vol. 27, no. 6, pp. 1080–1094, 2011. [5] M. da Silva Arantes, C. F. M. Toledo, B. C. Williams, and M. Ono, “Collision-free encoding for chance-constrained nonconvex path plan-ning,” IEEE Transactions on Robotics , vol. 35, no. 2, pp. 433–448, 2019. [6] H. Zhu and J. Alonso-Mora, “Chance-constrained collision avoidance for mavs in dynamic environments,” IEEE Robotics and Automation Letters , vol. 4, no. 2, pp. 776–783, 2019. [7] M. Castillo-Lopez, P. Ludivig, S. A. Sajadi-Alamdari, J. L. Sanchez-Lopez, M. A. Olivares-Mendez, and H. Voos, “A real-time approach for chance-constrained motion planning with dynamic obstacles,” IEEE Robotics and Automation Letters , vol. 5, no. 2, pp. 3620–3625, 2020. [8] Y. K. Nakka and S.-J. Chung, “Trajectory optimization of chance-constrained nonlinear stochastic systems for motion planning under uncertainty,” IEEE Transactions on Robotics , vol. 39, no. 1, pp. 203– 222, 2022. [9] A. Theurkauf, J. Kottinger, N. Ahmed, and M. Lahijanian, “Chance-constrained multi-robot motion planning under gaussian uncertainties,” 
+
+IEEE Robotics and Automation Letters , vol. 9, no. 1, pp. 835–842, 2023. [10] A. Jasour, W. Han, and B. C. Williams, “Convex risk-bounded continuous-time trajectory planning and tube design in uncertain non-convex environments,” The International Journal of Robotics Research ,vol. 42, no. 10, pp. 705–728, 2023. [11] S. Xu, H. Ruan, W. Zhang, Y. Wang, L. Zhu, and C. P. Ho, “Distribution-ally robust chance constrained trajectory optimization for mobile robots within uncertain safe corridor,” in 2024 IEEE International Conference on Robotics and Automation (ICRA) . IEEE, 2024, pp. 88–94. [12] T. Summers, “Distributionally robust sampling-based motion planning under uncertainty,” in 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) . IEEE, 2018, pp. 6518–6523. [13] T. Lew, R. Bonalli, and M. Pavone, “Risk-averse trajectory optimization via sample average approximation,” IEEE Robotics and Automation Letters , 2023. [14] A. Hakobyan and I. Yang, “Wasserstein distributionally robust motion control for collision avoidance using conditional value-at-risk,” IEEE Transactions on Robotics , vol. 38, no. 2, pp. 939–957, 2021. [15] A. Hakobyan, G. C. Kim, and I. Yang, “Risk-aware motion planning and control using cvar-constrained optimization,” IEEE Robotics and Automation letters , vol. 4, no. 4, pp. 3924–3931, 2019. [16] J. Yin, Z. Zhang, and P. Tsiotras, “Risk-aware model predictive path integral control using conditional value-at-risk,” in 2023 IEEE Interna-tional Conference on Robotics and Automation (ICRA) . IEEE, 2023, pp. 7937–7943. [17] K. Ryu and N. Mehr, “Integrating predictive motion uncertainties with distributionally robust risk-aware control for safe robot navigation in crowds,” arXiv preprint arXiv:2403.05081 , 2024. [18] M. Gerdts, R. Henrion, D. H¨ omberg, and C. Landry, “Path planning and collision avoidance for robots,” Numerical Algebra, Control and Optimization , vol. 2, no. 3, pp. 437–463, 2012. [19] J. Schulman, Y. Duan, J. Ho, A. Lee, I. Awwal, H. Bradlow, J. Pan, S. Patil, K. Goldberg, and P. Abbeel, “Motion planning with sequential convex optimization and convex collision checking,” The International Journal of Robotics Research , vol. 33, no. 9, pp. 1251–1270, 2014. [20] B. Li and Z. Shao, “A unified motion planning method for parking an autonomous vehicle in the presence of irregularly placed obstacles,” 
+
+Knowledge-Based Systems , vol. 86, pp. 11–20, 2015. [21] X. Zhang, A. Liniger, and F. Borrelli, “Optimization-based collision avoidance,” IEEE Transactions on Control Systems Technology , vol. 29, no. 3, pp. 972–983, 2020. [22] M. Ono, B. C. Williams, and L. Blackmore, “Probabilistic planning for continuous dynamic systems under bounded risk,” Journal of Artificial Intelligence Research , vol. 46, pp. 511–577, 2013. [23] J. Blanchet and K. Murthy, “Quantifying distributional model risk via optimal transport,” Mathematics of Operations Research , vol. 44, no. 2, pp. 565–600, 2019. [24] K. W. Fang, Symmetric multivariate and related distributions . Chapman and Hall/CRC, 2018. [25] Z. Chen and W. Xie, “Sharing the value-at-risk under distributional ambiguity,” Mathematical Finance , vol. 31, no. 1, pp. 531–559, 2021. [26] A. W¨ achter and L. T. Biegler, “On the implementation of an interior-point filter line-search algorithm for large-scale nonlinear programming,” 
+
+Mathematical programming , vol. 106, pp. 25–57, 2006. [27] I. S. Duff and J. K. Reid, “The multifrontal solution of indefinite sparse symmetric linear,” ACM Transactions on Mathematical Software (TOMS) , vol. 9, no. 3, pp. 302–325, 1983. [28] R. Fourer, D. M. Gay, and B. W. Kernighan, “A modeling language for mathematical programming,” Management Science , vol. 36, no. 5, pp. 519–554, 1990. [29] P. R. Amestoy, I. S. Duff, J.-Y. L’Excellent, and J. Koster, “Mumps: a general purpose distributed memory sparse solver,” in International Workshop on Applied Parallel Computing . Springer, 2000, pp. 121– 130. 19 
+
+[30] J. A. Andersson, J. Gillis, G. Horn, J. B. Rawlings, and M. Diehl, “Casadi: a software framework for nonlinear optimization and optimal control,” Mathematical Programming Computation , vol. 11, pp. 1–36, 2019. [31] D. Helbing and P. Molnar, “Social force model for pedestrian dynamics,” 
+
+Physical review E , vol. 51, no. 5, p. 4282, 1995. [32] B. Peng, H. Xie, and W. Chen, “Roll: Long-term robust lidar-based localization with temporary mapping in changing environments,” in 2022 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) , 2022, pp. 2841–2847. [33] Y. He, L. Zhao, T. Deng, Z. Fang, and W. Chen, “Lightweight lidar-camera 3d dynamic object detection and multi-class trajectory predic-tion,” arXiv preprint arXiv:2504.13647 , 2025. [34] T. Gustavi and X. Hu, “Stable target tracking using observer based velocity estimation,” IFAC Proceedings Volumes , vol. 41, no. 2, pp. 9203–9208, 2008. [35] K. Shoemake, “Animating rotation with quaternion curves,” ACM SIG-GRAPH computer graphics , vol. 19, no. 3, pp. 245–254, 1985.

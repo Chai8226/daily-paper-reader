@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.03740v2/fig-001.webp",
+      "caption": "Fig. 9: Linkwise safety index ϕ across five runs. Dots indicate the mean linkwise ϕ per link, with whiskers showing min/max across runs. Positive values correspond to temporary unsafe-set violations induced by the reference; nevertheless, the overall trend shows rapid recovery back toward ϕ ≤ 0 after avoidance maneuvers.",
+      "page": 11,
+      "index": 1,
+      "width": 510,
+      "height": 301
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03740v2/fig-002.webp",
+      "caption": "Fig. 5: Safe Tracking Comparison. NMPC-10 is nonlinear MPC with 10 times shooting, values in parentheses represent slack weight for safety filter relaxation. Linear counterparts, including KMPC did not require slack relaxation for this experiment. KMPC outperforms NMPC-10 both in tracking and safety constraint satisfaction.",
+      "page": 7,
+      "index": 2,
+      "width": 491,
+      "height": 342
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03740v2/fig-003.webp",
+      "caption": "Fig. 8: Go2 base trajectories over five runs. The reference (black) passes through the unsafe region (red), whereas Koopman Safe MPC produces evasive behavior and steers the robot back toward safety. Run-to-run variation is primarily due to omitting globally-referenced base translation (x, y) from the predictive state, so the controller does not explicitly regulate absolute global position.",
+      "page": 10,
+      "index": 3,
+      "width": 510,
+      "height": 542
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03740v2/fig-004.webp",
+      "caption": "Fig. 3: Overview of training framework for Koopman Safe Control. Neural embedding function and Koopman Operators are first trained, safety index is adapted to the learned dynamics via adversarial fine tuning, and the model is migrated to real environment.",
+      "page": 3,
+      "index": 4,
+      "width": 1054,
+      "height": 416
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03740v2/fig-005.webp",
+      "caption": "Fig. 6: Histogram of single-step joint-angle prediction error norms (radians) over five hardware trajectories (rectangle, sin, star, triangle, spiral), comparing the original Koopman model (blue) against the fine-tuned Koopman model (orange). Fine-tuning shifts the error distributions toward smaller values across all trajectories, yielding a mean joint-angle error of 0.140 rad (maximum 0.546 rad) and a mean end-effector position error of 0.031 m (maximum 0.143 m) on the evaluated hardware dataset.",
+      "page": 8,
+      "index": 5,
+      "width": 896,
+      "height": 357
+    }
+  ]
+}

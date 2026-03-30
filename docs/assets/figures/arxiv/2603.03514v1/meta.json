@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.03514v1/fig-001.webp",
+      "caption": "Fig. 1. An illustration of our perception-aware motion planner that leverages a scene graph embedded with perception costs to generate a trajectory from a start to a goal, while monitoring three objects of interest. The screen of the monitor is the preferable viewpoint in this scenario.",
+      "page": 1,
+      "index": 1,
+      "width": 500,
+      "height": 552
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03514v1/fig-002.webp",
+      "caption": "Fig. 4. In this real-robot experiment, the robot plans two different paths with the same start (shown in red) and goal (shown in green) based on a user-specified importance of the two paintings: the yellow path prioritizes painting 1, while the blue path prioritizes painting 2. Both paths start by observing a human with a monitor and end by looking at another human sitting at the table while the middle sections of the paths differ as they prioritize observing different paintings.",
+      "page": 6,
+      "index": 2,
+      "width": 1076,
+      "height": 277
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03514v1/fig-003.webp",
+      "caption": "TABLE I THIS TABLE COMPARES THE PERFORMANCE OF OUR METHOD WITH THREE BASELINES INTRODUCED IN SEC. IV. FOR PLANNING METRICS, Build Time, Plan. Time, AND Path Len. DENOTE THE AVERAGE PRM CONSTRUCTION, PLANNING TIME, AND THE AVERAGE PATH LENGTH, RESPECTIVELY. FOR PERCEPTION METRICS, Avg. Det. Obj., Track Rate, Avg. Conf., AND Scaled Avg. Conf. DENOTE THE AVERAGE NUMBER OF DETECTED OBJECTS PER FRAME, THE TRACKER UPDATE SUCCESS RATE, THE AVERAGE DETECTION CONFIDENCE SCORE, AND THE CONFIDENCE SCORE SCALED BY THE AVERAGE NUMBER OF DETECTED OBJECTS, RESPECTIVELY.",
+      "page": 6,
+      "index": 3,
+      "width": 1064,
+      "height": 208
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03514v1/fig-004.webp",
+      "caption": "Fig. 2. This figure presents the pipeline of our planner. The planner takes the scene graph as input, combining geometric and object-level information with a neural perception cost function to perform multi-object constrained sampling. Sampling is performed (see Sec. III-B) to construct a PRM, which is searched using A* to generate a trajectory that effectively accomplishes perception tasks involving multiple objects along the path.",
+      "page": 3,
+      "index": 4,
+      "width": 1076,
+      "height": 377
+    }
+  ]
+}

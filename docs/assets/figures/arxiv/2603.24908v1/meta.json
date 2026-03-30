@@ -1,0 +1,102 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.24908v1/fig-001.webp",
+      "caption": "Fig. 4: 3D discretization and obstacle-aware travel-cost computation. (a) The workspace is discretized into a voxel graph with free-space nodes; obstacles block direct paths, requiring graph search to find collision-free routes between robot starts 𝑣𝑖𝑅, goals 𝑔𝑝 and 𝑔𝑞. (b) Graph-search distances populate the robots-to-goals matrix 𝐂𝑅𝐺 (with entries 𝐶(𝑣𝑖𝑅, 𝑔𝑗)) and the goals-to-goals matrix 𝐂𝐺𝐺 (with entries 𝐶(𝑔𝑝, 𝑔𝑞)), which are then used by the discrete optimizer to determine assignments and visit sequences.",
+      "page": 6,
+      "index": 1,
+      "width": 977,
+      "height": 504
+    },
+    {
+      "url": "assets/figures/arxiv/2603.24908v1/fig-002.webp",
+      "caption": "Fig. 10: Discrete optimization results. (a) Example optimal sequence and task assignment obtained by the IPSO optimizer, showing the ordered goals assigned to each robot and the required return to the takeoff point. (b) Mission-time objective as a function of iteration number, demonstrating the convergence behavior of the discrete optimization stage.",
+      "page": 11,
+      "index": 2,
+      "width": 977,
+      "height": 332
+    },
+    {
+      "url": "assets/figures/arxiv/2603.24908v1/fig-003.webp",
+      "caption": "Fig. 5: Cost-matrix construction and solution encoding for the discrete optimization stage. Graph search produces robotsto-goals and goals-to-goals travel-cost matrices, which are evaluated through a PSO particle representation encoding a goal-visit permutation and breakpoints that partition the ordered goals among drones while enforcing the visit-once constraint.",
+      "page": 7,
+      "index": 3,
+      "width": 968,
+      "height": 842
+    },
+    {
+      "url": "assets/figures/arxiv/2603.24908v1/fig-004.webp",
+      "caption": "Table 2 Simulation and implementation settings used in the case study.",
+      "page": 10,
+      "index": 4,
+      "width": 569,
+      "height": 231
+    },
+    {
+      "url": "assets/figures/arxiv/2603.24908v1/fig-005.webp",
+      "caption": "Fig. 9: 3D obstacle-filled environment used in the simulation study, illustrating the initial positions of the robots and the set of goal locations.",
+      "page": 10,
+      "index": 5,
+      "width": 781,
+      "height": 513
+    },
+    {
+      "url": "assets/figures/arxiv/2603.24908v1/fig-006.webp",
+      "caption": "Fig. 1: The IMD–TAPP system schematic. The framework takes as inputs the 3D environment with obstacles, robot start states 𝑣𝑖𝑅, and goal set 𝐺. The core processing stages include: (i) graph discretization and search to compute cost matrices 𝐂𝑅𝐺 and 𝐂𝐺𝐺, (ii) IPSO with MLA guidance to optimize assignment and visit sequences, and (iii) minimum-snap trajectory generation to produce time-parameterized trajectories. The final stage validates obstacle clearance and inter-robot separation (≥ 2𝑅𝑟𝜙) through simulation rollout, outputting collision-free multi-drone trajectories.",
+      "page": 3,
+      "index": 6,
+      "width": 977,
+      "height": 600
+    },
+    {
+      "url": "assets/figures/arxiv/2603.24908v1/fig-007.webp",
+      "caption": "Fig. 8: Safety validation and re-planning loop in the continuous stage. The discrete plan is converted into time-parameterized trajectories; simulated rollouts are checked for obstacle clearance and inter-robot separation (e.g., ‖𝜂𝑖(𝑡) − 𝜂𝑗(𝑡)‖ ≥ 2𝑅𝑟𝜙). If conflicts occur, local re-planning updates the plan and the trajectories are regenerated until feasibility is achieved.",
+      "page": 8,
+      "index": 7,
+      "width": 952,
+      "height": 198
+    },
+    {
+      "url": "assets/figures/arxiv/2603.24908v1/fig-008.webp",
+      "caption": "Fig. 6: Injected PSO with MLA guidance for joint goal assignment and sequencing. Particles encode routes and breakpoints; fitness is evaluated using graph-search costs under the makespan objective. MLA is used both for seeding a fraction of the swarm and for periodic injection (replacement of the worst particles), while a repair step maintains feasibility (each goal visited once and valid partitioning).",
+      "page": 8,
+      "index": 8,
+      "width": 952,
+      "height": 229
+    },
+    {
+      "url": "assets/figures/arxiv/2603.24908v1/fig-009.webp",
+      "caption": "Fig. 7: Time-parameterized minimum-snap trajectory generation pipeline. The discrete plan provides geometric waypoints (robot start 𝑣𝑖𝑅, assigned goals, and return-to-start). Segment time allocation assigns durations to each path segment. Piecewise polynomial trajectories are then optimized to minimize integrated snap ∫ ‖ 𝑑4𝐱 𝑑𝑡4 ‖ 2𝑑𝑡 subject to continuity constraints (position, velocity, and acceleration continuous at junctions), producing smooth position, velocity, and acceleration profiles suitable for quadrotor execution.",
+      "page": 8,
+      "index": 9,
+      "width": 977,
+      "height": 202
+    },
+    {
+      "url": "assets/figures/arxiv/2603.24908v1/fig-010.webp",
+      "caption": "Fig. 2: Illustrative IMD–TAPP scenario: two drones must cooperatively visit seven goals in a 3D environment with obstacles, with each goal visited exactly once and each drone returning to its start location.",
+      "page": 4,
+      "index": 10,
+      "width": 733,
+      "height": 415
+    },
+    {
+      "url": "assets/figures/arxiv/2603.24908v1/fig-011.webp",
+      "caption": "Fig. 12: Simulation outputs: (a) robot states over time and (b) safety validation metrics for the executed trajectories.",
+      "page": 12,
+      "index": 11,
+      "width": 965,
+      "height": 265
+    },
+    {
+      "url": "assets/figures/arxiv/2603.24908v1/fig-012.webp",
+      "caption": "Fig. 3: High-level overview of the IMD–TAPP pipeline: (i) 3D workspace discretization and graph-search computation of obstacle-aware travel costs,(ii) discrete optimization of goal assignment and visit sequencing using an injected (PSO) algorithm guided by multiple linear assignment, and (iii) smooth trajectory generation followed by safety validation with iterative replanning when necessary.",
+      "page": 5,
+      "index": 12,
+      "width": 977,
+      "height": 531
+    }
+  ]
+}

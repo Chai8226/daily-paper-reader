@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.18400v2/fig-001.webp",
+      "caption": "Fig. 1: Graphs-of-Constraints (GoCs) can naturally express partially-ordered multi-agent tasks using a Directed Acyclic Graph (DAG) of arbitrary system constraints. Our method, GoC-MPC, can use a GoC with constraints defined in terms of workspace keypoints to find optimal solutions for general multi-agent manipulation tasks using only visual observations. For this two-cup manipulation task, GoC-MPC finds an initial solution in 0.373 seconds, and all subsequent solutions in 0.065 seconds on average, demonstrating extremely fast performance.",
+      "page": 1,
+      "index": 1,
+      "width": 462,
+      "height": 366
+    },
+    {
+      "url": "assets/figures/arxiv/2603.18400v2/fig-002.webp",
+      "caption": "Fig. 3: We conducted experiments in two simulated and three real bimanual maniulation tasks with two UR5e arm robots. These included a distant-cup pick-and-pour task, a three-block stacking stacking task, and a tablecloth folding task (not simulated due to including a soft-body). These tasks demonstrate that our method is capable of handling partially-ordered tasks, coordination of multiple robots based on the objects they are manipulating, and synchronization between agents.",
+      "page": 6,
+      "index": 2,
+      "width": 979,
+      "height": 533
+    },
+    {
+      "url": "assets/figures/arxiv/2603.18400v2/fig-003.webp",
+      "caption": "Fig. 4: GoCs allow for agents to independently backtrack to previous stages when a disturbance is applied. In the block stacking task, a disturbance to the block in the left robot’s grasp prompts the robot to loop back to picking up the block, and the right robot’s path is slowed to the point where it smoothly reaches its original destination after the other robot has finished retrieving the disturbed block.",
+      "page": 7,
+      "index": 3,
+      "width": 488,
+      "height": 471
+    }
+  ]
+}

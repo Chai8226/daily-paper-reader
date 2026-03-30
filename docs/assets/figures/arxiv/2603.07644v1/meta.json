@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.07644v1/fig-001.webp",
+      "caption": "Fig. 8: Sim-to-sim transfer in AirSim: a multi-drone swarm navigates a dense bamboo forest with photorealistic depth and stochastic wind. A policy trained in a lightweight differentiable simulator with spherical obstacles transfers to AirSim without retraining, showing robustness to visual domain shift and aerodynamic perturbations.",
+      "page": 8,
+      "index": 1,
+      "width": 512,
+      "height": 292
+    },
+    {
+      "url": "assets/figures/arxiv/2603.07644v1/fig-002.webp",
+      "caption": "Fig. 7: Circle-swap with N = 64. Left: Panoramic (93.8% success, 4 collisions); Right: Forward-only (59.4%, 26 collisions). The swarm selforganizes a counterclockwise rotation through the congested center. Bottom: per-drone depth tiles; red X = frozen after collision.",
+      "page": 8,
+      "index": 2,
+      "width": 512,
+      "height": 321
+    },
+    {
+      "url": "assets/figures/arxiv/2603.07644v1/fig-003.webp",
+      "caption": "Fig. 2: PanoDP training pipeline. At each time step the four onboard depth images are stitched into a 360◦ panorama, encoded by the circular CNN, fused with the body-frame state vector in a GRU cell, and mapped to an acceleration command. Because the dynamics integrator (13)–(14) is fully differentiable, the trajectory loss L can be back-propagated through the entire T -step unrolled graph (dashed arrows), yielding exact gradients ∂L/∂θ that update all learnable parameters in a single pass.",
+      "page": 4,
+      "index": 3,
+      "width": 510,
+      "height": 279
+    },
+    {
+      "url": "assets/figures/arxiv/2603.07644v1/fig-004.webp",
+      "caption": "Fig. 4: Ablation training curves over 50 K iterations (6 metrics), with tail zoom (40–50 K). Full PanoDP converges most stably with lowest variance. Removing the GRU raises jerk and snap; removing circular convolutions or using a flat MLP yields higher plateaus.",
+      "page": 5,
+      "index": 4,
+      "width": 512,
+      "height": 360
+    },
+    {
+      "url": "assets/figures/arxiv/2603.07644v1/fig-005.webp",
+      "caption": "Fig. 5: Ablation bar chart (tail-mean at 50 K iterations) across eight training metrics. PanoDP (Ours, red border) achieves the best or near-best value on every metric. Stars (⋆) mark the best method per subplot.",
+      "page": 5,
+      "index": 5,
+      "width": 506,
+      "height": 248
+    },
+    {
+      "url": "assets/figures/arxiv/2603.07644v1/fig-006.webp",
+      "caption": "Fig. 3: Panorama and forward-depth training comparison over 50 K iterations (6 metrics). Insets zoom into the converged tail (40–50 K steps). PanoDP (blue, solid) consistently outperforms the forward-only baseline DPD† (grey, dashed) across all metrics.",
+      "page": 5,
+      "index": 6,
+      "width": 512,
+      "height": 360
+    }
+  ]
+}

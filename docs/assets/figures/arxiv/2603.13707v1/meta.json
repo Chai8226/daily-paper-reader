@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.13707v1/fig-001.webp",
+      "caption": "Fig. 3: The robot autonomously executes loco-manipulation tasks: (a) door opening, (b) object transportation.",
+      "page": 6,
+      "index": 1,
+      "width": 914,
+      "height": 227
+    },
+    {
+      "url": "assets/figures/arxiv/2603.13707v1/fig-002.webp",
+      "caption": "Fig. 1: Our pipeline consists of three stages: (a) Data Collection, where expert demonstrations are collected in a source environment using a frozen RL-based loco-manipulation controller; (b) Pre-training, where a diffusion policy is trained with the expert dataset containing human-demonstrated skills; and (c) Joint Optimization, where the pre-trained diffusion policy is jointly fine-tuned with the low-level controller in a target environment, enabling the robot to refine its loco-manipulation skills through RL to achieve a higher success rate and better motion tracking quality.",
+      "page": 2,
+      "index": 2,
+      "width": 848,
+      "height": 390
+    }
+  ]
+}

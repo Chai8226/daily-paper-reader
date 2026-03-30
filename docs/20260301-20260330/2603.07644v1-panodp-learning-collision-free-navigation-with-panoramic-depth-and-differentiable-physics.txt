@@ -1,0 +1,703 @@
+Title: PanoDP: Learning Collision-Free Navigation with Panoramic Depth and Differentiable Physics
+
+URL Source: https://arxiv.org/pdf/2603.07644v1
+
+Published Time: Tue, 10 Mar 2026 01:24:26 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# PanoDP: Learning Collision-Free Navigation with Panoramic Depth and Differentiable Physics 
+
+Hao Zhong 1, Pei Chi 2, Jiang Zhao 2, Shenghai Yuan 1∗, Xuyang Gao 2, Thien-Minh Nguyen 3, and Lihua Xie 1
+
+Abstract — Autonomous collision-free navigation in cluttered environments requires safe decision-making under partial ob-servability with both static structure and dynamic obstacles. We present PanoDP, a communication-free learning framework that combines four-view panoramic depth perception with differentiable-physics-based training signals. PanoDP encodes panoramic depth using a lightweight CNN and optimizes policies with dense differentiable collision and motion-feasibility terms, improving training stability beyond sparse terminal collisions. We evaluate PanoDP on a controlled ring-to-center benchmark with systematic sweeps over agent count, obstacle density/layout, and dynamic behaviors, and further test out-of-distribution generalization in an external simulator (e.g., Air-Sim). Across settings, PanoDP increases collision-free and com-pletion rates over single-view and non-physics-guided baselines under matched training budgets, and ablations (view masking, rotation augmentation) confirm the policy leverages 360-degree information. Code will be open source upon acceptance. 
+
+I. I NTRODUCTION 
+
+Autonomous collision-free navigation has become a highly active area because it is a prerequisite for deploying robots and aerial vehicles in crowded real-world environments with both static structures and dynamic obstacles, including other robots. In multi-robot settings, a practical requirement often arises: the system should remain functional without explicit inter-robot communication, since communication can be unavailable, unreliable, delayed, bandwidth-limited, or operationally undesirable. The core issue is that interaction dynamics are inherently coupled, yet each robot must make safe decisions from local sensing only, which can easily lead to collisions or deadlocks when observability is limited. 
+
+Existing work on decentralized, communication-free col-lision avoidance spans classical reciprocal interaction rules, optimization-based safety layers, and learning-based policies. Reciprocal collision avoidance, such as ORCA, provides principled communication-free interaction rules for multi-agent navigation [1], but it can become brittle or overly conservative in dense scenes and under perception imper-fections. Control-barrier-certificate style methods provide formal safety guarantees by constraining a nominal con-troller [2], yet they often assume reliable access to state or accurate estimates and can be restrictive when perception is uncertain or when many agents interact tightly. Learning-based approaches, including decentralized sensor-level deep 
+
+> 1Hao Zhong, Shenghai Yuan, and Lihua Xie are with the School of Electrical and Electronic Engineering, Nanyang Technological University, Singapore.
+> 2Pei Chi, Jiang Zhao, and Xuyang Gao are with Beihang University, Beijing, China.
+> 3Thien-Minh Nguyen is with The University of Queensland, Australia.
+> ∗Corresponding author: Shenghai Yuan.
+
+RL, can map onboard observations to actions and demon-strate scalability [3], but they are often sensitive to reward design and hyperparameters, and their generalization across obstacle layouts, densities, and interaction patterns can be inconsistent. The challenges are threefold. First, decentralized navi-gation is partially observable: limited field-of-view sensors create blind spots and occlusions, so hazards can approach from the side or rear and other robots can be intermittently hidden, leading to collisions and deadlocks. Second, collision avoidance provides sparse supervision, which makes train-ing slow and brittle; stable learning requires dense signals that reflect safety and feasibility throughout the trajectory rather than only at terminal events. Third, expanding sensing coverage via multi-view or panoramic depth can reduce blind spots but introduces practical compute and memory costs, and improved observability alone does not resolve the optimization difficulty of learning safe behaviors under mixed static-dynamic interactions. To address these challenges, we propose PanoDP ,a communication-free navigation framework that couples panoramic depth perception with differentiable-physics-based training signals. Panoramic depth provides 360-degree coverage and acts as a substitute for neighbor-state exchange, allowing each robot to anticipate hazards beyond a front sensor using onboard sensing. Meanwhile, a differentiable physics module provides shaped safety and feasibility ob-jectives via differentiable collision and motion-feasibility terms [4], enabling end-to-end optimization by backpropagat-ing signals rather than relying solely on sparse terminal col-lisions. We do not claim a new differentiable physics formu-lation; instead, we show that integrating such differentiable-physics signals with panoramic depth yields denser, more stable training and improves decentralized navigation per-formance without explicit inter-robot communication. Our Contribution can be summarized as follows:  
+
+> •
+
+We formulate decentralized, communication-free multi-robot collision-free navigation under partial observabil-ity, where each agent acts solely from local panoramic depth observations.  
+
+> •
+
+We propose PanoDP , coupling a lightweight panoramic depth encoder with differentiable-physics-based objec-tives for collision avoidance and motion feasibility, providing dense and stable training signals.  
+
+> •
+
+We introduce a controlled ring-to-center benchmark with systematic sweeps over agent count, obstacle den-sity/layout, and dynamic behaviors, and we validate per-formance via matched-budget comparisons and targeted 
+
+> arXiv:2603.07644v1 [cs.RO] 8 Mar 2026
+
+ablations. II. R ELATED WORK 
+
+Multi-Robot Navigation. Prior work studies collision avoid-ance under centralized coordination and decentralized execu-tion. In the communication-free setting, each agent acts from local observations under interactions. Classical reciprocal and velocity-obstacle-style rules [1], [5], [6] are efficient and interpretable, but they can become conservative or brittle in dense clutter, with complex interaction patterns, or under sensing uncertainty. Optimization-based safety [2], [7]–[10] can enforce constraints on a nominal controller, but they rely on accurate state or estimates and may be restrictive when many agents interact. Decentralized learning-based policies [3] can capture interaction patterns and implicit coordination, yet training can be sensitive and generalization across layouts and agent densities remains inconsistent. 
+
+Panoramic and Multi-View Perception. Multi-view and panoramic sensing [11]–[14] have been explored to reduce blind spots and occlusions in navigation. For multi-robot systems, wider angular coverage can partially substitute for communication by enabling observation of agents in directions, reducing reliance on neighbor-state exchange. At the same time, panoramic encoding increases compute and observation dimensionality, which can slow training and complicate deployment. It is also non-trivial to deter-mine whether learned policies exploit 360-degree informa-tion rather than defaulting to a front-view prior, especially when training data is biased. View masking, partial-view reductions, and rotation-based tests are therefore important to validate genuine panoramic utilization. 
+
+Differentiable Physics for Safety and Feasibility. Differ-entiable physics provides gradients through dynamics and contacts [4], enabling dense objectives related to collision avoidance and motion feasibility. Such structured signals can stabilize optimization compared with sparse terminal collision supervision and can better align training with physically feasible behaviors. Differentiable simulation has been applied to trajectory optimization, system identification, and policy learning [15], [16], often improving sample ef-ficiency and reducing the gap between training objectives and execution constraints. However, these methods are typ-ically used either for single-agent control [17]–[20] or as a generic training tool. In our setting, differentiable physics is used specifically to supply safety and feasibility terms for communication-free decentralized navigation, rather than to introduce a new physics model. 
+
+Positioning. PanoDP targets communication-free decen-tralized navigation under partial observability by combin-ing panoramic depth perception with differentiable-physics-based training objectives. Panoramic depth reduces blind spots without message passing, while physics-informed ob-jectives provide dense safety and feasibility supervision that mitigates the brittleness of learning from sparse collisions. This combination yields a scalable framework for safe multi-robot navigation in mixed static and dynamic environments. III. M ETHOD 
+
+A. Formulation 
+
+We address decentralized collision-free navigation for 
+
+N quadrotors operating in cluttered, dynamic environ-ments. Each agent i evolves on SE(3) with state qit = pit, R it, vit
+
+ ∈ R3 ×SO(3) ×R3, where pit is the position, 
+
+Rit the body orientation, and vit the linear velocity. The agent has no access to global map, neighbor identities, or privileged planner state . All it receives at each time step is (i) onboard depth images from its cameras and (ii) a compact body-frame feature vector. We seek a shared decentralized policy πθ that maps each agent’s local observation to a continuous control command uit ∈ R6, executed by the quadrotor actuation model. The objective is to maximize task completion (reaching assigned goals) while minimizing collisions and ensuring smooth trajectories. 
+
+Remark (Scalability). Because each agent executes πθ using only its own onboard depth and IMU data, no inter-agent communication channel is required. The per-agent computa-tional cost is O(1) —independent of the swarm size N —so adding a new quadrotor amounts to loading the same policy weights without retraining or reconfiguration. We validate this property empirically by scaling the same policy from 
+
+N = 64 to N = 512 without performance degradation. 
+
+B. Panoramic Depth Observation 
+
+A forward-only depth camera covers at most ∼ 90 ◦ of the agent’s surroundings, creating blind spots during lateral or backward maneuvers. PanoDP replaces this narrow field of view with a full 360 ◦ panoramic depth representation. 
+
+Multi-camera input. At each step t, four depth images are captured at cardinal yaw offsets ϕk ∈ Φ = {0, π 
+
+> 2
+
+, π, 3π 
+
+> 2
+
+} from the body frame, each with horizontal field of view α:
+
+Di,ϕ k
+
+> t
+> 4
+> k=1
+
+, Di,ϕ k 
+
+> t
+
+∈ RH0×W0 . (1) Because α > 90 ◦, adjacent cameras overlap, providing redundancy at the seam boundaries. 
+
+Equirectangular projection. A stitching operator S com-posites the four views into a single equirectangular panorama 
+
+Pit ∈ RH×W . Every pixel (u, v ) of P corresponds to a spherical direction (θ, φ ):
+
+θ = 2π u W , φ =
+
+ vH − 12
+
+
+
+αv , (2) where θ ∈ [0 , 2π) is azimuth and φ is elevation within the field of view αv . For each camera k with yaw center ϕk
+
+and focal length f = W0/(2 tan α 
+
+> 2
+
+), the spherical direction 
+
+(θ, φ ) is expressed in camera coordinates and reprojected to a location (cx, c y ) in Di,ϕ k 
+
+> t
+
+via the pinhole model: 
+
+cx = f tan( θ − ϕk) + W0 
+
+> 2
+
+, (3) 
+
+cy = f sin φ
+
+cos φ cos( θ−ϕk) + H0 
+
+> 2
+
+. (4) Bilinear interpolation retrieves sub-pixel depth values. In overlap regions, the results from adjacent cameras are Back                            
+
+> Left
+> Front
+> Right
+> Drone
+> FOV = 100 ±
+> (a) Camera layout (top view)
+> 0° 90° 180° 270° 360°
+> Azimuth μ(±)
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> wk
+> (b) Blend weights wk(μ)
+> Back Left Front Right
+> DBack DLeft DFront DRight
+> 0°
+> (Back)
+> 90°
+> (Left)
+> 180°
+> (Front)
+> 270°
+> (Right)
+> 360°
+> Azimuth μ(±)
+> (c) Equirectangular panorama Pit(360 ±wrap-around)
+> S(stitch + blend) #
+
+Fig. 1: Panoramic depth construction. (a) Four cameras with 100 ◦ FOV cover the full azimuth with overlapping regions. (b) Cosine-squared blend weights wk (θ) ensure smooth transitions. (c) The resulting equirectangular panorama Pit wraps continuously at 0◦/360 ◦.
+
+blended using a cosine-squared azimuthal weight 
+
+wk(θ) = cos 2
+
+ π (θ − ϕk)
+
+α
+
+
+
+, (5) which smoothly fades each camera’s contribution near its field-of-view boundary. The final panorama pixel is 
+
+P[u, v ] = P 
+
+> k
+
+wk D(k)[cy , c x]  P  
+
+> k
+
+wk. The horizontal axis of P wraps continuously around the full azimuth: column 
+
+u encodes a unique bearing, so the panorama is a compact representation of obstacle proximity in every direction. 
+
+Depth preprocessing. A normalization pipeline transforms 
+
+P into the network input: clamping to a bounded range 
+
+[dmin , d max ], an inverse-depth transform ψ(d) = β/d − γ,additive Gaussian noise for sim-to-real regularization, and max-pool downsampling: 
+
+˜Pit = MaxPool   ψ clamp( Pit) + ϵ, ϵ ∼ N (0 , σ 2). (6) 
+
+Body-frame feature vector. Alongside the panorama, each agent receives a 10-dimensional onboard state sit ∈ R10 :
+
+sit =  vi
+
+> local
+
+| {z } 
+
+> R3
+
+; vi→g
+
+> cmd
+
+| {z } 
+
+> R3
+
+; Ritez
+
+| {z } 
+
+> R3
+
+; mit
+
+|{z} 
+
+> R1
+
+, (7) where vi 
+
+> local
+
+is the current velocity in a yaw-aligned body frame, vi→g 
+
+> cmd
+
+is the speed-clamped goal-directed velocity command in the same frame, Ritez encodes the current pitch and roll attitude, and mit is a scalar safety margin. The yaw-aligned frame Ryaw is constructed by projecting the body forward axis onto the horizontal plane, thereby decoupling heading from tilt. All components are derived from the agent’s own onboard state estimate, requiring no inter-agent communication. 
+
+C. Circular Panoramic Encoder 
+
+Panoramic images are periodic along the horizontal (az-imuth) axis: the leftmost and rightmost columns represent ad-jacent bearings. Standard zero-padded convolutions introduce artificial boundary discontinuities at the panorama edges, corrupting features that straddle the 0◦/360 ◦ seam. PanoDP replaces horizontal zero-padding with circular padding : the input is wrapped around so that the first k columns reappear after the last column (and vice versa), where k is the kernel half-width. Formally, let Ck denote circular padding width k,
+
+Ck( ˜P)[ h, w ] = ˜Ph, (w mod W ), (8) and vertical padding remains zero-valued. Every horizontal convolution operates on Ck( ˜P), yielding a seamless 360° receptive field. The visual embedding is 
+
+zit = Eθ
+
+  ˜Pit
+
+ ∈ Rdz , (9) where Eθ is a lightweight CNN whose every convolutional layer uses circular horizontal padding, followed by a linear projection to dz dimensions. Architecture details are given in Sec. IV. With circular padding, the encoder’s receptive field uniformly covers all bearings regardless of the agent’s yaw; no azimuth direction receives preferential treatment. 
+
+D. Recurrent Policy with Temporal Memory 
+
+A single panoramic frame encodes the distance field but contains no information about obstacle motion. In dynamic swarms where neighboring drones move at comparable speeds, temporal context is necessary to infer relative ve-locities from consecutive depth observations. We therefore augment the policy with a GRU-based recurrent module: 
+
+eit = Ws sit, (10) 
+
+hit = GRU  hit−1, σ (zit + eit), (11) 
+
+uit = Wu σ(hit). (12) The visual feature zit and the state embedding eit are summed, passed through an activation σ, and gated by the GRU. The hidden state hit accumulates temporal information across frames, enabling the agent to implicitly estimate its velocity and leverage motion context from consecutive depth observations for smoother control. An auxiliary head predicts the agent’s velocity as a self-supervised signal (Sec. III-E). We show in Sec. IV-A that removing the GRU increases collision rates and jerk penalties, confirming temporal ag-gregation is necessary for safe trajectories. The output head produces a 6-dimensional vector that is reshaped into an acceleration prediction apred and an auxil-iary velocity estimate ˆv, both in the yaw-aligned body frame. The velocity estimate provides a self-supervised training signal (Sec. III-E) and is discarded at deployment. 
+
+E. Differentiable Physics Training 
+
+We train πθ end-to-end by differentiating through the physics simulator . Unlike reinforcement learning, which esti-mates policy gradients from sampled returns, differentiable-physics training computes exact analytic gradients ∂L/∂θ 
+
+through the full trajectory (see Fig. 2 for details). 
+
+Differentiable rollout. The quadrotor is modeled as a second-order dynamical system. At each control step the acceleration at is determined by the policy output, aerody-namic drag, and stochastic perturbations ξt; the state is then integrated via 
+
+pt+1 = pt + vt ∆t + 12 at ∆t2, (13) 
+
+vt+1 = vt + 12 (at + at+1 ) ∆ t, (14) 4£ Depth               
+
+> DÁk
+> t
+> StitchS
+> equirect. proj.
+> Preprocess
+> clamp,Ã,²,MP
+> Circular CNN
+> Eμ(~P)
+> GRU
+> hi
+> t
+> ht¡1
+> Action
+> ui
+> t
+> si
+> t
+> Differentiable Physics Simulator
+> Quadrotor
+> Dynamics
+> f(qt;ut;»t)
+> State Update
+> qt+1
+> Gradient Decay
+> °g¢r
+> L
+> `v+`^v+`col+`obj+`acc+`jrk
+> ui
+> t
+> rμL
+> PanoDP Training Pipeline (one time step)
+> Observation Learnable ( μ)Differentiable physics Loss
+
+Fig. 2: PanoDP training pipeline. At each time step the four onboard depth images are stitched into a 360 ◦ panorama, encoded by the circular CNN, fused with the body-frame state vector in a GRU cell, and mapped to an acceleration command. Because the dynamics integrator (13)–(14) is fully differentiable, the trajectory loss L can be back-propagated through the entire T -step unrolled graph (dashed arrows), yielding exact gradients 
+
+∂L/∂θ that update all learnable parameters in a single pass. 
+
+where ∆t is the control period. The integrator and its Jacobians are implemented in closed form as a differen-tiable operator, so the full T -step rollout—from observation to panoramic encoding to action to next state—forms a single computation graph. Back-propagating the trajectory loss through this graph yields analytic gradients ∂L/∂θ that capture how each policy parameter influences every loss term (ℓv , ℓcol , ℓacc , etc.) across the horizon, in contrast to the high-variance gradient estimates from reinforcement learning. A gradient decay factor γg ∈ (0 , 1) is applied at each time step to attenuate gradients that flow across long horizons: 
+
+∂L
+
+∂qt
+
+← γg · ∂L
+
+∂qt
+
+, (15) preventing gradient explosion while retaining the full rollout. 
+
+Training objective. Since every forward-simulation step is differentiable, the trajectory loss can directly penalize undesirable behaviors—collisions, goal-tracking errors, and jerky motion—across the full rollout horizon. Concretely, we minimize a weighted sum of per-step losses: 
+
+min  
+
+> θ
+
+E
+
+"T −1X
+
+> t=0
+
+ℓ(qt, ut)
+
+#
+
+, (16) 
+
+ℓ = λv ℓv + λˆv ℓˆv + λcol ℓcol 
+
++ λobj ℓobj + λacc ℓacc + λjrk ℓjrk . (17) Each term is defined as follows:  
+
+> •
+
+ℓv : Smooth-L1 penalty on the velocity tracking error 
+
+∥¯vt − v∗ 
+
+> t
+
+∥, where ¯vt is a 30-step running-average velocity.  
+
+> •
+
+ℓˆv : MSE loss between the auxiliary velocity predic-tion head ˆvt and the true velocity, providing a self-supervised odometry signal.  
+
+> •
+
+ℓcol : proximity-weighted collision penalty softplus (−κ d t) · vapp , where dt is the margin-adjusted distance to the nearest neighbor and vapp is the approach speed.  
+
+> •
+
+ℓobj : obstacle avoidance barrier vapp · [max(0 , 1−dt)] 2,penalizing approach toward static obstacles.  
+
+> •
+
+ℓacc : L2 acceleration regularizer ∥at∥2. 
+
+> •
+
+ℓjrk : L2 jerk regularizer ∥ ˙at∥2 (finite-difference). The weighting coefficients {λ} are reported in Sec. IV. 
+
+F. Random Rotation Augmentation 
+
+To prevent the policy from developing a dependence on a fixed global heading, we apply a random yaw rotation 
+
+Rψ (about the z-axis, ψ ∼ U[−ψmax , +ψmax ]) to the 
+
+entire scene —drone positions, goal positions, and all obstacle coordinates—at each training episode reset. Because every spatial quantity is rotated together, the physical scenario is unchanged but its projection onto the panorama shifts along the azimuth axis. Across episodes this forces the circular en-coder to treat all bearing directions equally, complementing the circular padding described in Sec. III-C. The value of 
+
+ψmax is reported in Sec. IV. IV. E XPERIMENTS 
+
+Experimental setup. All learned policies are trained via differentiable physics (Sec. III-E) on a single NVIDIA RTX 4090 GPU (24 GB VRAM) with batch size B = 1024 ,unroll horizon T = 165 steps, learning rate 10 −3 (AdamW, cosine annealing), gradient decay factor γg = 0 .4, and the following loss coefficients (Eq. (17)): λv = 1 .0, λˆv = 2 .0,
+
+λcol = 5 .0, λobj = 2 .0, λacc = 0 .01 , λjrk = 0 .001 . Random rotation augmentation ( ψmax = 0 .75 rad ≈ 43 ◦, Sec. III-F) is enabled for both PanoDP and the forward-depth baseline DPD †. Each training batch contains 4–8 agents; the same pol-icy is deployed without retraining at test time to swarms of up to 512+ agents. PanoDP uses 514 K parameters—nearly identical to DPD † (514 K; the sole difference is the first-layer kernel size), confirming that performance gains stem from the panoramic representation rather than added model capacity. The circular padding operation adds negligible computational overhead over standard zero-padded convolutions, as it only changes the fill mode of the same-size padding tensor. 
+
+Metrics. We report three metrics across all evaluations.  
+
+> •
+
+Success Rate (SR ↑): the fraction of agents that com-plete the episode without any safety-margin violation, 
+
+SR = Nsafe /N . An agent is considered successful if its minimum clearance to all neighbors and obstacles remains positive throughout the entire episode.  
+
+> •
+
+Collision Rate (CR ↓): the number of new collision events (inter-agent and agent-obstacle margin viola-tions) per second of simulation time, aggregated over all agents. A lower CR indicates safer swarm navigation.  
+
+> •
+
+Mean First Collision Time (MFCT ↑): the average time (in seconds) at which each colliding agent first violates the safety margin. If no collision occurs, MFCT equals the episode duration; higher is better. 
+
+A. Training Ablations 
+
+We compare four architecture variants: 1) PanoDP (Ours) : full system—panoramic depth, circu-lar encoder, GRU memory. 2) w/o GRU : Encoder without recurrent memory. Fig. 3: Panorama and forward-depth training comparison over 50 K iterations (6 metrics). Insets zoom into the converged tail (40–50 K steps). PanoDP (blue, solid) consistently outperforms the forward-only baseline DPD † (grey, dashed) across all metrics. 
+
+3) w/o Circular Conv : standard zero-padded convolu-tions on the panoramic input. 4) Concat MLP : panoramic views concatenated as a flat vector and passed through an MLP instead of a convolutional encoder. Fig. 3 compares the full panoramic policy against the forward-depth baseline; Fig. 4 presents the ablation training curves; and Fig. 5 visualizes the tail-mean metrics as bar charts. The tail-mean values (averaged over the last 20 logged points up to 50 K iterations) are given in Table I. We highlight several key findings below. 
+
+Benefit of panoramic coverage. PanoDP consistently out-performs DPD † across all six metrics (Fig. 3). Most notably, the collision loss drops by 68.5% (0.003 vs. 0.009) and the obstacle loss decreases by 24.3% (0.071 vs. 0.093), confirming that 360 ◦ depth coverage enables the policy to detect and avoid threats from all directions. PanoDP also converges more smoothly and with lower variance; it converges roughly twice as fast as DPD †, indicating the panoramic signal provides a richer gradient landscape for differentiable-physics optimizer. 
+
+Role of GRU memory. Removing the GRU ( w/o GRU )increases jerk by 74.6% (26.33 vs. 15.08) and snap by 56.4% (5.35 vs. 3.42; Table I), confirming that the recurrent hidden state serves as a temporal smoother that anticipates upcoming collisions from consecutive depth frames. The success rate drops from 0.966 to 0.938 and the total loss rises by 24.2% (0.359 vs. 0.289), making w/o GRU the weakest variant. Notably, w/o GRU achieves the lowest velocity-prediction loss (Fig. 5) yet produces the worst trajectory quality— without recurrent memory the network trivially copies the current velocity, forfeiting the multi-frame context needed for anticipatory control. 
+
+Effect of circular convolution. Replacing circular convo-lutions with standard zero-padding ( w/o Circular Conv ) or collapsing the panorama into a flat MLP input ( Concat MLP )raises the total loss by 7–8% and reduces the success rate to 
+
+Fig. 4: Ablation training curves over 50 K iterations (6 metrics), with tail zoom (40–50 K). Full PanoDP converges most stably with lowest variance. Removing the GRU raises jerk and snap; removing circular convolutions or using a flat MLP yields higher plateaus. DPD 
+
+> Ours
+> CatMLP
+> NoCirc
+> NoGRU
+> 0.0
+> 0.2
+> 0.4
+> 0.394
+> 0.289
+> 0.313
+> 0.309
+> 0.359
+> *
+> Total Loss
+> DPD
+> Ours
+> CatMLP
+> NoCirc
+> NoGRU
+> 0.0
+> 0.5
+> 1.0
+> 0.935
+> 0.966
+> 0.961
+> 0.959
+> 0.938
+> *
+> Success Rate
+> DPD
+> Ours
+> CatMLP
+> NoCirc
+> NoGRU
+> 0.00
+> 0.05
+> 0.10
+> 0.118
+> 0.091
+> 0.102
+> 0.099
+> 0.120
+> *
+> Velocity Loss
+> DPD
+> Ours
+> CatMLP
+> NoCirc
+> NoGRU
+> 0.0000
+> 0.0005
+> 0.0010
+> 0.00088
+> 0.00070
+> 0.0010
+> 0.0010
+> 0.00033
+> *
+> Vel-Predict Loss
+> DPD
+> Ours
+> CatMLP
+> NoCirc
+> NoGRU
+> 0.000
+> 0.005
+> 0.010
+> 0.0093
+> 0.0029
+> 0.0035
+> 0.0035
+> 0.0053
+> *
+> Collision Loss
+> DPD
+> Ours
+> CatMLP
+> NoCirc
+> NoGRU
+> 0.00
+> 0.05
+> 0.10
+> 0.093
+> 0.071
+> 0.075
+> 0.075
+> 0.078 *
+> Obstacle Avoid.
+> DPD
+> Ours
+> CatMLP
+> NoCirc
+> NoGRU
+> 0
+> 1
+> 2
+> 3
+> 2.562
+> 2.563
+> 2.559
+> 2.551
+> 3.007
+> *
+> Accel Penalty
+> DPD
+> Ours
+> CatMLP
+> NoCirc
+> NoGRU
+> 0
+> 10
+> 20
+> 15.911
+> 15.081
+> 16.204
+> 15.794
+> 26.329
+> *
+> Jerk Penalty
+
+Fig. 5: Ablation bar chart (tail-mean at 50 K iterations) across eight training metrics. PanoDP (Ours, red border) achieves the best or near-best value on every metric. Stars ( ⋆) mark the best method per subplot. 
+
+0.959–0.961 (Table I). Although these variants benefit from 
+
+360 ◦ coverage, lacking rotational equivariance introduces seam artifacts at the panorama’s 0◦/360 ◦ seam, raising col-lision and obstacle losses. This validates the circular encoder (Sec. III-C) as essential for fully exploiting panoramic inputs. 
+
+Overall. PanoDP achieves the best value on 9 of 11 tail-mean training metrics (Table I), including all safety-critical indicators (success rate, collision loss, obstacle loss) and all trajectory-quality indicators (jerk, snap). For the remaining two regularization terms (acceleration, gradient affinity), it is within 8% of the best variant, indicating no meaningful trade-off. Each component—panoramic depth, circular con-volution, and GRU memory—contributes measurably. 
+
+Selection of Baselines. To contextualize PanoDP’s per-formance, we compare against seven baselines spanning learning-based and classical paradigms. All baselines are ex-ecuted as decentralized controllers—each agent computes its own control input using only locally available information— in the same simulation environment and under identical ini-tial conditions. Since these methods target diverse platforms and simulators, we re-implement each in our GPU-batched simulation for controlled comparison: 
+
+• DPD † [15]: our own forward-depth policy trained with the same infrastructure (same loss, same horizon, same TABLE I: Training ablation at 50 K iterations (tail-mean). Succ.: training rollout success rate ∈ [0 , 1] ; AR: success-weighted mean speed (Succ. × Speed); G.Aff.: mean squared positive altitude (ground affinity).                                                                      
+
+> Method Loss ↓Succ. ↑AR ↑Col. ↓Lv↓Lobj ↓Jerk ↓Snap ↓Acc. ↓G.Aff. ↓Speed ↑
+> DPD †(Forward) 0.394 0.935 1.479 0.009 0.118 0.093 15.9110 3.6412 2.5618 0.1256 1.579 PanoDP (Ours) 0.289 0.966 1.558 0.003 0.091 0.071 15.0810 3.4216 2.5628 0.0912 1.617
+> w/o GRU 0.359 0.938 1.491 0.005 0.120 0.078 26.3286 5.3502 3.0066 0.1145 1.597 w/o Circular Conv 0.309 0.959 1.535 0.004 0.099 0.075 15.7935 3.5793 2.5514 0.0851 1.605 Concat MLP 0.313 0.961 1.533 0.003 0.102 0.075 16.2036 3.6878 2.5590 0.0892 1.601
+
+random rotation), using a single ∼79 ◦ forward camera instead of a panorama—the most direct ablation of the panoramic component. Since the DPD framework [15] has already been shown to outperform PPO-based multi-agent RL alternatives, we adopt DPD † as the primary learning-based reference and focus on the effect of observation modality.  
+
+> •
+
+D-CBF [8]: applies distributed CBF safety constraints with reciprocal effort sharing between neighbors.  
+
+> •
+
+RAMFT [10]: coordinates multi-agent motion via topological-neighbor-based flocking rules combined with repulsive obstacle avoidance.  
+
+> •
+
+CBF-AF [9]: applies CBF constraints with adaptive decay rates for acceleration-level avoidance.  
+
+> •
+
+HIL-CBF [7]: employs higher-order CBF constraints that account for acceleration-level dynamics.  
+
+> •
+
+DWA [5]: samples candidate acceleration directions and scores them against obstacle clearance and goal prox-imity. DWA and APF-CPP use internally fixed velocity parameters; their results in the speed panel (Tab. II c) are accordingly speed-invariant.  
+
+> •
+
+APF-CPP [6]: computes repulsive and attractive po-tential fields for reactive obstacle avoidance and goal reaching. 
+
+Remark . PanoDP operates from onboard observations : a panoramic depth image and a 10-D body-frame feature vector (Sec. III-B). In contrast, all non-learning baselines receive privileged state information —exact positions and velocities of neighboring agents within a sensing radius of rs = 24 m (matching the depth camera clamp range 
+
+dmax )—which would require inter-agent communication or a motion-capture system in practice. Despite this generous advantage, PanoDP—operating without any inter-agent state exchange—matches or exceeds these privileged methods in most configurations. 
+
+B. Stress-Test Evaluation 
+
+To measure robustness far beyond training conditions, we design a comprehensive stress-test benchmark using the challenging circle-swap scenario, where all agents must si-multaneously cross through a congested central area to reach diametrically opposite goal positions. Each configuration is evaluated on 3 independently generated random maps; all methods are tested on the identical map layouts under each configuration to ensure a fair comparison. We vary three axes independently: 1) Swarm scale : N ∈ { 64 , 128 , 256 , 512 }, at fixed obstacle density ρobs = 1 .0 and randomized drone speed v ∼U[0 .75 , 3.25] m/s. 2) Obstacle density : ρobs ∈ { 0.5, 1.0, 1.5, 2.0}, at N = 256 
+
+and randomized speed v ∼ U [0 .75 , 3.25] m/s. 3) Drone speed : v ∈ { 0.75 , 1.5, 2.25 , 3.0} m/s, at N =256 , ρobs = 1 .0, and static obstacles. Table II presents the full results. 
+
+Swarm scale (Tab. II a). As N increases from 64 to 512, central congestion intensifies. PanoDP sustains a high suc-cess rate (87.2% at N = 512 ) while maintaining the lowest collision rate among learned methods. The forward baseline DPD †, lacking lateral perception, only reaches 62.2% SR with CR 3.05 at N = 512 —25 percentage points below PanoDP, confirming that blind-spot collisions dominate in dense swarms. Even the strongest privileged baseline D-CBF (84.4% SR) cannot match PanoDP at this extreme. PanoDP also achieves the highest MFCT across all scales (e.g. 48.6 s at N = 512 vs. 40.4 s for D-CBF), indicating that its collisions, when they occur, happen later in the episode. 
+
+Obstacle density (Tab. II b). PanoDP retains stable perfor-mance across densities (SR 80.5% →79.6% as ρobs doubles from 0.5 to 2.0), while consistently leading in MFCT (36.6– 40.1 s). Classical planners exhibit sharper degradation; e.g., APF-CPP drops from 32.8% to 22.5%. 
+
+Drone speed (Tab. II c). At the highest speed ( v = 3 .0 m/s), reaction time shrinks and the cost of a missed obstacle is severe. PanoDP achieves 76.6% SR vs. 44.5% for DPD †,showing that 360 ◦ awareness is especially valuable when the agent cannot afford to “look back.” Compared with the best privileged baseline at this speed (D-CBF, 73.3%), PanoDP still leads by 3.3 percentage points despite operating without any inter-agent state exchange. Across all three speed levels, PanoDP maintains the highest MFCT, confirming that 360 ◦
+
+awareness delays collisions more effectively. 
+
+C. Robustness to Single-Camera Failure 
+
+Motivation. On a real platform any depth camera may suffer sudden obstruction or hardware failure. To quan-tify graceful degradation, we replace each camera’s 64 ×64 
+
+depth image with a max-range reading ( d=100 m) before panoramic stitching, simulating a fully failed sensor. Each condition is evaluated over 10 seeds × 1024 drones ( T =165 
+
+steps). Crucially, the obstacle layout is geometrically sym-metric : obstacles are uniformly sampled across the arena and the eight start–goal pairs are mirror-symmetric about the longitudinal axis, so any left–right performance asymmetry cannot stem from environmental bias. 
+
+Discovery. In multi-drone mode (Fig. 6e), front-camera failure causes a catastrophic −59 .8 pp drop (96 .7% →36 .9% ), as expected for the primary look-ahead sensor. Surprisingly, right -camera occlusion incurs −24 .3 pp TABLE II: Stress-test benchmark (circle-swap): three-panel comparison across 12 configurations (3 maps each). Bold = best; underline = second. Non-learning baselines receive privileged neighbor state ( rs = 24 m); PanoDP uses only onboard depth. 
+
+(a) Scale Robustness ( ρobs = 1 .0, vdrone = rand )
+
+Method N = 64 N = 128 N = 256 N = 512 
+
+SR( %)↑ CR ↓ MFCT(s) ↑ SR( %)↑ CR ↓ MFCT(s) ↑ SR( %)↑ CR ↓ MFCT(s) ↑ SR( %)↑ CR ↓ MFCT(s) ↑
+
+PanoDP (Ours) 84.4 0.27 16.8 80.7 0.38 32.5 80.6 0.80 37.5 87.2 0.88 48.6 
+
+D-CBF [8] 82.8 0.30 9.1 78.1 0.43 19.9 78.6 0.76 25.0 84.4 1.03 40.4 RAMFT [10] 86.5 0.24 10.3 74.7 0.46 27.4 74.2 0.83 31.3 79.4 1.32 33.6 CBF-AF [9] 67.7 0.60 7.7 66.9 0.61 17.0 67.7 1.04 24.9 74.0 1.81 40.8 HIL-CBF [7] 67.2 0.52 6.3 51.8 1.30 16.8 54.9 2.14 25.1 57.0 5.16 41.5 DWA [5] 62.0 0.65 3.9 60.2 0.73 5.9 60.3 1.28 7.4 62.6 2.50 9.4 APF-CPP [6] 39.6 2.14 2.5 22.7 3.72 3.0 25.3 2.42 4.0 23.1 6.49 6.0 DPD † [15] 50.0 0.98 4.1 51.8 1.01 7.7 55.1 1.68 15.5 62.2 3.05 20.8 
+
+(b) Obstacle Density ( N = 256 , vdrone = rand )
+
+Method ρobs = 0 .5 ρobs = 1 .0 ρobs = 1 .5 ρobs = 2 .0
+
+SR( %)↑ CR ↓ MFCT(s) ↑ SR( %)↑ CR ↓ MFCT(s) ↑ SR( %)↑ CR ↓ MFCT(s) ↑ SR( %)↑ CR ↓ MFCT(s) ↑
+
+PanoDP (Ours) 80.5 0.80 36.6 80.6 0.80 37.5 83.6 0.57 36.7 79.6 0.89 40.1 
+
+D-CBF [8] 82.0 0.72 25.3 78.6 0.76 25.0 75.8 0.87 27.0 75.8 0.88 26.4 RAMFT [10] 77.3 0.73 31.5 74.2 0.83 31.3 73.8 0.87 30.4 72.9 0.87 30.6 CBF-AF [9] 75.3 1.04 23.4 67.7 1.04 24.9 62.4 1.30 23.7 63.9 1.18 23.4 HIL-CBF [7] 62.2 1.79 26.1 54.9 2.14 25.1 50.8 2.35 24.6 50.4 2.66 24.4 DWA [5] 63.3 1.18 7.7 60.3 1.28 7.4 59.4 1.30 6.9 59.4 1.30 6.9 APF-CPP [6] 32.8 2.20 4.4 25.3 2.42 4.0 20.8 4.99 3.8 22.5 3.75 3.6 DPD † [15] 58.1 1.68 13.4 55.1 1.68 15.5 53.6 1.77 15.0 58.3 1.52 13.4 
+
+(c) Drone Speed ( N = 256 , ρobs = 1 .0, static obstacles) 
+
+Method v = 0 .75 v = 1 .5 v = 2 .25 v = 3 .0
+
+SR( %)↑ CR ↓ MFCT(s) ↑ SR( %)↑ CR ↓ MFCT(s) ↑ SR( %)↑ CR ↓ MFCT(s) ↑ SR( %)↑ CR ↓ MFCT(s) ↑
+
+PanoDP (Ours) 96.7 0.23 15.7 86.1 0.54 40.8 78.5 0.91 36.4 76.6 1.23 27.3 
+
+D-CBF [8] 91.3 0.45 42.5 79.4 0.87 31.7 75.8 1.00 22.9 73.3 1.32 17.1 RAMFT [10] 83.6 0.52 36.8 83.6 0.52 40.4 80.7 0.68 28.5 69.1 1.46 16.7 CBF-AF [9] 84.6 0.49 47.6 66.0 1.18 30.8 57.0 1.65 21.7 51.8 2.25 15.5 HIL-CBF [7] 61.1 4.07 41.5 52.7 2.31 29.7 51.3 2.09 22.0 49.7 2.56 15.4 DWA [5] 60.3 1.28 7.4 60.3 1.28 7.4 60.3 1.40 7.4 60.4 1.85 7.2 APF-CPP [6] 25.3 2.42 4.0 25.3 2.42 4.0 25.5 2.65 3.8 25.5 3.50 3.8 DPD † [15] 69.9 1.42 18.0 56.2 1.82 20.3 52.6 2.04 13.7 44.5 2.80 10.6 (a) Front Blocked (b) Back Blocked (c) Left Blocked (d) Right Blocked             
+
+> 0.1
+> 3.0
+> 10.0
+> 20.0
+> 30.0
+> Depth (m)
+> None Front Back Left Right
+> Occlusion Direction
+> 30
+> 40
+> 50
+> 60
+> 70
+> 80
+> 90
+> 100
+> Success Rate (%)
+> 96.7%
+> 36.9%
+> 93.4% 94.9%
+> 72.4%
+> 97.9%
+> 37.7%
+> 94.1% 96.0%
+> 66.8%
+> (e) Multi-Drone (4-8 per group)
+> PanoDP (RR off)
+> PanoDP (RR on)
+> None Front Back Left Right
+> Occlusion Direction
+> 40
+> 50
+> 60
+> 70
+> 80
+> 90
+> 100
+> 98.6%
+> 45.7%
+> 97.9% 97.7%
+> 98.5% 98.7%
+> 44.5%
+> 98.1% 98.3%
+> 98.1%
+> (f) Single-Drone (control)
+> PanoDP (RR off)
+> PanoDP (RR on)
+
+Fig. 6: Single-camera occlusion robustness. (a)–(d) 360° panoramic depth with one camera blocked (yellow: max-range fill). (e) In multi-drone tests, blocking the right camera drops SR by 24 pp, while blocking the left has negligible effect, revealing a directional convention. (f) In single-drone control, any non-front camera is expendable ( <1 pp drop), showing the asymmetry stems from coordination. Shaded bands: ±1 std over 10 seeds. 
+
+while left -camera loss causes only −1.8 pp—a stark direc-tional asymmetry in a geometrically symmetric environment. 
+
+Verification. A single-drone control (Fig. 6f) removes inter-drone collisions entirely. Blocking any non-front cam-era now causes <1 pp degradation, and left vs. right cameras become equally expendable ( 97 .7% vs. 98 .5% ). The right-camera asymmetry therefore arises exclusively from multi-agent interactions: the policy has learned an emergent right-hand traffic convention —when drones meet head-on, they consistently veer right, making the right camera critical for detecting along the preferred avoidance direction. This emergent behavior is visually confirmed in the circle-swap demonstration (Fig. 7), where the swarm exhibits a coher-ent counterclockwise rotation pattern as agents cross the congested center via right-side avoidance. Since random rotation augmentation is symmetric ( ψ ∼ U [−ψmax , ψ max ])and DPD † trained with the same augmentation shows no such directional preference, the convention is attributable to panoramic coverage rather than training-time rotational bias. This self-organized convention,enabled by 360 ◦ panoramic awareness acting as an implicit spatial communication chan-nel, explains the strong performance of PanoDP in the circle-swap stress test (Sec. IV-B), where coordinated crossing through a congested center would be impossible without such emergent traffic rules. 
+
+D. Qualitative Demonstrations 
+
+Circle-swap (Fig. 7). With N = 64 agents crossing through a single congested center, Panoramic achieves 93.8% success (4 collisions) versus 59.4% (26 collisions) for Forward-only. The overhead view reveals an emergent counterclockwise ro-tation —each agent veers right that corroborates the occlusion analysis (Sec. IV-C). 
+
+Bamboo-forest traversal (Fig. 8). Deploying the same policy in an AirSim [14] bamboo forest, where depth images contain thin-structure geometry never seen during training and stochastic wind introduces forces absent from training, the swarm successfully navigates the forest. This suggests that inverse-depth preprocessing and GRU temporal memory (Sec. III-D) jointly provide sufficient robustness to bridge the simulator-to-deployment gap. V. C ONCLUSION 
+
+We presented PanoDP, a decentralized collision-avoidance policy for large quadrotor swarms that runs purely on on-Fig. 7: Circle-swap with N = 64 . Left: Panoramic (93.8% success, 4 collisions); Right: Forward-only (59.4%, 26 collisions). The swarm self-organizes a counterclockwise rotation through the congested center. Bottom: per-drone depth tiles; red X = frozen after collision. 
+
+Fig. 8: Sim-to-sim transfer in AirSim: a multi-drone swarm navigates a dense bamboo forest with photorealistic depth and stochastic wind. A policy trained in a lightweight differentiable simulator with spherical obstacles transfers to AirSim without retraining, showing robustness to visual domain shift and aerodynamic perturbations. 
+
+board 360 ◦ panoramic depth. It combines an equirectangular panoramic representation, a circular convolutional encoder for azimuthal wrap-around, and a GRU module for temporal memory and implicit velocity estimation. Trained end-to-end with differentiable physics using only 4–8 agents per batch on a single GPU, the same policy generalizes to 1 to 512+ agents at test time without retraining or communication, with per-agent O(1) cost. Across out-of-distribution circle-swap stress tests, PanoDP matches or exceeds privileged planners and reaches 87.2% collision-free rate at N = 512 . Occluding a single camera reveals an emergent right-hand traffic con-vention, also visible in the circle-swap visualization. Sim-to-sim transfer to a photorealistic AirSim bamboo forest further shows robustness to visual domain shift. 
+
+Limitations and future work. The current evaluation considers spherical static obstacles and speeds up to 3.25 m/s. Extending to dynamic obstacles and higher speeds will further stress-test the panoramic encoder. Scaling beyond 512 agents and higher panoramic resolution likely requires multi-GPU training, while a fused CUDA stitching kernel can reduce per-frame overhead for onboard inference. Future work targets transfer to physical multi-drone platforms under sensor noise, latency, and regulatory constraints. REFERENCES [1] J. Van Den Berg, S. J. Guy, M. Lin, and D. Manocha, “Optimal reciprocal collision avoidance for multi-agent navigation,” in Proc. IEEE Int. Conf. Robot. Autom. (ICRA) , 2010. [2] U. Borrmann, L. Wang, A. D. Ames, and M. Egerstedt, “Control barrier certificates for safe swarm behavior,” IFAC-PapersOnLine ,2015. [3] P. Long, T. Fan, X. Liao, W. Liu, H. Zhang, and J. Pan, “Towards optimally decentralized multi-robot collision avoidance via deep rein-forcement learning,” in ICRA , 2018. [4] Y.-L. Qiao, J. Liang, V. Koltun, and M. C. Lin, “Scalable differentiable physics for learning and control,” in Proc. 37th Int. Conf. Mach. Learn. (ICML) , 2020. [5] S. Yasuda, T. Kumagai, and H. Yoshida, “Safe and efficient dynamic window approach for differential mobile robots with stochastic dy-namics using deterministic sampling,” IEEE Robotics and Automation Letters , vol. 8, no. 5, pp. 2614–2621, 2023. [6] Z. Wang, X. Zhao, J. Zhang, N. Yang, P. Wang, J. Tang, J. Zhang, and L. Shi, “Apf-cpp: An artificial potential field based multi-robot online coverage path planning approach,” IEEE robotics and automation letters , 2024. [7] V. N. Fernandez-Ayala, X. Tan, and D. V. Dimarogonas, “Distributed barrier function-enabled human-in-the-loop control for multi-robot systems,” in ICRA , 2023. [8] P. Mestres, C. Nieto-Granda, and J. Cort´ es, “Distributed safe nav-igation of multi-agent systems using control barrier function-based controllers,” IEEE Robot. Autom. Lett. , 2024. [9] V. M. Gonc ¸alves, D. Chaikalis, A. Tzes, and F. Khorrami, “Safe multi-agent drone control using control barrier functions and acceleration fields,” Robot. Auton. Syst. , 2024. [10] B. S. Park and S. J. Yoo, “Resilient adaptive multi-robot formation tracking for achieving guaranteed dynamic obstacle avoidance within limited inter-agent communication ranges,” IEEE Access , 2024. [11] P. Liu, C. Feng, Y. Xu, Y. Ning, H. Xu, and S. Shen, “Omninxt: A fully open-source and compact aerial robot with omnidirectional visual perception,” in IEEE/RSJ Int. Conf. Intell. Robots Syst. (IROS) . IEEE, 2024. [12] G. G. Gattaux, A. Wystrach, J. R. Serres, and F. Ruffier, “Route-centric ant-inspired memories enable panoramic route-following in a car-like robot,” Nature Communications , 2025. [13] X. Ge, Y. Pan, Y. Zhang, X. Li, W. Zhang, D. Zhang, Z. Wan, X. Lin, X. Zhang, J. Liang et al. , “Airsim360: A panoramic simulation platform within drone view,” arXiv preprint arXiv:2512.02009 , 2025. [14] S. Shah, D. Dey, C. Lovett, and A. Kapoor, “Airsim: High-fidelity visual and physical simulation for autonomous vehicles,” in Field and service robotics: Results of the 11th international conference .Springer, 2017. [15] Y. Zhang, Y. Hu, Y. Song, D. Zou, and W. Lin, “Learning vision-based agile flight via differentiable physics,” Nature Machine Intelligence ,2025. [16] X. Zhang, R. Wang, Y. Ren, J. Sun, H. Fang, J. Chen, and G. Wang, “Diffaero: A gpu-accelerated differentiable simulation framework for efficient quadrotor policy learning,” arXiv preprint arXiv:2509.10247 ,2025. [17] A. Loquercio, E. Kaufmann, R. Ranftl, M. M¨ uller, V. Koltun, and D. Scaramuzza, “Learning high-speed flight in the wild,” Science Robotics , 2021. [18] Y. Zhang, N. Fan, H. Zheng, J. Liang, Z. Pan, Q. Chen, and X. Lyu, “Threat-aware uav dodging of human-thrown projectiles with an rgb-d camera,” IEEE Robotics and Automation Letters , 2025. [19] K. Huang, H. Wang, J. Chen, J. Chen, Y. Luo, D. Guo, X. Zhang, X. Ji, and H. Liu, “Towards task-oriented flying: Framework, infrastructure, and principles,” arXiv preprint arXiv:2504.15129 , 2025. [20] J. Lee, A. Rathod, K. Goel, J. Stecklein, and W. Tabib, “Quadrotor navigation using reinforcement learning with privileged information,” 
+
+arXiv preprint arXiv:2509.08177 , 2025.

@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.01705v1/fig-001.webp",
+      "caption": "Fig. 1: Pipeline with CBF-based safety filtering after arbitration. The operator specifies a target pose Th(t); the guiding policy outputs Tr(t) from the current state s(t) = {θ(t),O(t),L(t), task context}, where θ is the joint configuration, O and L are obstacle and robot link capsules, and “task context” includes task-specific info (e.g., rendered views). These unfiltered poses are blended in SE(3) via arbitration weight α(t) to form T(t) (red dashed), which may violate safety margins. BarrierIK receives T(t) and enforces CBF conditions to compute a safe joint command θ∗(t) (green), which is applied to the robot. The updated state s(t) is fed back to the policy and user.",
+      "page": 1,
+      "index": 1,
+      "width": 512,
+      "height": 339
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01705v1/fig-002.webp",
+      "caption": "Fig. 4: Subjective workload and usability across teleoperation configurations. (a) Polar (“radar”) plot of modified NASA-TLX dimensions—physical demand (I-PD), temporal demand (I-TD), mental demand (I-MD), performance (IPER), effort (I-EFF), frustration (I-FL), control level (CL), assistance level (AL), and safety level (SL)—with “I-” denoting inverted scales so that larger values correspond to more favorable assessments. (b) Violin plots of participants’ aggregated NASA-TLX scores for each configuration (mean ◦, median ♦), where lower workload (higher support) appears toward the top of the scale.",
+      "page": 6,
+      "index": 2,
+      "width": 509,
+      "height": 262
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01705v1/fig-003.webp",
+      "caption": "Fig. 3: The stacked bar chart illustrates the number of participants who ranked each controller configuration from 1st to 6th choice. Each color segment within a bar represents the count of users selecting that configuration at the respective rank.",
+      "page": 6,
+      "index": 3,
+      "width": 510,
+      "height": 245
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01705v1/fig-004.webp",
+      "caption": "Fig. 2: Simulated task and collision-evaluation setup. Left: scene with human target Th(t) and autonomous reference Tr(t). Right: robot link (red) and obstacle (black) convexcapsule colliders; for each link ℓ ∈ L and obstacle o ∈ O we compute signed distances ϕℓo(θ) and signed distance vectors used by Baseline P and BarrierIK (colors encode magnitude).",
+      "page": 4,
+      "index": 4,
+      "width": 513,
+      "height": 360
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01705v1/fig-005.webp",
+      "caption": "TABLE I: Autonomous trajectory evaluation (mean ± s.d.). For Min. clearance, higher is better (negative ⇒ penetration). For all other metrics, lower is better. Bold indicates a statistically significant B vs. P difference (N serves only as a reference; excluded from the significance analysis test).",
+      "page": 5,
+      "index": 5,
+      "width": 1044,
+      "height": 185
+    }
+  ]
+}

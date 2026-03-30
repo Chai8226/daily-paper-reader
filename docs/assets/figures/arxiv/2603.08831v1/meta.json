@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.08831v1/fig-001.webp",
+      "caption": "Fig. 3. Snapshots of experiments for (a) flat terrain locomotion with a 13.6 (kg) payload (109% uncertainty); (b) and (c) rough terrain locomotion with wooden blocks and 11.34 (kg) (91% uncertainty) and 8.2 (kg) payloads; (d) dynamic payload addition; (e) pushing the robot with a 6.48 (kg) payload; (f), pushing a 3.7 (kg) object while carrying a 4.5 (kg) payload; (g) and (h) locomotion on grass and gravel with a 6.48 (kg) payload; (i) and (j) backward and lateral trot on rough terrain with 9 (kg) and 6.8 (kg) payloads and a COM offset. In all of these experiments, the desired forward velocities are 0.5 (m/s), except for (b) and (d), which are 0.4 (m/s) and 0.6 (m/s), respectively. For the backward and lateral trot, the desired velocity is 0.4 (m/s) and 0.15 (m/s).",
+      "page": 6,
+      "index": 1,
+      "width": 968,
+      "height": 231
+    },
+    {
+      "url": "assets/figures/arxiv/2603.08831v1/fig-002.webp",
+      "caption": "Fig. 2. Overview of the proposed layered control approach with the AMPC algorithm and the adaptive gradient law at the high level (160 Hz) and the nonlinear WBC at the low level (1kHz) for robust locomotion with unknown payloads.",
+      "page": 2,
+      "index": 2,
+      "width": 968,
+      "height": 233
+    },
+    {
+      "url": "assets/figures/arxiv/2603.08831v1/fig-003.webp",
+      "caption": "Fig. 4. Plot of the prescribed reduced-order trajectory and vertical GRF for the front right leg by the AMPC planner at the forward speed of 0.4 (m/s) in (a) and (b). (c) Evolution of the estimated mass parameter. Despite the challenges posed by uneven terrain and an unknown payload of 11.34 (kg), the robot demonstrates robust locomotion, as depicted in Fig. 3(b).",
+      "page": 7,
+      "index": 3,
+      "width": 512,
+      "height": 377
+    },
+    {
+      "url": "assets/figures/arxiv/2603.08831v1/fig-004.webp",
+      "caption": "Fig. 5. Plot of the prescribed reduced-order trajectory and vertical GRF for the front right leg by the AMPC planner at the forward speed of 0.6 (m/s) in (a) and (b). (c) Evolution of the estimated mass parameter. The robot is subject to carrying a payload of 6.48 (kg) and dynamic additions, as shown in Fig. 3(d). The true mass varies in response to these dynamic payload additions.",
+      "page": 7,
+      "index": 4,
+      "width": 512,
+      "height": 366
+    }
+  ]
+}

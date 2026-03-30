@@ -1,0 +1,62 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.19602v1/fig-001.webp",
+      "caption": "Fig. 6. Examples of test environments. From left to right: Env1, Env2, and Env3.",
+      "page": 10,
+      "index": 1,
+      "width": 752,
+      "height": 193
+    },
+    {
+      "url": "assets/figures/arxiv/2603.19602v1/fig-002.webp",
+      "caption": "TABLE II Robot Configurations for Real-world Cross-Embodiment Experiments",
+      "page": 10,
+      "index": 2,
+      "width": 1056,
+      "height": 247
+    },
+    {
+      "url": "assets/figures/arxiv/2603.19602v1/fig-003.webp",
+      "caption": "Fig. 5. Differential-Drive Mobile Robots (DMR). DMR1-DMR6 were wheeled robots based on the TurtleBot 2 chassis, varying in physical dimension, camera type, and camera position. DMR7 was a Unitree Go2 quadruped robot equipped with a WHEELTEC C100 camera.",
+      "page": 10,
+      "index": 3,
+      "width": 854,
+      "height": 456
+    },
+    {
+      "url": "assets/figures/arxiv/2603.19602v1/fig-004.webp",
+      "caption": "Fig. 11. Obstacle avoidance performance in VLN experiments. The images include both first-person and third-person views as time progresses. Test configurations are DMR2 and DMR3. The robot must find targets according to language instructions, with the VLN providing high-level commands. Concurrently, the robot should avoid obstacles within the scene and pedestrians who suddenly appear. The test language instruction is ”Find a chair”.",
+      "page": 13,
+      "index": 4,
+      "width": 1049,
+      "height": 831
+    },
+    {
+      "url": "assets/figures/arxiv/2603.19602v1/fig-005.webp",
+      "caption": "Fig. 10. Real-world experiments for different camera types.",
+      "page": 12,
+      "index": 5,
+      "width": 506,
+      "height": 571
+    },
+    {
+      "url": "assets/figures/arxiv/2603.19602v1/fig-006.webp",
+      "caption": "Fig. 4. The visualization of CeRLP trajectories in test BARN environments. In (a) and (b), the maximum linear velocity was 0.5 m/s. In (c), the maximum linear velocity was 1 m/s.",
+      "page": 9,
+      "index": 6,
+      "width": 492,
+      "height": 363
+    },
+    {
+      "url": "assets/figures/arxiv/2603.19602v1/fig-007.webp",
+      "caption": "TABLE I Comparison of Different Methods using BARN Dataset under Two Velocity Settings",
+      "page": 9,
+      "index": 7,
+      "width": 1044,
+      "height": 210
+    }
+  ]
+}

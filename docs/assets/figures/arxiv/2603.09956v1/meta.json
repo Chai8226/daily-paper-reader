@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.09956v1/fig-001.webp",
+      "caption": "Fig. 5. Comparison of retargeted trajectories between KDMR and GMR over a selected time segment (32–40 s) from the full motion sequence. (a) Robot base position (x, y, z) and orientation (roll, pitch, yaw). (b) Corresponding base linear and angular velocities. (c) Joint position of the left leg (hip, knee, and ankle joints). (d) Corresponding joint velocity. The θLi and θ̇Liindicate the joint position and velocity of i-th joint.",
+      "page": 6,
+      "index": 1,
+      "width": 894,
+      "height": 788
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09956v1/fig-002.webp",
+      "caption": "Fig. 6. Comparison of heel–toe height and contact forces with respect to the baseline method. (a) Heel and toe heights of the left foot for KDMR and GMR, along with the desired contact window derived from the source GRF data. (b) Comparison of heel–toe ground reaction forces between our method and source GRF data.",
+      "page": 7,
+      "index": 2,
+      "width": 893,
+      "height": 391
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09956v1/fig-003.webp",
+      "caption": "Fig. 7. Comparison of mean episode reward and value function loss over five independent training runs using BeyondMimic for each method. All methods were trained for an identical number of iterations, differing only in random initialization seeds. The results demonstrate that our method achieves superior performance and improved sample efficiency compared to the baselines.",
+      "page": 7,
+      "index": 3,
+      "width": 901,
+      "height": 335
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09956v1/fig-004.webp",
+      "caption": "Fig. 3. Algorithm overview: The KDMR algorithm converts time-series marker and ground reaction force data into joint position targets for the humanoid robot. This is accomplished in two steps: (1) Data Processing, which converts spatial marker trajectories and GRF data to human model poses and contact states; (2) Kinodynamic Motion Retargeting, which converts a sequence of human poses and contacts to a corresponding robot trajectory.",
+      "page": 3,
+      "index": 4,
+      "width": 925,
+      "height": 338
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09956v1/fig-005.webp",
+      "caption": "Fig. 4. Illustration of the human GRF pattern used to estimate the contact sequence for steady-state walking.",
+      "page": 4,
+      "index": 5,
+      "width": 330,
+      "height": 432
+    }
+  ]
+}

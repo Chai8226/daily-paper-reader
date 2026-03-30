@@ -1,0 +1,62 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.04463v1/fig-001.webp",
+      "caption": "Fig. 1: An overview of GAIDE: the proposed neural informed sampler constructs a graph that represents both the robotic manipulator embodiment and the spatial relationships inherent within the motion planning problem. The adjacency matrix of this graph is incorporated into a transformer-based neural sampler via attention masking to enable spatial- and embodimentaware informed sampling. The framework is embedded within sampling-based planners as an informed sampler and demonstrates superior performance compared to benchmark neural samplers, MPNets [6] and SIMPNet [5].",
+      "page": 1,
+      "index": 1,
+      "width": 413,
+      "height": 682
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04463v1/fig-002.webp",
+      "caption": "TABLE I: Planning performance of GAIDE and baseline planners across all held-out planning task environments.",
+      "page": 6,
+      "index": 2,
+      "width": 1074,
+      "height": 273
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04463v1/fig-003.webp",
+      "caption": "Fig. 5: Planning cost of GAIDE and baseline planners across all held-out planning tasks.",
+      "page": 6,
+      "index": 3,
+      "width": 942,
+      "height": 331
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04463v1/fig-004.webp",
+      "caption": "Fig. 2: Graph Construction: an illustration of spatial and embodiment graph. An undirected graph is constructed over the downsampled manipulator point cloud to implicitly encode the manipulator’s kinematics chain, while a directed graph connects the downsampled workspace point cloud to the robot nodes to capture the inherent spatial relationships within the motion planning problem. “PCD” denotes point cloud and “PointNet++” is set abstraction layers from PointNet++ [7].",
+      "page": 2,
+      "index": 4,
+      "width": 429,
+      "height": 398
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04463v1/fig-005.webp",
+      "caption": "Fig. 6: Real-world deployment of GAIDE. The path profile from the start configuration to the goal configuration is demonstrated in the real-world (top), and simulated scene point cloud (bottom) for each demo.",
+      "page": 7,
+      "index": 5,
+      "width": 963,
+      "height": 857
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04463v1/fig-006.webp",
+      "caption": "Fig. 3: GAIDE network architecture: The framework leverages current-time-step workspace information (including the workspace and robot point clouds) together with configuration space features (current-time-step and goal configuration) to generate an informed sample that guides the robotic manipulator toward the motion planning goal. qt, Pr, and qgoal are the current time-step configuration, current-time step robotic manipulator point cloud, and motion planning goal configuration, respectively. zt, zgoal, zr, zw, and δqt are the current time-step configuration, planning goal configuration, robot point cloud, scene point cloud embeddings, and predicted joint angle, respectively. “PointNet++” denotes set abstraction layers from PoinNet++ [7].",
+      "page": 3,
+      "index": 6,
+      "width": 856,
+      "height": 381
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04463v1/fig-007.webp",
+      "caption": "TABLE II: Planning performance of GAIDE and different frameworks that apply attention masking differently across held-out planning environments. “GAIDE-V” denotes GAIDE-Vanilla Transformer, and “GAIDE-H” denotes GAIDE-Hard.",
+      "page": 8,
+      "index": 7,
+      "width": 1074,
+      "height": 184
+    }
+  ]
+}

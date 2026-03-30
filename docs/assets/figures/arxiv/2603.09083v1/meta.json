@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.09083v1/fig-001.webp",
+      "caption": "Fig. 4: Comparison results of the log10 of maximum (top) and mean (bottom) prediction errors for a robot arm under state uncertainty across the planning horizon.",
+      "page": 6,
+      "index": 1,
+      "width": 529,
+      "height": 446
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09083v1/fig-002.webp",
+      "caption": "Fig. 5: Snapshots of the planned trajectories by the MPPI control using four kinds of nonlinear dynamical systems, i.e., baseline, Transformer, LSTM, and Ours (from top to bottom). The arm tries to reach the goal (green ball) while keeping the probability of collision with uncertain nonconvex obstacles (red heart-shaped) guaranteed. Only our method succeeds in time because of the correct guiding rollouts (cyan) benefited from our neural network dynamical model and collision risk verification.",
+      "page": 7,
+      "index": 2,
+      "width": 1064,
+      "height": 906
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09083v1/fig-003.webp",
+      "caption": "Fig. 2: Schematic diagram of proposed forward dynamics propagation in MPPI under RM-DeSKO model with key equations for N sampled trajectories over a horizon H .",
+      "page": 4,
+      "index": 3,
+      "width": 1038,
+      "height": 634
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09083v1/fig-004.webp",
+      "caption": "Fig. 6: Snapshots of the rebar tying experiment under uncertainty from the left and front views (top and bottom). The rollouts in cyan on the screen stably point to the goal despite the eccentric payload and tracking errors of the manipulator. The robot successfully generates a risk-bounded trajectory to bypass the uncertain nonconvex human arms and reach the tying target using our method, which transfers directly from simulation to a real robot.",
+      "page": 9,
+      "index": 4,
+      "width": 1052,
+      "height": 348
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09083v1/fig-005.webp",
+      "caption": "Fig. 3: Ellipsoidal body description example of a robot arm to be verified for collision risk.",
+      "page": 5,
+      "index": 5,
+      "width": 434,
+      "height": 413
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.02856v1/fig-001.webp",
+      "caption": "Fig. 4: Qualitative Visualization of Retargeting on Inter-X. Top: Baselines suffer from contact loss (“air handshakes”), whereas IAMR preserves precise interaction geometry. Bottom: OR leads to severe penetration while DOR forces unnatural stiff postures; IAMR maintains close-proximity topology without collisions.",
+      "page": 6,
+      "index": 1,
+      "width": 529,
+      "height": 239
+    },
+    {
+      "url": "assets/figures/arxiv/2603.02856v1/fig-002.webp",
+      "caption": "Fig. 3: Overview of MAGIC. MAGIC contains ∼3 hours of high-fidelity interaction data balanced across five semantic categories (inner chart). Representative snapshots (outer ring) illustrate the diversity ranging from loose spatiotemporal coordination to intensive contact.",
+      "page": 6,
+      "index": 2,
+      "width": 529,
+      "height": 531
+    },
+    {
+      "url": "assets/figures/arxiv/2603.02856v1/fig-003.webp",
+      "caption": "Fig. 1 illustrates the robustness of our framework in realworld scenarios, successfully handling tasks ranging from intensive contacts to synchronized long-horizon dancing. Our main contributions are summarized as follows:",
+      "page": 2,
+      "index": 3,
+      "width": 504,
+      "height": 439
+    },
+    {
+      "url": "assets/figures/arxiv/2603.02856v1/fig-004.webp",
+      "caption": "TABLE I: Quantitative Results of Retargeting. Comparison across four interaction categories. Metrics include Safety (IPR, MPD), Fidelity (IEE, F1), and Utility (DSR). IAMR achieves the best balance, strictly eliminating penetration (IPR=0) while maximizing contact F1 scores.",
+      "page": 7,
+      "index": 4,
+      "width": 529,
+      "height": 561
+    },
+    {
+      "url": "assets/figures/arxiv/2603.02856v1/fig-005.webp",
+      "caption": "TABLE II: Quantitative Results of Policy. We evaluate the contribution of each component. Our full method achieves the most robust balance, effectively integrating coarse-grained geometric alignment (low IEE) with fine-grained physical contact fidelity (high CSR).",
+      "page": 7,
+      "index": 5,
+      "width": 529,
+      "height": 657
+    },
+    {
+      "url": "assets/figures/arxiv/2603.02856v1/fig-006.webp",
+      "caption": "Fig. 7: Visualization of Topological Interaction Priors. We illustrate the extracted graph structures on a representative interaction task, where yellow edges denote spatial interaction constraints and red edges indicate physical contacts.",
+      "page": 13,
+      "index": 6,
+      "width": 529,
+      "height": 365
+    },
+    {
+      "url": "assets/figures/arxiv/2603.02856v1/fig-007.webp",
+      "caption": "Fig. 5: Qualitative Visualization of Policy. Single Agent (blue) drifts into collisions. w/o Contact Rew (green) achieves low error but exhibits physical “ghosting”. In contrast, Ours enforces valid physical contact.",
+      "page": 8,
+      "index": 7,
+      "width": 529,
+      "height": 579
+    },
+    {
+      "url": "assets/figures/arxiv/2603.02856v1/fig-008.webp",
+      "caption": "Fig. 6: Robustness to disturbances. Our policy demonstrates strong resilience against aggressive external perturbations (pulling, pushing, and kicking), successfully recovering balance and synchronization.",
+      "page": 8,
+      "index": 8,
+      "width": 529,
+      "height": 384
+    },
+    {
+      "url": "assets/figures/arxiv/2603.02856v1/fig-009.webp",
+      "caption": "Fig. 2: Overview of Rhythm. IAMR utilizes decoupled optimization to generate high-quality humanoid-humanoid motion interaction references from human demonstrations. Guided by these references, IGRL employs MAPPO and graph-based rewards to learn robust coupled dynamics. Finally, the deployment module facilitates Sim-to-Real transfer via Lidar-fused state estimation and inter-agent synchronization.",
+      "page": 4,
+      "index": 9,
+      "width": 1098,
+      "height": 533
+    },
+    {
+      "url": "assets/figures/arxiv/2603.02856v1/fig-010.webp",
+      "caption": "TABLE IV: Reward Terms and Weights used in IGRL",
+      "page": 16,
+      "index": 10,
+      "width": 1076,
+      "height": 621
+    },
+    {
+      "url": "assets/figures/arxiv/2603.02856v1/fig-011.webp",
+      "caption": "TABLE V: Domain Randomization Parameters",
+      "page": 16,
+      "index": 11,
+      "width": 529,
+      "height": 603
+    }
+  ]
+}

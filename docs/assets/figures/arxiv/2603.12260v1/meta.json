@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.12260v1/fig-001.webp",
+      "caption": "TABLE I: Data Collection Comparison. We report the total time to collect 60 episodes, the number of successful teleoperation attempts out of 60, and the success rate of the trained policy over 30 trials. (-) indicates the task was infeasible with the baseline setup. Note: All values in the Avg column are calculated on the subset of four tasks successfully performed by both methods (excluding Scan&Pack).",
+      "page": 6,
+      "index": 1,
+      "width": 962,
+      "height": 217
+    },
+    {
+      "url": "assets/figures/arxiv/2603.12260v1/fig-002.webp",
+      "caption": "Fig. 4: Qualitative pose reproduction on the Wuji hand. We compare an optimization-based retargeting baseline and our learning-based retargeter on canonical dexterous poses captured by the inertial glove, including touch middle finger, touch index finger, touch ring finger, and the rock sign.",
+      "page": 7,
+      "index": 2,
+      "width": 512,
+      "height": 752
+    },
+    {
+      "url": "assets/figures/arxiv/2603.12260v1/fig-003.webp",
+      "caption": "Fig. 2: System Overview. (A) Our teleoperation pipeline and hand retargeting policy training. (B) Our imitation learning policy architecture. We approximate proprioceptive states missing in human data with previous-frame actions.",
+      "page": 3,
+      "index": 3,
+      "width": 1008,
+      "height": 417
+    },
+    {
+      "url": "assets/figures/arxiv/2603.12260v1/fig-004.webp",
+      "caption": "Fig. 3: Evaluation Tasks and Generalization. We visualize the initial state and key steps in our evaluated tasks. In the Task 5 generalization test, robot data used for training only consists of the Seen (position, object, background) setting.",
+      "page": 5,
+      "index": 4,
+      "width": 1054,
+      "height": 718
+    }
+  ]
+}

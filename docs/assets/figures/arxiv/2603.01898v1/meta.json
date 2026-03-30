@@ -1,0 +1,62 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.01898v1/fig-001.webp",
+      "caption": "Fig. 1: SaferPath is a hierarchical navigation framework that uses a end-to-end visual navigation model for guidance and integrates safety-constrained control module, significantly improving obstacle avoidance and narrow-passage traversal for safe navigation in challenging environments.",
+      "page": 1,
+      "index": 1,
+      "width": 512,
+      "height": 341
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01898v1/fig-002.webp",
+      "caption": "Fig. 5: In Exploration in Dense Unstructured Environments experiment, the trajectory of SaferPath (Ours, NoMaD) (green) effectively avoids dense obstacles and reaches the free-space region. In contrast, the NoMaD trajectory (red) is more chaotic and results in significantly more collisions.",
+      "page": 6,
+      "index": 2,
+      "width": 462,
+      "height": 281
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01898v1/fig-003.webp",
+      "caption": "Fig. 2: SaferPath Pipeline overview. SaferPath can be integrated with various end-to-end visual navigation models. The Traversability Score Mapper processes RGB observations to generate a score map S, which, together with the learned guidance trajectory, is passed to the MP-SVES module. If optimization fails, the Emergency Indicator stops the robot and rotates it until a traversable trajectory is found; otherwise, the MPC controller executes trajectory tracking.",
+      "page": 2,
+      "index": 3,
+      "width": 1050,
+      "height": 331
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01898v1/fig-004.webp",
+      "caption": "Fig. 6: Our SaferPath deployed on the Unitree Go2 successfully avoids both unseen and dynamic obstacles, navigates narrow spaces, and consistently remains within safe areas. When no traversable trajectory is available, the Emergency Indicator stops the robot and reorients it toward a safe direction.",
+      "page": 7,
+      "index": 4,
+      "width": 822,
+      "height": 381
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01898v1/fig-005.webp",
+      "caption": "Fig. 7: The figure illustrates partial trajectories from Obstacle Avoidance in Narrow Corridors experiment, where the trajectory of SaferPath (Ours, ViNT) (green) is clearly smoother and safer, with significantly fewer collisions compared to ViNT (red). This demonstrates the superior obstacle avoidance capability and robustness of SaferPath in complex environments over ViNT.",
+      "page": 7,
+      "index": 5,
+      "width": 506,
+      "height": 335
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01898v1/fig-006.webp",
+      "caption": "Fig. 3: Safety constrained trajectories under different safety thresholds, with the robot maintaining varying safe distances from obstacles by adjusting threshold δ",
+      "page": 4,
+      "index": 6,
+      "width": 502,
+      "height": 417
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01898v1/fig-007.webp",
+      "caption": "Fig. 4: The figure illustrates the scene from Robust Navigation under Unseen Obstacles experiment. The scene above (Scene A) introduces obstacles along the sides of the road in the original environment, while the scene below (Scene B) includes all the obstacles from Scene A and adds additional obstacles in the middle of the road. The figures display some examples of successful trajectories of our method and examples of collision scenarios of the baseline methods.",
+      "page": 5,
+      "index": 7,
+      "width": 512,
+      "height": 402
+    }
+  ]
+}

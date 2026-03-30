@@ -1,0 +1,286 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-001.webp",
+      "caption": "Figure 16: Retargeting visual comparison across mink (top), PyRoki (middle), and cuRoboV2 (bottom) during a crawling sequence. The sequence requires hands to cross: mink produces self-collisions (no selfcollision handling, see red circle), PyRoki avoids collision but fails near contact boundaries, preventing the hands from crossing. cuRoboV2 resolves self-collisions gracefully, achieving accurate non-colliding retargeting.",
+      "page": 25,
+      "index": 1,
+      "width": 989,
+      "height": 698
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-002.webp",
+      "caption": "Figure 17: Humanoid motion retargeting on the G1 (70k frames). cuRoboV2-IK achieves 89.5% constraint satisfaction vs. PyRoki 61.2% and mink 40.6%, thanks to LM+L-BFGS seeding for collision-free solutions. MPC reaches 96.6% by checking collisions between frames but at the cost of tracking accuracy.",
+      "page": 26,
+      "index": 2,
+      "width": 945,
+      "height": 794
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-003.webp",
+      "caption": "Figure 8: Adaptive forward kinematics execution. For simple robots, a single fused kernel computes frame transforms, sphere positions, and Jacobians. For complex robots, this is split into two kernels: the first computes frame transforms, and the second computes sphere positions and Jacobians.",
+      "page": 15,
+      "index": 3,
+      "width": 611,
+      "height": 604
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-004.webp",
+      "caption": "Figure 12: Trajectory profiles for the same motion planning problem (each color denotes one joint). Left: cuRobo’s per-timestep optimization produces discontinuous acceleration and jerk. Right: cuRoboV2’s Bspline optimization yields smooth, continuous derivatives suitable for real robot execution.",
+      "page": 21,
+      "index": 4,
+      "width": 891,
+      "height": 634
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-005.webp",
+      "caption": "Figure 33:Camera-to-robot calibration via ICP. The user specifies a bounding box in the scene (left), which is used to run global ICP, aligning the robot mesh to the observed point cloud (right).",
+      "page": 47,
+      "index": 5,
+      "width": 956,
+      "height": 275
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-006.webp",
+      "caption": "Figure 21: ESDF benchmark across TSDF resolutions (10–25mm) at 50% and 100% workspace coverage. cuRoboV2 achieves 2–10× lower total time and 2–8× less memory than nvblox across all configurations, while maintaining higher collision recall. TSDF integration time is comparable across methods; the speedup stems from PBA+ distance propagation. Recall is computed only over the region where nvblox produces valid distances.",
+      "page": 30,
+      "index": 6,
+      "width": 943,
+      "height": 591
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-007.webp",
+      "caption": "Figure 1: Trajectory optimization loop. Each iteration evaluates B-spline waypoints, computes kinematics and inverse dynamics in parallel, evaluates costs (scene collision, self-collision, configuration-space bounds) concurrently on separate CUDA streams, aggregates them, backpropagates gradients through all forward operations, and updates the B-spline control points via L-BFGS.",
+      "page": 7,
+      "index": 7,
+      "width": 692,
+      "height": 529
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-008.webp",
+      "caption": "Figure 20: Learned locomotion policies on the Unitree G1. (a) Running: PyRoki’s policy falls at high velocity. (b) Crawling: mink’s policy resets from self-collision and ground penetration. cuRoboV2 succeeds on both.",
+      "page": 29,
+      "index": 8,
+      "width": 975,
+      "height": 776
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-009.webp",
+      "caption": "Table 4: Full planning time breakdown with dynamics enabled. Per-Iter is within TrajOpt (132.8 𝜇s/iter, 162 iterations). %Kernel is relative to the kernel total (30.83ms); %Total is relative to end-to-end wall-clock time (42ms).",
+      "page": 22,
+      "index": 9,
+      "width": 779,
+      "height": 423
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-010.webp",
+      "caption": "Table 3: Planning time per phase with and without dynamics constraints. %Kernel shows fraction of total kernel execution time; %Total shows fraction of end-to-end wall-clock time. The gap between Kernel Total and End-to-end is CUDA graph launch and Python overhead.",
+      "page": 22,
+      "index": 10,
+      "width": 846,
+      "height": 237
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-011.webp",
+      "caption": "Figure 27: Percentage of LLM-authored versus human-authored code additions per development phase. Early phases (R1–R3) focused on refactoring, with the human writing most code. Later phases (N1–N3) developed new modules using LLM-assisted workflows, with LLM contributions rising to 73%.",
+      "page": 34,
+      "index": 11,
+      "width": 851,
+      "height": 352
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-012.webp",
+      "caption": "Figure 26: Codebase size comparison (excluding blank lines). Left: Non-blank lines split into Code, Inlinedocs, and Tests, stacked by language. Right: File counts by language.",
+      "page": 34,
+      "index": 12,
+      "width": 956,
+      "height": 399
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-013.webp",
+      "caption": "Figure 4: Block-sparse TSDF storage. Only blocks near observed surfaces are allocated. A hash table maps block coordinates to pool indices via CAS. Each voxel stores two independent float16 channels (depth and geometry) whose minimum is returned at query time. Recycled blocks are managed through a free-list stack.",
+      "page": 10,
+      "index": 13,
+      "width": 923,
+      "height": 237
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-014.webp",
+      "caption": "Figure 5: Voxel-Project depth integration. (a) Per-pixel rays discover blocks touched by the current depth frame. (b) Duplicate keys are filtered and surviving blocks are allocated via CAS, yielding 𝐾 pool indices. (c) Phase 4 reverses the mapping: each voxel projects itself into the image, reads the depth at the projected pixel, and writes the signed distance directly, eliminating all atomic contention.",
+      "page": 10,
+      "index": 14,
+      "width": 953,
+      "height": 276
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-015.webp",
+      "caption": "Figure 3: TSDF-ESDF pipeline. Depth images are fused into a block-sparse TSDF via voxel-centric projection (Sec. 5.2), and known geometry is stamped analytically. After each update, TSDF weights are decayed (time + frustum factors), and blocks below a weight threshold are tombstoned and recycled. On demand, a dense ESDF is generated in three stages: (1) seeding surface sites from zero-crossings, (2) propagating distances via PBA+, and (3) recovering signs for geometry-layer voxels beyond the truncation band.",
+      "page": 10,
+      "index": 15,
+      "width": 898,
+      "height": 209
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-016.webp",
+      "caption": "Figure 7: Kinematic structures that challenge parallelized computation. (a) A single-arm serial chain, the traditional case. (b) Mimic joints, where actuating 𝜃1 mechanically constrains 𝜃2 and 𝜃3. (c) A humanoid with branching kinematic chains. We introduce precomputed topology caches for 𝑂 (1) ancestor lookups and two-stage Jacobian filtering to efficiently parallelize gradient and Jacobian computation.",
+      "page": 14,
+      "index": 16,
+      "width": 970,
+      "height": 464
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-017.webp",
+      "caption": "Figure 25: Real-world collision avoidance on the I2RT YAM robot. The robot plans a motion from left to right while cuRoboV2’s MPC dynamically avoids an obstacle using live ESDF updates from a ZED Mini stereo camera.",
+      "page": 33,
+      "index": 17,
+      "width": 933,
+      "height": 318
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-018.webp",
+      "caption": "Figure 32: The RobotBuilder pipeline converts a URDF into a complete, optimized robot configuration through four automated stages.",
+      "page": 46,
+      "index": 18,
+      "width": 821,
+      "height": 464
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-019.webp",
+      "caption": "Table 2: Comparison of GPU-accelerated RNEA implementations.",
+      "page": 18,
+      "index": 19,
+      "width": 587,
+      "height": 325
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-020.webp",
+      "caption": "Figure 13: Inverse dynamics performance (forward + backward pass) across batch sizes. cuRoboV2 is 1.5– 2× slower than GRiD’s code-generated kernels on simple robots but 14–18× faster than Newton. Critically, GRiD fails on the 48-DoF humanoid due to shared memory limits, while cuRoboV2 scales gracefully.",
+      "page": 23,
+      "index": 20,
+      "width": 989,
+      "height": 669
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-021.webp",
+      "caption": "Figure 31: Installation workflow comparison. Top: v1’s pybind11 build required exact CUDA–PyTorch version matching and ∼20min of compilation. Bottom: cuRoboV2 installs via pip; kernels are compiled and cached on first use with no version constraints.",
+      "page": 45,
+      "index": 21,
+      "width": 767,
+      "height": 241
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-022.webp",
+      "caption": "Figure 19: Evaluation box plots across 5 seeds. Top: running; bottom: crawling. cuRoboV2 achieves the lowest MPJPE with tight variance, while mink exhibits 12× higher MPJPE variance on crawling (174.1±50.7 vs. 151.4±4.5mm).",
+      "page": 28,
+      "index": 22,
+      "width": 948,
+      "height": 576
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-023.webp",
+      "caption": "Figure 6: ESDF generation pipeline. (a) Site seeding: scatter launches one thread per TSDF voxel and writes to the ESDF (requires atomics); gather launches one thread per ESDF voxel and probes the TSDF via a 7-point stencil (no atomics, CUDA graph safe). (b) PBA+ propagates site ownership via separable sweeps: Phase 1 sweeps rows via bidirectional flooding, Phase 2 builds Maurer stacks along columns to produce the exact Voronoi diagram; in 3D a third phase reuses the same kernels on transposed data to resolve the remaining axis. (c) For voxels beyond the truncation band, an adjacent TSDF sample resolves interior vs. exterior sign.",
+      "page": 13,
+      "index": 23,
+      "width": 983,
+      "height": 636
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-024.webp",
+      "caption": "Figure 2: Local support property of cubic B-splines. Perturbing knot 𝑢3 only affects 4 neighboring curve segments (orange region). Interpolation points (dots) are uniformly spaced in time; during optimization, each point within this region contributes a gradient to 𝑢3 (accumulated with GPU warp-level reductions). (For simplicity, 𝑁interp = 2 is shown.)",
+      "page": 8,
+      "index": 24,
+      "width": 661,
+      "height": 254
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-025.webp",
+      "caption": "Figure 29:Unified scene collision architecture. Left: cuRoboV1 splits collision across two kernel backends and a deep inheritance chain. Right: cuRoboV2 unifies all obstacle types under a single type-genericWarp kernel, reducing total code by ∼50%.",
+      "page": 36,
+      "index": 25,
+      "width": 783,
+      "height": 323
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-026.webp",
+      "caption": "Figure 10: RNEA forward and VJP backward kernels. We use Featherstone’s spatial algebra [15]: 𝑋𝑘 is the spatial transform from parent to child frame, 𝐼𝑘 the spatial inertia, and 𝑆𝑘 the joint motion subspace (a unit 6-vector for 1-DoF joints). The operators crm(·) and crf(·) denote the 6×6 motion and force cross-product matrices, with shorthand 𝑣 ×𝑚 𝑢 = crm(𝑣) · 𝑢 and 𝑣 ×∗ 𝑓 = crf(𝑣) · 𝑓 . Bar notation (𝑣 , 𝑓 ) indicates adjoint variables, i.e., gradients with respect to that quantity. The scalar𝑚𝑘 is the mimic joint multiplier, and 𝑗𝑘 maps link 𝑘 to its actuated joint index.",
+      "page": 19,
+      "index": 26,
+      "width": 983,
+      "height": 800
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-027.webp",
+      "caption": "Figure 9: Two-stage self-collision checking. For complex robots, collision pairs are partitioned across GPU blocks (map). A first kernel finds local maxima, and a second kernel reduces these to find the global maximum.",
+      "page": 17,
+      "index": 27,
+      "width": 757,
+      "height": 668
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-028.webp",
+      "caption": "Figure 24:Real-world deployment pipeline. Depth from a ZEDMini stereo camera is segmented to remove the robot, fused into a TSDF, and converted to an ESDF for real-time collision avoidance in the MPC trajectory optimizer.",
+      "page": 32,
+      "index": 28,
+      "width": 935,
+      "height": 514
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-029.webp",
+      "caption": "Figure 18: Policy training curves (normalized to %). On running (top), PyRoki plateaus at 26% episode length due to repeated falls. On crawling (bottom), cuRoboV2 and mink appear similar, but evaluation (Fig. 19) reveals mink’s reward comes from imitating self-colliding poses.",
+      "page": 27,
+      "index": 29,
+      "width": 949,
+      "height": 516
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-030.webp",
+      "caption": "Figure 30: Human–LLM workflow for migrating scene collision checking to Warp. Orange boxes (■) denote human contributions; blue boxes (■) denote LLM contributions.",
+      "page": 37,
+      "index": 30,
+      "width": 937,
+      "height": 842
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-031.webp",
+      "caption": "Figure 22: Scatter vs. gather seeding strategies. Gather achieves lower total time (e.g., 0.73ms vs. 0.87ms at 10mm, 50% coverage) and enables CUDAgraph capture due to its fixed launch dimension, with comparable or slightly higher recall.",
+      "page": 31,
+      "index": 31,
+      "width": 931,
+      "height": 313
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-032.webp",
+      "caption": "Figure 23: Signed distance field cross-section (4m × 4m slice) at 100% workspace coverage. nvblox (middle) produces distances only within allocated blocks, leaving gaps in unobserved regions. cuRoboV2 (right) covers the full workspace, closely matching the ground-truth SDF (left).",
+      "page": 31,
+      "index": 32,
+      "width": 958,
+      "height": 281
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-033.webp",
+      "caption": "Figure 11:Motion Planning Results (75th percentile). Top: Kinematic success (solid) vs. dynamics success with 3 kg payload (hatched). Methods without dynamics constraints fail when torque limits are checked, even at zero payload. Middle/Bottom: Our cuRoboV2 achieves the highest payload success (99.7%) and lowest energy (106 J), without sacrificing other trajectory quality metrics.",
+      "page": 20,
+      "index": 33,
+      "width": 966,
+      "height": 474
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-034.webp",
+      "caption": "Table 1: Feature comparison of cuRoboV2 with other motion generation frameworks.",
+      "page": 5,
+      "index": 34,
+      "width": 940,
+      "height": 1136
+    },
+    {
+      "url": "assets/figures/arxiv/2603.05493v1/fig-035.webp",
+      "caption": "Figure 34: Composable cost manager. Each BaseCost subclass is registered by name and evaluated on its own CUDA stream. Bold box indicates a user-defined custom cost.",
+      "page": 48,
+      "index": 35,
+      "width": 604,
+      "height": 281
+    }
+  ]
+}

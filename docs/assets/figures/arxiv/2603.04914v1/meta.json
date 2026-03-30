@@ -1,0 +1,94 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.04914v1/fig-001.webp",
+      "caption": "Fig. 5. The smart wheelchair platform.",
+      "page": 11,
+      "index": 1,
+      "width": 529,
+      "height": 410
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04914v1/fig-002.webp",
+      "caption": "Fig. 6. Software architecture of the experimental platform.",
+      "page": 11,
+      "index": 2,
+      "width": 529,
+      "height": 464
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04914v1/fig-003.webp",
+      "caption": "Fig. 1. Motivation: collision risk assessment between polygonal shapes under pose uncertainty.",
+      "page": 2,
+      "index": 3,
+      "width": 510,
+      "height": 283
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04914v1/fig-004.webp",
+      "caption": "Fig. 11. The experiment scenario of the parking experiment.",
+      "page": 14,
+      "index": 4,
+      "width": 529,
+      "height": 1038
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04914v1/fig-005.webp",
+      "caption": "TABLE V ESTIMATED VARIANCES OF MOVING OBSTACLE PREDICTED POSE ERROR",
+      "page": 14,
+      "index": 5,
+      "width": 531,
+      "height": 616
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04914v1/fig-006.webp",
+      "caption": "Fig. 10. Comparison of the navigation finishing time and the minium distance to obstacles between methods.",
+      "page": 14,
+      "index": 6,
+      "width": 529,
+      "height": 344
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04914v1/fig-007.webp",
+      "caption": "Fig. 2. The distance between the vehicle and the obstacle.",
+      "page": 3,
+      "index": 7,
+      "width": 428,
+      "height": 421
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04914v1/fig-008.webp",
+      "caption": "Fig. 8. An example of predicted pose error for a polygon-shaped obstacle at pose 3.",
+      "page": 13,
+      "index": 8,
+      "width": 529,
+      "height": 294
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04914v1/fig-009.webp",
+      "caption": "Fig. 9. The experiment scenario of narrow corridor.",
+      "page": 13,
+      "index": 9,
+      "width": 535,
+      "height": 564
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04914v1/fig-010.webp",
+      "caption": "Fig. 7. Detection and trajectory prediction results using the algorithm in [33].",
+      "page": 12,
+      "index": 10,
+      "width": 529,
+      "height": 479
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04914v1/fig-011.webp",
+      "caption": "Fig. 3. The simulation results in the parallel parking scenario.",
+      "page": 9,
+      "index": 11,
+      "width": 490,
+      "height": 427
+    }
+  ]
+}

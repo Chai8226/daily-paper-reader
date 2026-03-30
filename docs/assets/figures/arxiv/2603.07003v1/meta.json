@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.07003v1/fig-001.webp",
+      "caption": "TABLE I: Detailed Performance Metrics Across Five Test Trajectories",
+      "page": 6,
+      "index": 1,
+      "width": 933,
+      "height": 234
+    },
+    {
+      "url": "assets/figures/arxiv/2603.07003v1/fig-002.webp",
+      "caption": "Fig. 8: Tracking performance for the lemniscate path.",
+      "page": 7,
+      "index": 2,
+      "width": 515,
+      "height": 255
+    },
+    {
+      "url": "assets/figures/arxiv/2603.07003v1/fig-003.webp",
+      "caption": "Fig. 7: Kinematic calibration of the mobile manipulator system.",
+      "page": 7,
+      "index": 3,
+      "width": 513,
+      "height": 303
+    },
+    {
+      "url": "assets/figures/arxiv/2603.07003v1/fig-004.webp",
+      "caption": "Fig. 9: Tracking performance for the capsule path.",
+      "page": 7,
+      "index": 4,
+      "width": 512,
+      "height": 261
+    },
+    {
+      "url": "assets/figures/arxiv/2603.07003v1/fig-005.webp",
+      "caption": "Fig. 4: Process of converting discrete point sets into geometric feasible regions",
+      "page": 4,
+      "index": 5,
+      "width": 512,
+      "height": 423
+    },
+    {
+      "url": "assets/figures/arxiv/2603.07003v1/fig-006.webp",
+      "caption": "Fig. 5: Schematic of secondary configuration optimization",
+      "page": 5,
+      "index": 6,
+      "width": 512,
+      "height": 277
+    }
+  ]
+}

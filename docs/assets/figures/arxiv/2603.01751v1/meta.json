@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.01751v1/fig-001.webp",
+      "caption": "Fig. 6. Comparative results of shape regulation. (A) Snapshots of the robot. Our method ensures that the robot is regulated to the reference shape in two different views, whereas the DVIK method [22], being a planar shape control approach, can only guarantee that the robot in View 1 reaches the reference shape. In View 2, a clear discrepancy exists between the reference shape and the actual robot shape when using the DVIK method. (B) Shape-state error of our method. (C) Shape-state error of the DVIK method. (D) Statistical error results for 12 different shape regulation tasks. The proposed method achieves nearly identical error distributions in the two views, and these errors are consistently smaller than those of the DVIK method in View 1. Moreover, since the DVIK method performs planar shape regulation, its error in View 2 is significantly larger than that in View 1. (E) Shape regulation results in the environment with an obstacle. The proposed method can simultaneously exploit interpretable shape state information during shape regulation to improve the controller and achieve obstacle avoidance, whereas the DVIK method fails to avoid the obstacle, resulting in collisions between the robot and the obstacle.",
+      "page": 12,
+      "index": 1,
+      "width": 1018,
+      "height": 962
+    }
+  ]
+}

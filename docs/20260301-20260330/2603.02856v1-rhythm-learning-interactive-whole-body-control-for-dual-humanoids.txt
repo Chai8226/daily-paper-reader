@@ -1,0 +1,1274 @@
+Title: Rhythm: Learning Interactive Whole-Body Control for Dual Humanoids
+
+URL Source: https://arxiv.org/pdf/2603.02856v1
+
+Published Time: Wed, 04 Mar 2026 02:11:37 GMT
+
+Number of Pages: 17
+
+Markdown Content:
+# Rhythm: Learning Interactive Whole-Body Control for Dual Humanoids 
+
+Hongjin Chen 1,2,* Wei Zhang 2,* Pengfei Li 2,3,† Shihao Ma 1,2 Ke Ma 1,2 Yujie Jin 2 Zijun Xu 1,5 
+
+Xiaohui Wang 1,2 Yupeng Zheng 6 Zining Wang 2 Jieru Zhao 4 Yilun Chen 2 Wenchao Ding 1,2,† 
+
+1Fudan University 2TARS 3Tsinghua University 4Shanghai Jiao Tong University 
+
+5Shanghai Innovation Institute 6Institute of Automation, Chinese Academy of Sciences 
+
+*Equal contribution †Corresponding Authors Page: https://hoshi-no-ai.github.io/Rhythm/ 
+
+Fig. 1: The proposed framework, Rhythm , facilitates a spectrum of humanoid–humanoid interactions. (a–c) Contact-Rich Interaction: The method handles interactions ranging from light contact (Greeting) to intensive contact (Hug, Shoulder-to-Shoulder), maintaining fine-grained contact geometry without penetration (shown in the zoomed-in views). (d) Coordinated Interaction: The humanoids perform synchronized long-horizon dance ( La La Land ), with trajectories showing consistent spatiotemporal alignment and stable relative positioning over time. 
+
+Abstract —Realizing interactive whole-body control for multi-humanoid systems is critical for unlocking complex collab-orative capabilities in shared environments. Although recent advancements have significantly enhanced the agility of indi-vidual robots, bridging the gap to physically coupled multi-humanoid interaction remains challenging, primarily due to                    
+
+> arXiv:2603.02856v1 [cs.RO] 3 Mar 2026 severe kinematic mismatches and complex contact dynamics. To address this, we introduce Rhythm, the first unified framework enabling real-world deployment of dual-humanoid systems for complex, physically plausible interactions. Our framework inte-grates three core components: (1) an Interaction-Aware Motion Retargeting (IAMR) module that generates feasible humanoid interaction references from human data; (2) an Interaction-Guided Reinforcement Learning (IGRL) policy that masters coupled dynamics via graph-based rewards; and (3) a real-world deployment system that enables robust transfer of dual-humanoid interaction. Extensive experiments on physical Unitree G1 robots demonstrate that our framework achieves robust interactive whole-body control, successfully transferring diverse behaviors such as hugging and dancing from simulation to reality.
+
+I. I NTRODUCTION 
+
+Humanoid robotics has witnessed rapid evolution, achieving remarkable milestones in single-agent capabilities. Recent research has established a strong foundation in dynamic lo-comotion [12, 19, 23, 40, 48] and general whole-body control [8, 17, 22, 26, 36, 55], significantly enhancing the agility and robustness of individual robots. However, the broader vision of embodied intelligence necessitates agents that can operate be-yond isolation [5, 37]. Realizing multi-agent systems capable of physical collaboration represents a critical next step. Yet, research in this domain remains disproportionately focused on single-robot tasks. Despite growing interest in multi-agent interaction, current solutions are largely confined to virtual environments or sim-plified humanoid-object interactions. In computer graphics, physics-based animation has achieved realistic simulations of multi-character interactions [10, 25, 45, 50, 54], yet these methods often prioritize visual fidelity over the strict physical constraints necessary for real-world robotic deployment. In robotics, although human–robot collaboration [9, 20] and competitive sports in structured environments [28, 39, 47] have been explored, these typically involve a compliant hu-man partner or passive objects. Research explicitly target-ing multi-humanoid interaction remains scarce, and existing works are predominantly validated only in simulation [29]. Consequently, achieving robust, physically coupled whole-body control on real multi-humanoid hardware remains an unbridged gap in the field. Two fundamental challenges hinder the Sim-to-Real transi-tion for dual-humanoid systems: (1) the scarcity of feasible interaction data; and (2) the complexity of the training-to-deployment paradigm. First, acquiring high-quality interaction references is non-trivial. Directly transferring Human-Human Interaction [38, 41, 45, 46] data to robots introduces severe kinematic conflicts due to morphological differences between humans and humanoids (see Sec. III-A). Standard retargeting methods [3, 30, 49] struggle to preserve both individual motion style and precise interaction geometry, yielding sub-optimal motion references. Second, the learning and deploy-ment pipeline presents significant hurdles. Existing tracking policies [26, 44, 52] typically treat agents as isolated entities, failing to model the intricate coupled dynamics essential for close interaction. Meanwhile, a significant disparity exists between the global observability available in simulation and the asynchronous, ego-centric, partially observable reality of real hardware, making the deployment unstable. To address these challenges, we introduce Rhythm 
+
+(Interactive Whole-Body Control for Dual Humanoids), aunified framework designed to empower dual humanoids to execute complex, physically plausible interactions in real-world scenarios. The framework explicitly models interaction geometry and physical contact to achieve high-fidelity coupled behaviors. First, to resolve kinematic conflicts in reference generation, we introduce Interaction-Aware Motion Retar-geting (IAMR) . By explicitly modeling interaction geometry and utilizing distance-aware dynamic weighting, this mod-ule adaptively balances self-motion fidelity with interaction geometry. The resulting geometrically consistent references serve as a crucial prior, laying the physical foundation for the subsequent training phase. Building upon this, we develop 
+
+Interaction-Guided Reinforcement Learning (IGRL) to master the complex dual-agent dynamics. This module directly leverages the interaction geometry and contact preserved by IAMR through explicit graph-based rewards, guiding agents to learn synchronized and robust behaviors. Finally, to real-ize dual-humanoid interactive whole-body control in the real world, we implement a relative state estimation and inter-agent synchronization scheme, effectively bridging the gap between global simulation and ego-centric reality. Fig. 1 illustrates the robustness of our framework in real-world scenarios, successfully handling tasks ranging from intensive contacts to synchronized long-horizon dancing. Our main contributions are summarized as follows:  
+
+> •
+
+We propose Rhythm , the first unified framework for whole-body dual-humanoid interaction that achieves the first successful robust transfer of complex interactive behaviors to physical hardware.  
+
+> •
+
+We develop IAMR to resolve kinematic conflicts and generate humanoid-humanoid interaction motion refer-ences. Furthermore, we release MAGIC , the Multi-Humanoid Geometric Interaction Dataset, offering paired raw and retargeted interaction data.  
+
+> •
+
+We introduce IGRL , a multi-agent learning module that masters coupled interaction dynamics. By incorporating graph-based rewards, it enables agents to learn robust, physically consistent interactive behaviors.  
+
+> •
+
+We conduct extensive experiments on Unitree G1 hu-manoids in simulation and on physical hardware. Quan-titative and qualitative evaluations across diverse inter-action tasks demonstrate the superior performance and robustness of our framework. II. R ELATED WORK 
+
+A. Learning-Based Humanoid Control and Interaction 
+
+Learning-based whole-body control methods primarily leverage Reinforcement Learning (RL) to endow humanoid robots with diverse motor skills [2, 4, 15–19, 24, 33, 40, 48, 52, 53]. Existing research largely focuses on single-agent motion tracking [17, 44, 53], progressing from mimicking specific references to general motion tracking frameworks [7, 13, 26, 52, 55]. Beyond isolation, recent works have ad-dressed the interaction between humanoids and environmental factors in sports such as table tennis [39], badminton [28], and soccer [34, 47], as well as human-robot collaboration [6, 9, 20]. However, these scenarios typically model the partner (human or object) as a passive entity or an external distur-bance, ignoring the complex coupled dynamics inherent in multi-agent systems. Achieving interactive whole-body control on dual-humanoid hardware requires moving beyond these assumptions to explicitly model the mutual physical influence and geometric topology between active agents—a capability that remains absent in current robotics literature. 
+
+B. Physics-Based Animation of Human-Human Interaction 
+
+While robotics research focuses on hardware feasibility, the computer graphics community has expanded the scope of hu-manoid animation from single-agent generation [30–32] to the complex domain of Human-Human Interaction [38, 41, 46]. Addressing the inevitable physical artifacts caused by sensor inaccuracies in existing datasets [11, 25, 45, 51], recent works [10, 43, 50, 54] employ RL within physics-based simulations to guarantee human-like behavior and physical plausibility. However, these methods prioritize visual fidelity over dynamic feasibility, often relaxing rigorous constraints essential for real robots. Policies trained in these idealized environments struggle with the Sim-to-Real gap. To bridge this gap, we propose Rhythm , which pioneers the implementation of dual humanoid interaction in real-world scenarios. 
+
+C. Motion Retargeting for Humanoid 
+
+Motion retargeting serves as a fundamental bridge for transferring human skills to humanoids. However, standard approaches like PHC [30] and GMR [3] typically treat agents in isolation, neglecting interaction behaviors. While OmniRe-target [49] advances this by employing Interaction Meshes 
+
+[1, 56] to enforce human-object interaction constraints, its ap-plicability is restricted to single-humanoid settings. Extending this to human-human interaction presents unique challenges. Recent attempts, such as PAIR [20] and Harmanoid [29], adopt a coupled formulation that intertwines self-motion with interaction constraints. Consequently, in the presence of in-herent kinematic conflicts, they often compromise self-motion fidelity (e.g., causing unnatural distortions) to strictly enforce interaction geometry. To address this, we propose IAMR that effectively mitigates these kinematic conflicts to produce high-fidelity coupled motion references. III. M ETHODS 
+
+As illustrated in Fig. 2, Rhythm addresses the chal-lenge of dual-humanoid interaction through three tightly in-tegrated components: 1) Interaction-Aware Motion Retar-geting (IAMR) , which synthesizes physically feasible priors by decoupling interaction geometry from self-motion fidelity (Sec. III-A); 2) Interaction-Guided Reinforcement Learning (IGRL) , which captures coupled dynamics via topology-aware rewards that enforce interaction consistency (Sec. III-B); and 3) Real-World Deployment , which overcomes the limitations of noise global observability and asynchronous execution to bridge the Sim-to-Real gap (Sec. III-C). 
+
+A. Interaction-Aware Motion Retargeting (IAMR) 1) Problem Formulation: Given a source motion sequence of two human demonstrators with different anthropometry, our goal is to synthesize kinematically feasible trajectories for two humanoids. The core challenge lies in synthesizing motions that simultaneously preserve the individual motion style and the dense interaction geometry. 
+
+Interaction Mesh and Laplacian Coordinates. To mathe-matically model the coupled multi-agent system, we adopt the volumetric Interaction Mesh formalism [1, 56]. We represent the system as a connected graph G = ( V, E), comprising a vertex set V of the agents’ key joints and an edge set E
+
+encoding their structural connections. To encode local geo-metric details, we utilize Laplacian coordinates. For a vertex 
+
+pi, the Laplacian operator L(·) computes the deviation from the weighted average of its neighbors N (i):
+
+L(pi) = pi − X 
+
+> j∈N (i)
+
+cij pj ,
+
+where cij denotes the normalized weights. In mesh-based mo-tion retargeting, the objective is to find a target configuration 
+
+q such that the local geometry of the retargeted vertices pi(q)
+
+matches the source reference. This is achieved by minimizing the deformation energy P ∥L (pi(q)) − L (psrc i )∥2.
+
+The Kinematic Conflict. While the standard formulation P ∥L (pi(q)) − L (psrc i )∥2 is effective for single-agent editing, applying it to the transfer from heterogeneous humans to ho-mogeneous robots creates a fundamental ambiguity in defining the source reference Vsrc . Due to the embodiment mismatch, no single reference manifold can simultaneously satisfy both self-motion and interaction constraints:  
+
+> •
+
+Individual Manifold ( Mind ): Constructed by scaling each human with individual ratios to match the robot’s height. Using this as Vsrc preserves valid self-motion Laplacian coordinates but structurally disrupts the relative interaction geometry (e.g., causing “air handshakes”).  
+
+> •
+
+Unified Manifold ( Muni ): Constructed by applying a single global scale to the entire scene. Using this as Vsrc 
+
+strictly preserves relative interaction edges but forces the robots to adopt kinematic constraints incompatible with their morphology (e.g., foot floating). 
+
+Topological Partitioning. To resolve this conflict, we propose to relax the monolithic structure of the standard Interaction Mesh. Instead of treating the system as a single deformable body, we explicitly partition E into two disjoint functional groups, as visualized in the left part of Fig. 2: (1) Intra-Agent Edges ( Eself ): Edges connecting joints within a single robot, encoding the local self-motion topology. (2) Inter-Agent Edges ( Einter ): Edges connecting key joints between the two robots, encoding the relative interaction topology. Fig. 2: Overview of Rhythm. IAMR utilizes decoupled optimization to generate high-quality humanoid-humanoid motion interaction references from human demonstrations. Guided by these references, IGRL employs MAPPO and graph-based rewards to learn robust coupled dynamics. Finally, the deployment module facilitates Sim-to-Real transfer via Lidar-fused state estimation and inter-agent synchronization. 
+
+This topological decomposition allows us to assign distinct geometric references to different semantic parts of the graph, forming the basis for our decoupled optimization scheme. 
+
+2) Decoupled Optimization: Leveraging the topological partitioning defined above, we resolve the kinematic conflict by assigning distinct geometric references to the partitioned subgraphs. We formulate the retargeting as a dynamic spring system, where a self-motion term Eself ensures intra-agent edges Eself track the Independent Manifold Mind , while an interaction term Einter constrains inter-agent edges Einter to the Unified Manifold Muni .We solve for the optimal joint configuration q∗ = {q1, q 2}
+
+by minimizing a hybrid energy function: 
+
+q∗ = arg min  
+
+> q
+
+(Eself (q) + Einter (q)) s.t. q ∈ C phy ,
+
+where Cphy represents the set of feasible configurations satis-fying joint limits and collision constraints. 
+
+Self-Motion Objective ( Eself ). To preserve individual motion quality, we align the Laplacian geometry of each robot to its Independent Reference Mind , strictly confining the operator to the local subgraph: 
+
+Eself (q) = X
+
+> a∈{ 1,2}
+
+X
+
+> pi∈V a
+
+∥L (pi) − L (pind i )∥2
+
++ λrot 
+
+X
+
+> a∈{ 1,2}
+
+X
+
+> k∈B a
+
+∥θk ⊖ ˆθsrc k ∥2,
+
+where Va denotes the vertex set of robot a, and pind i represents the corresponding vertex position in the reference Mind . For rotation, Ba denotes the key links, where ⊖ measures the geodesic distance on SO (3) between the current orientation 
+
+θk and the reference ˆθsrc k .
+
+Interaction Objective ( Einter ). To enforce the relative inter-action geometry, we treat the inter-agent edges as extrinsic constraints driven by the Unified Reference Muni . We for-mulate this as a variable-stiffness spring potential: 
+
+Einter (q) = X
+
+> (i,j )∈E inter
+
+ωij (dij ) · ∥ (pi − pj ) − (ˆ puni i − ˆpuni j )∥2,
+
+Here, pi and pj denote the current vertex positions of different agents, while ˆpuni i and ˆpuni j represent the corresponding target coordinates derived from the reference Muni . To naturally prioritize close-range geometry (e.g., contact) over distant re-lations, we define the stiffness ωij as a continuous exponential decay function of the source distance dij :
+
+ωij (dij ) = ωmax · e−γd ij ,
+
+where ωmax denotes peak stiffness and γ the decay rate. This effectively models the interaction as a non-linear spring system that stiffens during close contact to prevent penetration, while becoming compliant at a distance to allow free motion. 
+
+Topological Interaction Priors. Beyond kinematic trajecto-ries, IAMR explicitly extracts inter-agent topological struc-tures to serve as interaction priors for downstream policy learn-ing, as illustrated in the left part of Fig. 2. We generate two cross-agent graph representations: (1) An Interaction Graph 
+
+(derived from Einter ), which encodes the binary connectivity 
+
+bridging the keypoints of the two agents [54]; (2) A Contact Graph (constructed via collision detection), which records the binary physical contact states between the links of the two distinct robots [42]. These graphs provide the essential interaction topology required for the graph-based rewards in the subsequent training phase. B. Interaction-Guided Reinforcement Learning (IGRL) 
+
+To master the coupled dynamics of dual-humanoid interac-tion, we propose IGRL , a multi-agent reinforcement learning module. Unlike standard motion tracking policies that treat agents as isolated entities, IGRL explicitly models interaction geometry through graph-based rewards and incorporates spe-cific training strategies to bridge the reality gap. 
+
+1) Multi-Agent Policy Design: As shown in the middle part of Fig. 2, we formulate the problem as a Multi-Agent Markov Decision Process (MA-MDP) and adopt the Central-ized Training with Decentralized Execution (CTDE) paradigm using MAPPO [10, 27]. 
+
+Interaction-Centric Observation. Effective collaboration re-quires a comprehensive awareness of both self and partner states. The policy operates on a compact observation space 
+
+ot = {oprop , o peer , o ref }: 
+
+> •
+
+Proprioception ( oprop ): Defines the agent’s internal state, including joint positions, velocities, base angular veloci-ties, and the previous action.  
+
+> •
+
+Peer Perception ( opeer ): Encodes the peer’s state relative to the ego agent. It includes the peer’s joint positions and the relative root transform expressed in the ego-centric frame: the relative position Prel = RTego (Ppeer − Pego )
+
+and orientation Rrel = RTego Rpeer . This explicit spatial formation enables the agent to anticipate and handle coupled dynamics.  
+
+> •
+
+Reference Motion ( oref ): Contains the future reference trajectories and the reference relative state, serving as the correct interaction topology. 
+
+Network Architecture. We design a hierarchical policy archi-tecture where 1D-CNN temporal encoders process historical observations and future references, feeding latent features along with the current observation into an MLP action decoder. More details are provided in Appendix B. 
+
+Robust Training Strategy. To ensure transferability and han-dle complex interaction phases, we implement two strategies, with mathematical formulations provided in Appendix B:  
+
+> •
+
+Curriculum-based Adaptive Sampling: Standard RSI [31] relies on sparse failure counts, neglecting non-terminal interaction violations. We propose an error-aware sampling strategy based on a multi-objective land-scape composed of integrating failure, tracking, and in-teraction metrics. The curriculum dynamically evolves from prioritizing stability in early stages to focusing on tracking and interaction precision as the policy matures.  
+
+> •
+
+Dual-Agent Domain Randomization: To bridge the sim-to-real gap, we simulate wireless latency via noisy, delayed peer observations and apply initial state pertur-bations to enforce recovery from physical misalignment. 
+
+2) Graph-based Rewards: Standard tracking rewards typi-cally treat agents as isolated entities, failing to enforce topolog-ical consistency or capture coupled dynamics. To bridge this gap, we introduce graph-based rewards to guide the learning of dynamic control policies by translating the Topological Interaction Priors established in IAMR, as shown in Fig. 2. 
+
+Interaction Graph Reward ( rinter ). To ensure precise rel-ative geometry during interaction, we penalize deviations of the interaction graph . The reward is formulated as: 
+
+rinter = exp 
+
+− 1
+
+σinter 
+
+X
+
+> (i,j )∈E inter
+
+ωij ∥dsim ij − ˆdref ij ∥2
+
+ ,
+
+where σinter is a sensitivity scaling factor, and dij denotes the relative position vector connecting joints i and j in the simulation ( sim ) and reference ( ref ) states. By inheriting the distance-aware dynamic weights ωij from IAMR, the policy inherently learns to prioritize the same geometric constraints that were optimized during retargeting. 
+
+Contact Graph Reward ( rcontact ). Since kinematic refer-ences lack force information, we utilize contact graph to regularize physical interaction. This reward is designed with two goals: (1) Contact Consistency , which penalizes mis-matches between the simulated and reference contact states; and (2) Force Regularization , which constrains contact forces to realistic ranges when active, and penalizes non-zero forces during non-contact phases. This explicitly discourages inter-penetration and encourages compliant physical interaction. 
+
+C. Real-World Deployment 
+
+Deploying Rhythm on physical hardware faces the Sim-to-Real Gap , specifically the lack of global observability and the issue of asynchronous execution. 
+
+1) State Estimation and Relative Localization: Construct-ing the observation space for dual-humanoid interaction re-quires precise global and relative state information. We employ a robust localization system, utilizing POINT-LIO [14] for high-frequency local odometry and GICP [35] to register real-time point clouds against a pre-built map for drift-free global positioning. A Kalman Filter fuses these estimates to ensure robustness under highly dynamic motions. Robots broadcast global poses {P, R } via LCM [21]. The ego-agent transforms received data into its local frame to derive {Prel , R rel }, enabling real-time reconstruction of opeer 
+
+consistent with the simulation. 
+
+2) Inter-Agent Synchronization: We use the motion phase 
+
+ϕ [31] as the continuous variable representing the temporal execution progress of the interaction policy. In distributed settings, inherent hardware clock drift inevitably causes the phases of the two agents to diverge over time. To maintain temporal alignment, we implement a soft synchronization mechanism based on proportional feedback. Agents exchange their current phase ϕ via the wireless bridge. Upon receiving the peer’s phase ϕpeer , the ego agent dynam-ically modulates its phase progression rate ˙ϕego . Instead of a fixed increment ( ˙ϕbase = 1 .0), we apply a correction: 
+
+˙ϕego = 1 .0 + k(ϕpeer − ϕego ),
+
+where k is the synchronization gain. This compensates for temporal drift by modulating execution rate, ensuring smooth alignment without the discontinuities of hard phase resets. Fig. 3: Overview of MAGIC. MAGIC contains ∼3 hours of high-fidelity interaction data balanced across five semantic categories (inner chart). Rep-resentative snapshots (outer ring) illustrate the diversity ranging from loose spatiotemporal coordination to intensive contact. 
+
+IV. E XPERIMENTS 
+
+We design our experiments to systematically validate the proposed framework by answering three core questions:  
+
+> •
+
+Q1 (Retargeting Quality): Can IAMR synthesize kine-matically feasible and topologically consistent trajectories that preserve the interaction geometry of the source data?  
+
+> •
+
+Q2 (Policy Efficacy): Can IGRL utilize the interaction guidance to capture the coupled dynamics, overcoming the limitations of treating agents as isolated entities?  
+
+> •
+
+Q3 (Real-World Robustness): Can the learned policies be successfully deployed to physical dual-humanoid sys-tems, overcoming the limitations of noise global observ-ability and asynchronous communication? 
+
+A. The MAGIC Dataset 
+
+High-quality motion data is the cornerstone of learning in-teractions. Addressing the lack of clean human-human interac-tion data, we introduce MAGIC , a high-fidelity motion capture dataset comprising ∼3 hours of valid motion sequences. 
+
+1) Acquisition and Diversity: Distinct from existing datasets [11, 25, 45, 51], we ensured physical plausibility for robot transfer through Anthropometric Consistency (matched actor heights) and Temporal Continuity (long-horizon se-quences > 10 s). As illustrated in Fig. 3, MAGIC covers a diverse semantic spectrum: Coordinated actions (30.4%), 
+
+Intimate/Care behaviors (24.8%), Contact (18.2%), Social Rituals (13.3%), and Competitive interactions (13.3%). 
+
+2) Data Release: To facilitate future research, we will publicly release both the raw motion capture data and the re-targeted humanoid reference trajectories generated by IAMR.    
+
+> Fig. 4: Qualitative Visualization of Retargeting on Inter-X. Top: Baselines suffer from contact loss (“air handshakes”), whereas IAMR preserves precise interaction geometry. Bottom: OR leads to severe penetration while DOR forces unnatural stiff postures; IAMR maintains close-proximity topology without collisions.
+
+B. Experimental Setup 
+
+Datasets. We use the proposed MAGIC dataset for both training and evaluation. To systematically assess performance across diverse physical dynamics, we categorize the tasks into three physics-based groups: Collaborate (non-contact synchronization), Light Contact (transient interaction), and 
+
+Intensive Contact (continuous force transmission). Addition-ally, we employ the external Inter-X dataset [45] to assess robustness under significant anthropometric mismatches. 
+
+Baselines. We benchmark Rhythm against representative methods under two evaluation aspects, with full implementa-tion details in Appendix C:  
+
+> •
+
+Retargeting Quality (Q1): We compare against 
+
+GMR [3], which performs Cartesian optimization, 
+
+OR [49], a single-agent interaction mesh method, and 
+
+DOR , our constructed dual-agent retargeting baseline.  
+
+> •
+
+Policy Efficacy (Q2): To validate the effectiveness of IGRL, we compare against a Single-Agent (Status Quo) baseline that performs isolated tracking, as well as key ablated variants of our method, including w/o Peer Obs ,
+
+w/o Contact Rew , and w/o Interaction Rew .
+
+Evaluation Metrics. We adopt task-specific evaluation met-rics for Retargeting Quality (Q1) and Policy Efficacy (Q2) .For conciseness, detailed metric definitions and mathematical formulations are deferred to Appendix C. 
+
+C. Retargeting Quality (Q1) 
+
+We evaluate IAMR against baselines across three dimen-sions: Safety , measured by Inter-Penetration Rate (IPR) and Max Penetration Depth (MPD); Fidelity , quantified by Inter-action Edge Error (IEE) and Contact F1 Score [20, 29]; and 
+
+Utility , assessed via Downstream Success Rate (DSR). 
+
+Quantitative Analysis. Table I presents the performance comparison across four interaction categories. We observe three key trends. First, isolated baselines (GMR, OR) funda-mentally fail to ensure physical feasibility. Notably, in Inten-sive Contact, OR exhibits a prohibitive Inter-Penetration Rate (IPR) of 47.3%, rendering the motions physically infeasible and unsuitable for policy learning. Second, while the coupled baseline (DOR) guarantees safety (IPR=0), its rigid formu-lation compromises interaction fidelity under anthropometric TABLE I: Quantitative Results of Retargeting. Comparison across four interaction categories. Metrics include Safety (IPR, MPD), Fidelity (IEE, F1), and Utility (DSR). IAMR achieves the best balance, strictly eliminating penetration (IPR=0) while maximizing contact F1 scores.                                                                                                        
+
+> Safety Fidelity Utility
+> IPR (%) ↓MPD (cm) ↓IEE (%) ↓F1-S ↑F1-L ↑DSR (%) ↑
+> MAGIC: Collaborate
+> GMR 0.14 1.2 4.3 0.602 0.804 85.5 OR 0.20 1.4 4.1 0.747 0.902 87.4 DOR 0.00 0.0 3.9 0.711 0.899 89.5 IAMR 0.00 0.0 3.7 0.785 0.936 89.0
+> MAGIC: Light Contact
+> GMR 2.18 3.3 4.6 0.738 0.893 48.5 OR 7.62 5.9 3.6 0.844 0.912 63.1 DOR 0.00 0.0 3.6 0.810 0.918 69.4
+> IAMR 0.00 0.0 3.1 0.905 0.935 75.3
+> MAGIC: Intensive Contact
+> GMR 35.2 3.8 9.6 0.864 0.928 45.5 OR 47.3 5.3 8.0 0.884 0.929 56.5 DOR 0.00 0.0 7.8 0.883 0.925 63.3
+> IAMR 0.00 0.0 6.6 0.932 0.941 78.3
+> Inter-X
+> GMR 11.7 1.7 8.0 0.598 0.752 31.7 OR 18.4 2.6 6.8 0.587 0.791 46.3 DOR 0.00 0.0 6.7 0.589 0.795 52.9
+> IAMR 0.00 0.0 4.9 0.843 0.860 69.9
+
+mismatch. This is evident on the Inter-X dataset, where DOR’s F1-Strict drops to 0.589 due to its inability to reconcile conflicting kinematic constraints. In contrast, IAMR achieves the optimal safety-fidelity trade-off. By adaptively decoupling self-motion from interaction objectives, our method eliminates penetration while outperforming DOR by 43% in F1-Strict on Inter-X. Crucially, this strict preservation of interaction topology translates to superior downstream utility, yielding 78.3% DSR in contact-rich tasks. 
+
+Qualitative Visualization (Inter-X Cases). Fig. 4 vali-dates robustness under significant mismatches. In transient “Handshakes”, IAMR utilizes dynamic weighting to rioritize critical interaction geometry, effectively resolving the contact loss (“air handshakes”) observed in baselines. Conversely, in continuous “Hugs”, our decoupled optimization reconciles kinematic conflicts, preventing the penetration of OR and the stiffness of DOR to maintain valid close-proximity topology. 
+
+D. Policy Efficacy (Q2) 
+
+We assess the robustness and fidelity of the learned con-trol policy across two dimensions: Interaction Performance ,measured by Interaction Edge Error (IEE) and Interaction Success Rate (ISR); and Contact Performance , quantified by Contact Success Rate (CSR) and Contact Error Rate (CER). 
+
+Quantitative Analysis. Table II presents the quantitative ablation results, revealing two critical insights. First, Interac-tion Awareness is non-negotiable. The Single Agent (Vanilla) baseline, limiting agents to isolated tracking, fails to coor-                                                                                     
+
+> TABLE II: Quantitative Results of Policy. We evaluate the contri-bution of each component. Our full method achieves the most robust balance, effectively integrating coarse-grained geometric alignment (low IEE) with fine-grained physical contact fidelity (high CSR).
+> Interaction Contact
+> ISR (%) ↑IEE (%) ↓CSR (%) ↑CER ↓
+> MAGIC: Collaborate
+> Single Agent 18.7 38.9 100.0 0.000 w/o Peer Obs 19.5 47.0 100.0 0.000 w/o Contact Rew 93.4 4.7 100.0 0.000 w/o Interact Rew 58.1 15.1 100.0 0.000
+> Ours (Full) 92.9 4.8 100.0 0.000
+> MAGIC: Light Contact
+> Single Agent 34.3 19.9 24.1 0.283 w/o Peer Obs 48.9 13.9 18.6 0.268 w/o Contact Rew 85.9 5.4 52.1 0.203 w/o Interact Rew 48.7 19.3 28.1 0.243
+> Ours (Full) 90.0 4.2 78.0 0.120
+> MAGIC: Intensive Contact
+> Single Agent 24.0 29.9 37.5 0.312 w/o Peer Obs 34.1 21.4 43.7 0.280 w/o Contact Rew 77.3 7.7 70.6 0.174 w/o Interact Rew 51.3 17.0 56.8 0.211
+> Ours (Full) 75.2 7.9 78.8 0.159
+> Inter-X
+> Single Agent 25.7 26.9 57.4 0.256 w/o Peer Obs 73.2 7.6 75.3 0.143 w/o Contact Rew 95.1 3.4 68.3 0.208 w/o Interact Rew 63.2 9.7 78.6 0.110 Ours (Full) 92.8 3.5 77.4 0.125
+
+dinate effectively, achieving only 18.7% ISR in Collaborate scenarios. Similarly, removing peer observations (w/o Peer Obs) severs the closed-loop synchronization, causing physical coupling to collapse (CSR drops to 18.6% in Light Contact). Second, there exists a functional hierarchy between coarse-grained geometric guidance and fine-grained contact regula-tion. The ablation results reveal that the interaction reward serves as a necessary foundation: removing it (w/o Interaction Rew) causes performance to collapse across all metrics as the policy fails to guide agents into the interaction envelope where contact can be established. For example, ISR drops to 58.1% in Collaborate and CSR drops to 28.1% in Light Contact. Once this spatial proximity is achieved, the contact reward becomes critical for physical realism. Notably, the w/o Contact Rew variant exhibits a “ghosting” phenomenon: it attains high geometric precision (93.4% ISR in Collaborate) by disregarding physical collision constraints, yet fails to maintain valid physical contact (only 52.1% CSR in Light Contact). Ours (Full) effectively integrates these components, leveraging geometric guidance to establish the spatial foundation while using contact regulation to enforce valid physical coupling (above 75% ISR and 77% CSR across all scenarios). 
+
+Qualitative Visualization. Fig. 5 highlights the behavioral divergence across methods in the Greeting task. The Single Agent, treating the peer merely as a dynamic obstacle, may Fig. 5: Qualitative Visualization of Policy. Single Agent (blue) drifts into collisions. w/o Contact Rew (green) achieves low error but exhibits physical “ghosting”. In contrast, Ours enforces valid physical contact. 
+
+initiate interaction but inevitably drifts into collision. While its low-level robustness prevents immediate termination, the interaction topology is destroyed. Similarly, without explicit peer monitoring, the w/o Peer Obs baseline suffers from severe desynchronization (large error spikes). Notably, the w/o Contact Rew variant successfully maintains coarse-grained geometric alignment, yielding an IEE curve comparable to the full method (Green versus Red lines). However, it lacks fine-grained contact fidelity, allowing hands to “ghost” through each other. Ours bridges this gap, achieving the precision as w/o Contact Rew while enforcing valid physical coupling at the contact interface. These visual observations directly align with the quantitative hierarchy in Table II, particularly ex-plaining the discrepancy between geometric (ISR) and physical (CSR) metrics in the baselines. 
+
+E. Real-World Robustness (Q3) 
+
+We validate the deployment of Rhythm on Unitree G1 humanoids to assess its generality, robustness, and success rate in physical environments. 
+
+Framework Generality. Fig. 1 demonstrates the system’s ver-satility across diverse modalities. By strictly preserving fine-grained contact geometry in physical coupling tasks (Fig. 1a-c) and maintaining spatiotemporal coherence in long-horizon coordination (Fig. 1d), Rhythm effectively ensures interaction integrity across the spectrum using a unified formulation. 
+
+Quantitative Success Rate. Table III reports success rates (measured over 10 trials) based on valid contact establish-ment. Rhythm consistently outperforms the Single Agent 
+
+TABLE III: Main Results for Real Robot Experiments. We conducted 10 trials for each task and evaluated success based on contact establishment at specific keyframes ( K frames per trial).                          
+
+> Task Method Success / Total Rate (%) Hug Single Agent 8/30 26.7%
+> Ours 26 / 30 86.7% Shoulder Single Agent 6/30 20.0%
+> Ours 24 / 30 80.0% Greeting Single Agent 11 /90 12.2%
+> Ours 74 / 90 82.2%
+> Fig. 6: Robustness to disturbances. Our policy demonstrates strong re-silience against aggressive external perturbations (pulling, pushing, and kick-ing), successfully recovering balance and synchronization.
+
+baseline by more than 60%, with the most pronounced gap in Greeting (12 .2% versus 82 .2% ). While the baseline fails due to accumulated drift in this long-horizon task, our relative state estimation continuously compensates for misalignment, ensuring robust physical coupling. 
+
+Robustness to Disturbances. To evaluate system resilience, we subjected the robots to significant external perturbations during execution. As illustrated in Fig. 6, these disturbances included aggressive pushing, pulling, and kicking forces. De-spite the severity of these physical interferences, the agents successfully recovered their balance and actively adjusted their relative states to restore the interaction topology. This empirical evidence confirms that our policy has learned robust closed-loop synchronization capabilities, allowing for real-time recovery strategies rather than open-loop motion replay. V. C ONCLUSION 
+
+In this work, we present Rhythm , a unified framework that achieves the first robust transfer of physically coupled inter-active behaviors to dual-humanoid hardware. By integrating Interaction-Aware Motion Retargeting (IAMR) to resolve kine-matic conflicts and Interaction-Guided Reinforcement Learn-ing (IGRL) to master coupled dynamics, our approach effec-tively bridges the Sim-to-Real gap. Furthermore, we release the MAGIC dataset to facilitate future research in multi-agent embodied intelligence. While this work utilizes dual-humanoid setups to rigorously validate the modeling of coupled dynamics, our graph-based formulation is theoretically generic and supports extension to multi-agent systems. A current limitation is the reliance on pre-built maps for state estimation. Future work will focus on eliminating this dependency by shifting towards fully ego-centric perception for map-free collaboration, and scaling the framework to orchestrate complex multi-humanoid interactions in open-world scenarios. REFERENCES 
+
+[1] Marc Alexa. Differential coordinates for local mesh morphing and deformation. The Visual Computer , 19 (2):105–114, 2003. [2] Arthur Allshire, Hongsuk Choi, Junyi Zhang, David McAllister, Anthony Zhang, Chung Min Kim, Trevor Darrell, Pieter Abbeel, Jitendra Malik, and Angjoo Kanazawa. Visual imitation enables contextual humanoid control. In Conference on Robot Learning , 2025. [3] Joao Pedro Araujo, Yanjie Ze, Pei Xu, Jiajun Wu, and C Karen Liu. Retargeting Matters: General motion retargeting for humanoid motion tracking. arXiv preprint arXiv:2510.02252 , 2025. [4] Qingwei Ben, Feiyu Jia, Jia Zeng, Junting Dong, Dahua Lin, and Jiangmiao Pang. HOMIE: Humanoid loco-manipulation with isomorphic exoskeleton cockpit. In 
+
+Robotics: Science and Systems , 2025. [5] Longbing Cao. Humanoid robots and humanoid ai: Review, perspectives and directions. ACM Computing Surveys , 58(4):1–37, 2025. [6] Haoran Chen, Yiteng Xu, Yiming Ren, Yaoqin Ye, Xin-ran Li, Ning Ding, Yuxuan Wu, Yaoze Liu, Peishan Cong, Ziyi Wang, et al. Symbridge: A human-in-the-loop cyber-physical interactive system for adaptive human-robot symbiosis. In Proceedings of the SIGGRAPH Asia 2025 Conference Papers , pages 1–12, 2025. [7] Zixuan Chen, Mazeyu Ji, Xuxin Cheng, Xuanbin Peng, Xue Bin Peng, and Xiaolong Wang. GMT: General motion tracking for humanoid whole-body control. arXiv preprint arXiv:2506.14770 , 2025. [8] Xuxin Cheng, Yandong Ji, Junming Chen, Ruihan Yang, Ge Yang, and Xiaolong Wang. Expressive whole-body control for humanoid robots. In Robotics: Science and Systems , 2024. [9] Yushi Du, Yixuan Li, Baoxiong Jia, Yutang Lin, Pei Zhou, Wei Liang, Yanchao Yang, and Siyuan Huang. Learning human-humanoid coordination for collaborative object carrying. arXiv preprint arXiv:2510.14293 , 2025. [10] Jiawei Gao, Ziqin Wang, Zeqi Xiao, Jingbo Wang, Tai Wang, Jinkun Cao, Xiaolin Hu, Si Liu, Jifeng Dai, and Jiangmiao Pang. CooHOI: Learning cooperative human-object interaction with manipulated object dynamics. 
+
+Advances in Neural Information Processing Systems , 37: 79741–79763, 2024. [11] Anindita Ghosh, Rishabh Dabral, Vladislav Golyanik, Christian Theobalt, and Philipp Slusallek. ReMoS: 3D motion-conditioned reaction synthesis for two-person in-teractions. In European Conference on Computer Vision (ECCV) , 2024. [12] Xinyang Gu, Yen-Jen Wang, Xiang Zhu, Chengming Shi, Yanjiang Guo, Yichen Liu, and Jianyu Chen. Advancing humanoid locomotion: Mastering challenging terrains with denoising world model learning. In Robotics: Science and Systems , 2024. [13] Jinrui Han, Weiji Xie, Jiakun Zheng, Jiyuan Shi, Weinan Zhang, Ting Xiao, and Chenjia Bai. KungfuBot2: Learn-ing versatile motion skills for humanoid whole-body control. arXiv preprint arXiv:2509.16638 , 2025. [14] Dongjiao He, Wei Xu, Nan Chen, Fanze Kong, Chongjian Yuan, and Fu Zhang. Point-LIO: robust high-bandwidth light detection and ranging inertial odometry. 
+
+Advanced Intelligent Systems , 5(7):2200459, 2023. [15] Tairan He, Zhengyi Luo, Xialin He, Wenli Xiao, Chong Zhang, Weinan Zhang, Kris Kitani, Changliu Liu, and Guanya Shi. OmniH2O: Universal and dexterous human-to-humanoid whole-body teleoperation and learning. In 
+
+Conference on Robot Learning , 2024. [16] Tairan He, Zhengyi Luo, Wenli Xiao, Chong Zhang, Kris Kitani, Changliu Liu, and Guanya Shi. Learning human-to-humanoid real-time whole-body teleoperation. In 
+
+IEEE/RSJ International Conference on Intelligent Robots and Systems , 2024. [17] Tairan He, Jiawei Gao, Wenli Xiao, Yuanhang Zhang, Zi Wang, Jiashun Wang, Zhengyi Luo, Guanqi He, Nikhil Sobanbabu, Chaoyi Pan, Zeji Yi, Guannan Qu, Kris Ki-tani, Jessica K. Hodgins, Linxi Fan, Yuke Zhu, Changliu Liu, and Guanya Shi. ASAP: Aligning simulation and real-world physics for learning agile humanoid whole-body skills. In Robotics: Science and Systems , 2025. [18] Xialin He, Runpei Dong, Zixuan Chen, and Saurabh Gupta. Learning getting-up policies for real-world hu-manoid robots. In Robotics: Science and Systems , 2025. [19] Tao Huang, Junli Ren, Huayi Wang, Zirui Wang, Qing-wei Ben, Muning Wen, Xiao Chen, Jianan Li, and Jiangmiao Pang. Learning humanoid standing-up con-trol across diverse postures. In Robotics: Science and Systems , 2025. [20] Wei-Jin Huang, Yue-Yi Zhang, Yi-Lin Wei, Zhi-Wei Xia, Juantao Tan, Yuan-Ming Li, Zhilin Zhao, and Wei-Shi Zheng. Learning whole-body human-humanoid interac-tion from human-human demonstrations. arXiv preprint arXiv:2601.09518 , 2026. [21] Yih Huang, Eric Fleury, and Philip K McKinley. LCM: A multicast core management protocol for link-state routing networks. In ICC’98. 1998 IEEE International Conference on Communications. Conference Record. Af-filiated with SUPERCOMM’98 (Cat. No. 98CH36220) ,volume 2, pages 1197–1201. IEEE, 1998. [22] Jialong Li, Xuxin Cheng, Tianshu Huang, Shiqi Yang, Ri-Zhao Qiu, and Xiaolong Wang. AMO: Adaptive mo-tion optimization for hyper-dexterous humanoid whole-body control. In Robotics: Science and Systems , 2025. [23] Junheng Li, Ziwei Duan, Junchao Ma, and Quan Nguyen. Gait-Net-augmented implicit kino-dynamic MPC for dy-namic variable-frequency humanoid locomotion over dis-crete terrains. In Robotics: Science and Systems , 2025. [24] Yixuan Li, Yutang Lin, Jieming Cui, Tengyu Liu, Wei Liang, Yixin Zhu, and Siyuan Huang. CLONE: Closed-loop whole-body humanoid teleoperation for long-horizon tasks. In Conference on Robot Learning ,2025. [25] Han Liang, Wenqian Zhang, Wenxuan Li, Jingyi Yu, and Lan Xu. InterGen: Diffusion-based multi-human motion generation under complex interactions. International Journal of Computer Vision (IJCV) , 2024. [26] Qiayuan Liao, Takara E Truong, Xiaoyu Huang, Yu-man Gao, Guy Tevet, Koushil Sreenath, and C Karen Liu. Beyondmimic: From motion tracking to versatile humanoid control via guided diffusion. arXiv preprint arXiv:2508.08241 , 2025. [27] Michael L. Littman. Markov games as a framework for multi-agent reinforcement learning. In Proceedings of the Eleventh International Conference on Machine Learning (ICML) , volume 157, pages 157–163. Morgan Kaufmann, 1994. [28] Chenhao Liu, Leyun Jiang, Yibo Wang, Kairan Yao, Jinchen Fu, and Xiaoyu Ren. Humanoid whole-body badminton via multi-stage reinforcement learning. arXiv preprint arXiv:2511.11218 , 2025. [29] Zuhong Liu, Junhao Ge, Minhao Xiong, Jiahao Gu, Bowei Tang, Wei Jing, and Siheng Chen. It Takes Two: Learning interactive whole-body control between humanoid robots. arXiv preprint arXiv:2510.10206 ,2025. [30] Zhengyi Luo, Jinkun Cao, Alexander Winkler, Kris Ki-tani, and Weipeng Xu. Perpetual humanoid control for real-time simulated avatars. In IEEE/CVF International Conference on Computer Vision (ICCV) , pages 10895– 10904, 2023. [31] Xue Bin Peng, Pieter Abbeel, Sergey Levine, and Michiel Van de Panne. DeepMimic: Example-guided deep re-inforcement learning of physics-based character skills. 
+
+ACM Transactions On Graphics (TOG) , 37(4):1–14, 2018. [32] Xue Bin Peng, Yunrong Guo, Lina Halper, Sergey Levine, and Sanja Fidler. ASE: Large-scale reusable adversarial skill embeddings for physically simulated characters. ACM Transactions on Graphics (TOG) , 41 (4):1–17, 2022. [33] Skand Peri, Akhil Perincherry, Bikram Pandit, and Stefan Lee. Non-conflicting energy minimization in reinforce-ment learning based robot control. In Conference on Robot Learning , 2025. [34] Junli Ren, Junfeng Long, Tao Huang, Huayi Wang, Zirui Wang, Feiyu Jia, Wentao Zhang, Jingbo Wang, Ping Luo, and Jiangmiao Pang. Humanoid Goalkeeper: Learning from position conditioned task-motion constraints. arXiv preprint arXiv:2510.18002 , 2025. [35] Aleksandr Segal, Dirk Haehnel, and Sebastian Thrun. Generalized-ICP. In Robotics: Science and Systems ,volume 2, page 435. Seattle, WA, 2009. [36] Yiyang Shao, Bike Zhang, Qiayuan Liao, Xiaoyu Huang, Yuman Gao, Yufeng Chi, Zhongyu Li, Sophia Shao, and Koushil Sreenath. LangWBC: Language-directed humanoid whole-body control via end-to-end learning. In Robotics: Science and Systems , 2025. [37] Qincheng Sheng, Zhongxiang Zhou, Jinhao Li, Xiangyu Mi, Pingyu Xiang, Zhenghan Chen, Haocheng Xu, Shen-han Jia, Xiyang Wu, Yuxiang Cui, et al. A comprehensive review of humanoid robots. SmartBot , 1(1):e12008, 2025. [38] Sebastian Starke, Yiwei Zhao, Taku Komura, and Kazi Zaman. Local motion phases for learning multi-contact character movements. ACM Transactions on Graphics ,39(4), 2020. [39] Zhi Su, Bike Zhang, Nima Rahmanian, Yuman Gao, Qiayuan Liao, Caitlin Regan, Koushil Sreenath, and S Shankar Sastry. HITTER: A humanoid table tennis robot via hierarchical planning and learning. arXiv preprint arXiv:2508.21043 , 2025. [40] Huayi Wang, Zirui Wang, Junli Ren, Qingwei Ben, Tao Huang, Weinan Zhang, and Jiangmiao Pang. BeamDojo: Learning agile humanoid locomotion on sparse footholds. In Robotics: Science and Systems , 2025. [41] Lipeng Wang, Hongxing Fan, Haohua Chen, Zehuan Huang, and Lu Sheng. InterMoE: Individual-specific 3d human interaction generation via dynamic temporal-selective moe. In Proceedings of the AAAI Conference on Artificial Intelligence , 2026. [42] Yinhuai Wang, Qihan Zhao, Runyi Yu, Hok Wai Tsui, Ailing Zeng, Jing Lin, Zhengyi Luo, Jiwen Yu, Xiu Li, Qifeng Chen, Jian Zhang, Lei Zhang, and Ping Tan. Skillmimic: Learning basketball interaction skills from demonstrations. In Proceedings of the Computer Vi-sion and Pattern Recognition Conference , pages 17540– 17549, June 2025. [43] Jungdam Won, Deepak Gopinath, and Jessica Hodgins. Control strategies for physically simulated characters performing two-player competitive sports. ACM Trans-actions on Graphics (TOG) , 40(4):1–11, 2021. [44] Weiji Xie, Jinrui Han, Jiakun Zheng, Huanyu Li, Xinzhe Liu, Jiyuan Shi, Weinan Zhang, Chenjia Bai, and Xue-long Li. KungfuBot: Physics-based humanoid whole-body control for learning highly-dynamic skills. Ad-vances in Neural Information Processing Systems , 2025. [45] Liang Xu, Xintao Lv, Yichao Yan, Xin Jin, Shuwen Wu, Congsheng Xu, Yifan Liu, Yizhou Zhou, Fengyun Rao, Xingdong Sheng, Yunhui Liu, Wenjun Zeng, and Xiaokang Yang. Inter-X: Towards versatile human-human interaction analysis. In IEEE/CVF Conference on Computer Vision and Pattern Recognition , 2024. [46] Liang Xu, Chengqun Yang, Zili Lin, Fei Xu, Yifan Liu, Congsheng Xu, Yiyi Zhang, Jie Qin, Xingdong Sheng, Yunhui Liu, et al. Perceiving and acting in first-person: A dataset and benchmark for egocentric human-object-human interactions. In Proceedings of the IEEE/CVF International Conference on Computer Vision , pages 12535–12548, 2025. [47] Zifan Xu, Myoungkyu Seo, Dongmyeong Lee, Hao Fu, Jiaheng Hu, Jiaxun Cui, Yuqian Jiang, Zhihan Wang, Anastasiia Brund, Joydeep Biswas, et al. Learning agile striker skills for humanoid soccer robots from noisy sensory input. arXiv preprint arXiv:2512.06571 , 2025. [48] Yufei Xue, Wentao Dong, Minghuan Liu, Weinan Zhang, and Jiangmiao Pang. A unified and general humanoid whole-body controller for fine-grained locomotion. In 
+
+Robotics: Science and Systems , 2025. [49] Lujie Yang, Xiaoyu Huang, Zhen Wu, Angjoo Kanazawa, Pieter Abbeel, Carmelo Sferrazza, C Karen Liu, Rocky Duan, and Guanya Shi. OmniRetarget: Interaction-preserving data generation for humanoid whole-body loco-manipulation and scene interaction. arXiv preprint arXiv:2509.26633 , 2025. [50] Wei Yao, Yunlian Sun, Chang Liu, Hongwen Zhang, and Jinhui Tang. PhysiInter: Integrating physical mapping for high-fidelity human interaction generation. arXiv preprint arXiv:2506.07456 , 2025. [51] Yifei Yin, Chen Guo, Manuel Kaufmann, Juan Jose Zarate, Jie Song, and Otmar Hilliges. Hi4D: 4D instance segmentation of close human interaction. In IEEE/CVF Conference on Computer Vision and Pattern Recognition ,2023. [52] Yanjie Ze, Zixuan Chen, Joao Pedro Araujo, Zi-ang Cao, Xue Bin Peng, Jiajun Wu, and Karen Liu. TWIST: Tele-operated whole-body imitation system. In Conference on Robot Learning , 2025. [53] Tong Zhang, Boyuan Zheng, Ruiqian Nai, Yingdong Hu, Yen-Jen Wang, Geng Chen, Fanqi Lin, Jiongye Li, Chuye Hong, Koushil Sreenath, and Yang Gao. HuB: Learning extreme humanoid balance. In Conference on Robot Learning , 2025. [54] Yunbo Zhang, Deepak Gopinath, Yuting Ye, Jessica Hodgins, Greg Turk, and Jungdam Won. Simulation and retargeting of complex multi-character interactions. In 
+
+ACM SIGGRAPH 2023 Conference Proceedings , pages 1–11, 2023. [55] Zhikai Zhang, Jun Guo, Chao Chen, Jilong Wang, Chenghuai Lin, Yunrui Lian, Han Xue, Zhenrong Wang, Maoqi Liu, Jiangran Lyu, et al. Track any motions un-der any disturbances. arXiv preprint arXiv:2509.13833 ,2025. [56] Kun Zhou, Jin Huang, John Snyder, Xinguo Liu, Hujun Bao, Baining Guo, and Heung-Yeung Shum. Large mesh deformation using the volumetric graph laplacian. ACM Transactions on Graphics (TOG) , 24(3):496–503, 2005. APPENDIX 
+
+Overview 
+
+This appendix is organized into three main sections (A– C) to support the clarity and reproducibility of the proposed framework, Rhythm .
+
+Terminology. We refer to our unified framework as Rhythm .Within this framework, we define two core components:  
+
+> •
+
+IAMR (Interaction-Aware Motion Retargeting): The re-targeting module that resolves kinematic conflicts to generate geometrically consistent motion references from heterogeneous human data (Sec. A).  
+
+> •
+
+IGRL (Interaction-Guided Reinforcement Learning): The multi-agent learning module that masters coupled dynam-ics via graph-based rewards (Sec. B). 
+
+Structure. The Appendix is organized as follows:  
+
+> •
+
+A. Details of IAMR (Sec. A): We first elaborate on the data processing pipeline for heterogeneous motion sources (Part 1). We then provide the mathematical for-mulations and constraints for the optimization problem (Part 2), followed by a visualization of the topological interaction priors (Part 3).  
+
+> •
+
+B. Details of IGRL (Sec. B): This section specifies the hierarchical network architecture (Part 1), presents the comprehensive definition of graph-based rewards (Part 2), and details the robust training strategies, including curriculum learning and domain randomization (Part 3).  
+
+> •
+
+C. Experimental Setup & Metrics (Sec. C): We provide implementation details for the benchmarking baselines (Part 1), followed by the rigorous mathematical defini-tions of the evaluation metrics (Part 2). Finally, we de-scribe the hardware configuration and localization system used for Sim-to-Real transfer (Part 3). 
+
+A. Details of IAMR 1) Compatibility with Heterogeneous Motion Sources: 
+
+Human motion datasets contain rich pose and interaction information but differ significantly in data format and physical attributes (e.g., height, body proportions). A key strength of our framework is its input-agnostic design: we first abstract diverse inputs into a standardized representation—time-series of raw global 3D keypoint positions {praw  
+
+> t,i
+
+}—and then process them into two distinct reference manifolds to resolve the kinematic conflict. 
+
+Standardization of Input Formats. Regardless of the source format, our first step is to extract the raw 3D keypoints praw 
+
+> t,i
+
+for each agent k ∈ { 1, 2}: 
+
+> •
+
+Parametric Human Models (SMPL): The Inter-X 
+
+dataset [45] utilizes the SMPL format. We compute the raw keypoints via the SMPL forward kinematics function 
+
+M (·) using the recorded pose q and shape β:
+
+praw ,(k) 
+
+> t
+
+= M (q(k) 
+
+> t
+
+; β(k)). 
+
+> •
+
+Skeleton Hierarchy (BVH): Our MAGIC dataset uti-lizes the standard BVH skeleton hierarchy. Here, raw keypoints are derived directly from the skeleton’s forward kinematics f skel (·):
+
+praw ,(k) 
+
+> t
+
+= f skel (q(k) 
+
+> t
+
+).
+
+Construction of Dual Reference Manifolds. As discussed in the Kinematic Conflict (Sec. III-A), directly using raw human keypoints is infeasible due to morphological mismatches. To decouple interaction semantics from individual embodiment, we generate two distinct sets of scaled reference keypoints, 
+
+Pind and Puni , corresponding to the individual ( Mind ) and unified ( Muni ) manifolds respectively. Let hrobot be the robot’s height, and h(k) 
+
+> raw
+
+be the height of the k-th human demonstrator derived from praw ,(k). We first compute the individual height ratio s(k) = hrobot /h (k) 
+
+> raw
+
+. 
+
+> •
+
+Individual Scaling for Self-Motion ( Mind ): To ensure kinematic feasibility for each robot’s self-motion (e.g., limb proportions, ground contact), we generate the in-dividual reference set Pind by scaling each agent’s raw keypoints with its own specific ratio s(k):
+
+pind ,(k) 
+
+> t,i
+
+= s(k) · praw ,(k) 
+
+> t,i
+
+.
+
+This set Pind serves as the target for all single-agent tracking objectives (e.g., Lpos , Lreg ), ensuring that each robot tracks a trajectory compatible with its own scale.  
+
+> •
+
+Unified Scaling for Interaction Geometry (Muni ): 
+
+To preserve the relative interaction topology (e.g., hand-holding distance), we generate the unified reference set 
+
+Puni by applying a single global scale sunif ied to both agents. We define this scale as the average of the indi-vidual factors: 
+
+sunif ied = s(1) + s(2) 
+
+2 , puni ,(k) 
+
+> t,i
+
+= sunif ied · praw ,(k) 
+
+> t,i
+
+.
+
+This set Puni is exclusively used to compute the Interac-tion Graph targets (e.g., relative edge lengths). This en-sures that the spatial relationship between agents remains consistent with the original performance, preventing the geometric distortion that would arise from non-uniform scaling. 
+
+2) Optimization Details and Hyperparameters: We explic-itly formulate the optimization objectives and constraints used to solve the kinematic conflict described in Sec. III-A. 
+
+Optimization Formulation. We solve the retargeting problem frame-by-frame using a Sequential Quadratic Programming (SQP) approach. For each frame t, we optimize the joint configurations qt = [ q(1)  
+
+> t
+
+, q (2)  
+
+> t
+
+] to minimize the following total objective: 
+
+J (qt) = wself Jself + winter Jinter + wreg Jreg .
+
+The individual terms are defined as follows:  
+
+> •
+
+Self-Motion Preservation (Jself ): To maintain local topology and orientation, we minimize deviations from the individual reference manifold Pind .
+
+Jself = X
+
+> k∈{ 1,2}
+
+
+
+∥L (f (q(k) 
+
+> t
+
+)) − L (P (k)
+
+> ind
+
+)∥2
+
++ λrot 
+
+X
+
+> b∈B k
+
+∥θb(q(k) 
+
+> t
+
+) ⊖ ˆθsrc b ∥2
+
+.
+
+Here, L(·) denotes the discrete Laplacian operator, and 
+
+θb represents key bone orientations. This term allows the robot to adapt its absolute posture while preserving local motion semantics.  
+
+> •
+
+Interaction Preservation ( Jinter ): This term enforces relative geometric consistency by tracking the unified 
+
+reference manifold Puni . We split the interaction error term to fit the column width: 
+
+Jinter = X
+
+> (i,j )∈E inter
+
+ωij (fi(q(1)  
+
+> t
+
+) − fj (q(2)  
+
+> t
+
+)) 
+
+− (puni, (1)  
+
+> t,i
+
+− puni, (2)  
+
+> t,j
+
+) 2.
+
+Where ωij is the distance-dependent stiffness. This ex-plicitly penalizes deviations in the relative position vec-tors between agents.  
+
+> •
+
+Regularization ( Jreg ): Ensures temporal smoothness. It includes a minimum velocity term ∥qt − qt−1∥2.
+
+Constraints. The optimization is subject to the following hard constraints:  
+
+> •
+
+Joint Limits: The solution must respect the robot’s physical joint ranges: qmin ≤ qt−1 + ∆ qt ≤ qmax . 
+
+> •
+
+Collision Avoidance: We enforce non-penetration for all active collision pairs. Linearizing the signed distance field 
+
+ϕ(q), we require Jcol ∆qt ≥ − ϕ(qt−1)−ϵsaf e , where Jcol 
+
+is the normal Jacobian and ϵsaf e is a safety margin.  
+
+> •
+
+Foot Contact: For feet in strict contact (detected from source motion), we impose a zero-velocity constraint on the end-effectors: ∥Jf oot ∆qt∥ ≤ ϵstick . 
+
+> •
+
+Trust Region: To ensure the validity of the linearization, we bound the step size: ∥∆qt∥2 ≤ δ.
+
+Implementation & Hyperparameters. The optimization is implemented in Python using CVXPY with the OSQP solver. Empirically, we set the weights to prioritizes interaction stabil-ity: wself = 2 .0, winter = 10 .0, and wreg = 0 .1. The rotation weight λrot is set to 0.1.
+
+3) Topological Graph Visualization: To provide an intuitive understanding of the topological priors, we visualize the ex-tracted graph structures using a representative interaction case (e.g., a handshake task), as shown in Fig. 7. The visualization highlights two distinct connectivity types used by IAMR:  
+
+> •
+
+The Interaction Graph (Yellow Edges): Bridges the keypoints of the two agents based on the Unified Mani-fold. It captures the spatial intent and proximity required for coordination.  
+
+> •
+
+The Contact Graph (Red Edges): Highlights active physical collision links between specific robot bodies. This explicitly encodes the physical coupling state. 
+
+Algorithm 1 Interaction-Aware Motion Retargeting (IAMR) 
+
+Require: Source Motion Qsrc , Robot Models R1, R2
+
+Ensure: Retargeted Motion Qrob  
+
+> 1:
+
+Phase 1: Dual-Manifold Construction  
+
+> 2:
+
+Compute scales: sk ← hrob /h (k)
+
+> src
+
+, suni ← avg (sk ) 
+
+> 3:
+
+for t = 0 → T do  
+
+> 4:
+
+praw t ← FK (qsrc t ) 
+
+> 5:
+
+P (k) 
+
+> ind
+
+← sk · praw, (k) 
+
+> t
+
+; P (k) 
+
+> uni
+
+← suni · praw, (k) 
+
+> t
+> 6:
+
+Pre-compute targets: Lref ← L (P (k)
+
+> ind
+
+) 
+
+> 7:
+
+end for  
+
+> 8:
+
+Phase 2: SQP Optimization  
+
+> 9:
+
+Initialize q0 ← qnom  
+
+> 10:
+
+for t = 1 → T do  
+
+> 11:
+
+Detect interaction graph Einter using Puni  
+
+> 12:
+
+Let qprev ← qt−1 
+
+> 13:
+
+Formulate QP Subproblem (Solve for ∆q):  
+
+> 14:
+
+Objective: min ∆q J (qprev + ∆ q) 
+
+> 15:
+
+= wself (∥L (q)−Lref ∥2 +λrot ∥∆θ∥2) 
+
+> 16:
+
++winter 
+
+P 
+
+> (i,j )∈E
+
+ωij ∥∆pij − ∆puni ij ∥2 
+
+> 17:
+
++wreg ∥∆q∥2 
+
+> 18:
+
+Subject to Constraints:  
+
+> 19:
+
+1) Limits: qmin ≤ qprev + ∆ q ≤ qmax  
+
+> 20:
+
+2) Collision: Jcol ∆q ≥ − ϕ(qprev ) − ϵsaf e  
+
+> 21:
+
+3) Contact: ∥Jf oot ∆q∥ ≤ ϵstick if foot contact  
+
+> 22:
+
+4) Trust Region: ∥∆q∥2 ≤ δ 
+
+> 23:
+
+∆q∗ ← OSQP (Objective , Constraints ) 
+
+> 24:
+
+Update: qt ← qprev + ∆ q∗ 
+
+> 25:
+
+Append qt to Qrob  
+
+> 26:
+
+end for  
+
+> 27:
+
+return Qrob      
+
+> Fig. 7: Visualization of Topological Interaction Priors. We illustrate the extracted graph structures on a representative interaction task, where yellow edges denote spatial interaction constraints and red edges indicate physical contacts.
+
+By explicitly modeling these connections, IAMR provides topological cues that guide the downstream policy to distin-guish between required interaction and unwanted penetration. 
+
+B. Details of IGRL 1) Network Architecture: Our policy πθ (at|ot) employs a hierarchical encoder-decoder architecture designed to process heterogeneous temporal data. The network input is composed of three semantic groups, which are processed by specialized encoders before being fused for action generation. Observation Space & Inputs 
+
+To capture complex coupled dynamics, the policy inputs are organized into two distinct temporal streams: a Future Window (t + 1 . . . t + 20 ) providing feedforward intent, and a History Window (t − 19 . . . t ) providing feedback control states.  
+
+> •
+
+Future Reference ( of ut ∈ R93 per step): Encodes the look-ahead trajectory for motion planning. 
+
+– Self Future ( ∈ R64 ): Contains the reference joint positions ( ∈ R29 ) and velocities ( ∈ R29 ), along with the reference root orientation ( ∈ R6). The orientation is represented by the first two columns of the rotation matrix (Rot6D). 
+
+– Partner Future ( ∈ R29 ): Contains the partner’s refer-ence joint positions to anticipate collaborative intent.  
+
+> •
+
+History Observation ( ohist ∈ R239 per step): Aggre-gates the agent’s proprioception and perception of the peer. 
+
+– Proprioception ( oprop ∈ R157 ): 
+
+∗ Tracking State ( ∈ R64 ): Includes the current step’s reference joint positions and velocities, combined with the root orientation error ( ∈ R6). The orienta-tion error is computed from the first two columns of the rotation error matrix ( RTdes Rcur ). 
+
+∗ Physical State ( ∈ R93 ): Includes projected grav-ity ( ∈ R3), base angular velocity ( ∈ R3), joint positions ( ∈ R29 ), joint velocities ( ∈ R29 ), and previous actions ( ∈ R29 ). 
+
+– Peer Perception ( opeer ∈ R82 ): 
+
+∗ Partner State (∈ R64 ): Includes the partner’s current reference joint positions ( ∈ R29 ), actual joint positions ( ∈ R29 ), and the partner’s root orientation error ( ∈ R6). 
+
+∗ Interaction Topology ( ∈ R18 ): Explicitly encodes the formation geometry by including both the 
+
+reference and simulation relative transforms. Each transform consists of the relative position ( prel ∈
+
+R3) and orientation ( Rrel ∈ R6) expressed in the ego-centric frame. 
+
+Temporal Encoders (1D-CNN) 
+
+We employ two separate 1D-Convolutional Neural Networks to extract features from the observation history and future tra-jectories. Distinct from standard implementations, we employ an Input Projection layer to compress high-dimensional inputs before temporal convolution.  
+
+> •
+
+Architecture: Both the History and Future encoders share a dual-layer CNN structure configured as follows: 
+
+– Input Projection: Linear mapping to latent dim C =60 .
+
+– Layer 1: Conv1d( 60 → 40 , k = 6 , s = 2 ), ELU. 
+
+– Layer 2: Conv1d( 40 → 20 , k = 4 , s = 2 ), ELU.  
+
+> •
+
+Output: The temporal features are flattened and projected to compact embeddings ( ehist ∈ R67 , e f ut ∈ R64 ). Uniquely, ehist incorporates an explicit estimation of the base linear velocity ( ˆvbase ∈ R3) alongside the latent features. This design serves as a fusion of explicit physical estimation and implicit temporal representations, compensating for the lack of direct velocity observations in the real world. 
+
+Action Decoder (MLP) 
+
+The encoded temporal features are concatenated with the current time-step observation and fed into a Multi-Layer Perceptron (MLP) to generate the action distribution.  
+
+> •
+
+Structure: Three hidden layers with [512 , 256 , 128] units and ELU activation.  
+
+> •
+
+Output Head: A linear layer outputs the mean μt ∈ R29 
+
+of the Gaussian distribution for target joint positions. The standard deviation σ is a learnable parameter initialized at 1.0. 
+
+2) Reward Definitions: The total reward rt is computed as a weighted sum of terms designed to balance kinematic fidelity with interaction plausibility, as detailed in Table IV. We prioritize interaction-centric objectives (e.g., relative geometry and contact) over individual tracking precision to encourage compliant multi-agent coupling. 
+
+Interaction Graph Reward ( rinter )
+
+As formulated in the main text (Sec. III-B, Graph-based Re-wards ), this term enforces geometric consistency by penalizing deviations in the interaction edges. 
+
+rinter = exp 
+
+− 1
+
+σinter 
+
+X
+
+> (i,j )∈E
+
+wij · ∥ psim ij − pref ij ∥2
+
+ .
+
+By inheriting the dynamic weights wij from the IAMR mod-ule, the policy inherently learns to prioritize the same spatial topology (e.g., hand-shoulder proximity) as the optimized reference. 
+
+Physical Contact Graph Reward ( rcontact )
+
+Unlike kinematic tracking, physical interaction requires satis-fying force constraints that are not present in motion datasets. We propose a graph-based formulation that handles contact nodes dynamically based on their reference status. Leveraging the flexible node definition [42], we map simulation links to a set of abstract contact nodes V (e.g., palms, feet, pelvis). The reward is computed as a weighted sum of an active contact 
+
+term and an inactive term: 
+
+rcontact = λact · e−Eact /σ 2 
+
+> c
+
++ λinact · e−Einact /σ 2 
+
+> c
+
+.
+
+The weights λact and λinact are adaptive, calculated as the ratio of active/inactive nodes in the current reference frame, ensuring balanced supervision across diverse contact phases. 
+
+i) Active Contact Error ( Eact ): For nodes where contact is expected ( k ∈ Vact ), we define a hybrid error combining binary status consistency and continuous force regularization: 
+
+Eact = X
+
+> k∈V act
+
+ β∥Csim k − 1∥ + (1 − β)Lf orce (f sim k ) .where Csim k ∈ { 0, 1} is the detected contact status. The force regularization term Lf orce penalizes forces outside the valid range [Fmin , F max ]:
+
+Lf orce (f ) = 
+
+
+
+1.0 − f /F min if f < F min (Too Weak) 
+
+(f − Fmax )/F max if f > F max (Too Strong) 
+
+0 otherwise (Valid) 
+
+.
+
+This formulation explicitly guides the agent to exert sufficient force for stability ( > F min ) while preventing explosive colli-sions ( < F max ), solving the ambiguity of “touching without force”. 
+
+ii) Inactive Contact Error (Einact ): For nodes where no contact is expected ( k /∈ Vact ), we strictly penalize any detected “ghost interaction”: 
+
+Einact = X
+
+> k / ∈V act
+
+∥Csim k − 0∥.
+
+3) Robust Training Strategy: To ensure transferability to the physical world and handle the complexity of coupled interaction phases, we implement a rigorous training protocol comprising error-aware curriculum-based adaptive sampling and extensive domain randomization. 
+
+Curriculum-based Adaptive Sampling 
+
+Standard Reference State Initialization (RSI) relies on sparse failure counts, which is insufficient for interaction tasks where “survival” does not imply “success” (e.g., maintaining balance but losing interaction geometry). We propose a continuous, error-aware sampling strategy defined as follows:  
+
+> •
+
+Multi-Objective Error Landscape: For each discretized motion bin s, we maintain a smoothed error vector 
+
+e(s) = [ ef ail , e track , e inter ]T , incorporating failure sig-nals, tracking errors, and interaction violations. To cap-ture temporal causality—where failures stem from pre-ceding suboptimal actions—we smooth these signals us-ing a non-causal Gaussian kernel ( k = 3 ) implemented via 1D convolution.  
+
+> •
+
+Dynamic Probability: The sampling probability P (s) is a convex combination of uniform exploration ( η = 0 .05 )and error-weighted exploitation, modulated by curriculum weights α:
+
+P (s) = η 1
+
+S + (1 − η) X
+
+> k
+
+αk( ¯Lmax ) ek(s)
+
+P 
+
+> j
+
+ek(j) . 
+
+> •
+
+Curriculum Schedule: The weight vector α evolves based on the maximum moving average episode length 
+
+¯Lmax to ensure monotonic progress: 
+
+– Stability Phase ( ¯Lmax < 350 ): Weights are fixed at 
+
+αinit = [0 .8, 0.1, 0.1] . The policy prioritizes states leading to terminal failures to learn basic balance capabilities. 
+
+– Transition Phase ( 350 ≤ ¯Lmax < 500 ): We perform 
+
+linear interpolation between αinit and the target weights αtarget = [0 .05 , 0.30 , 0.65] . This gradually shifts the focus from avoiding failures to minimizing tracking and interaction errors as the agent gains proficiency. 
+
+– Precision Phase ( ¯Lmax ≥ 500 ): Weights stabilize at 
+
+αtarget . The sampling strictly targets complex inter-action phases that impose high control complexity despite low failure probability. 
+
+Dual-Agent Domain Randomization 
+
+To bridge the Sim-to-Real gap, we introduce perturbations targeting both physical dynamics and the specific challenges of distributed multi-agent communication, as detailed in Table V. 
+
+Communication & Initialization Strategy. Beyond standard dynamics randomization, we implement specific strategies for dual-agent coordination:  
+
+> •
+
+Communication Degradation: We explicitly model the latency in distributed systems. By training with random-ized delays ( 20 ∼ 60 ms) for both peer proprioception (wireless transmission) and relocalization (vision process-ing), the policy learns to be robust against asynchronous data reception.  
+
+> •
+
+Initial State Perturbation: To handle calibration errors, we initialize episodes with random offsets in root position (±5cm) and orientation ( ±0.2rad). This forces the pol-icy to learn active recovery behaviors from suboptimal relative configurations immediately upon activation. 
+
+C. Experimental Setup & Metrics 1) Baseline Implementation Details: To strictly validate our contributions, we benchmark our framework against two sets of baselines: kinematic retargeting methods (answering Q1) and dynamic policy learning variants (answering Q2). 
+
+Retargeting Baselines (Kinematic Level) 
+
+All baselines utilize the same source motion data and undergo identical skeletal scaling pre-processing to ensure fair compar-ison.  
+
+> •
+
+GMR (General Motion Retargeting) [3]: A standard Cartesian-space optimization method. It treats the two humanoids as isolated entities, optimizing joint angles to minimize the tracking error of individual keypoints’ po-sitions and rotations (e.g., end-effectors, pelvis) relative to the source motion. It does not include any interaction-aware constraints.  
+
+> •
+
+OR (OmniRetarget) [49]: A retargeting method utilizing Interaction Mesh (I-Mesh) to preserve geometric topol-ogy, originally designed for Human-Object Interaction (HOI) scenarios. In our dual-agent setting, we apply OR to each agent independently. While it preserves individual body topology, it lacks mechanisms to model or preserve inter-agent spatial relationships.  
+
+> •
+
+DOR (Dual-OmniRetarget): A strong baseline we con-structed by extending OmniRetarget to the multi-agent setting. We construct a holistic interaction mesh that encompasses both robot bodies, creating “cross-agent” edges between proximal body parts. However, by treating the dual-agent system as a single unified mesh, it fails to distinguish between critical inter-agent interactions and TABLE IV: Reward Terms and Weights used in IGRL 
+
+Term Weight Equation Description 
+
+Interaction Graph Objectives 
+
+Interact Edge 1.5 exp 
+
+
+
+− 1
+
+> σi
+
+P 
+
+> (i,j )∈E
+
+wij ∥psim ij − pref ij ∥2
+
+
+
+Enforces geometric consistency of interaction edges. Contact 1.0 λact e−Eact /σ 2 
+
+> c
+
++ λinact e−Einact /σ 2
+
+> c
+
+where Eact = P 
+
+> k∈V act
+
+(β∥Csim k − 1∥ + (1 − β)Lf )
+
+and Einact = P 
+
+> k / ∈V act
+
+∥Csim k − 0∥
+
+Balances active contact enforcement (force constrained) and ghost interaction suppression. 
+
+Motion Tracking Objectives 
+
+Upper Pos 1.0 exp( − 1
+
+> Nu
+
+P 
+
+> k∈U pper
+
+∥psim k − pref k ∥2/σ 2
+
+> pos
+
+) Tracks Euclidean positions of upper body links. Upper Ori 1.0 exp( − 1
+
+> Nu
+
+P 
+
+> k∈U pper
+
+∥ log(( Rsim k )⊤Rref k )∥2/σ 2
+
+> ori
+
+) Tracks orientation of upper body links. Upper Lin Vel 1.0 exp( − 1
+
+> Nu
+
+P 
+
+> k∈U pper
+
+∥vsim k − vref k ∥2/σ 2
+
+> vel
+
+) Matches linear velocities of upper body. Upper Ang Vel 1.0 exp( − 1
+
+> Nu
+
+P 
+
+> k∈U pper
+
+∥ωsim k − ωref k ∥2/σ 2 
+
+> ang
+
+) Matches angular velocities of upper body. Lower Pos 0.5 exp( − 1
+
+> Nl
+
+P 
+
+> k∈Lower
+
+∥psim k − pref k ∥2/σ 2
+
+> pos
+
+) Tracks Euclidean positions of lower body links. Lower Ori 0.5 exp( − 1
+
+> Nl
+
+P 
+
+> k∈Lower
+
+∥ log(( Rsim k )⊤Rref k )∥2/σ 2
+
+> ori
+
+) Tracks orientation of lower body links. Lower Lin Vel 0.5 exp( − 1
+
+> Nl
+
+P 
+
+> k∈Lower
+
+∥vsim k − vref k ∥2/σ 2
+
+> vel
+
+) Matches linear velocities of lower body. Lower Ang Vel 0.5 exp( − 1
+
+> Nl
+
+P 
+
+> k∈Lower
+
+∥ωsim k − ωref k ∥2/σ 2 
+
+> ang
+
+) Matches angular velocities of lower body. Anchor Pos 0.3 exp( −∥ psim root − pref root ∥2/σ 2
+
+> root
+
+) Tracks root position in world frame to prevent global drift. Anchor Ori 0.5 exp( −∥ log(( Rsim root )⊤Rref root )∥2/σ 2
+
+> root ori
+
+) Tracks root heading in world frame. 
+
+Regularization & Penalties 
+
+Action Rate −0.3 ∥at − at−1∥2 Penalizes action changes to ensure smooth control. Feet Slip −0.5 P 
+
+> k∈F eet
+
+I(contact k ) · ∥ vk,xy ∥2 Penalizes foot sliding velocity during ground contact. Joint Limit −10 .0 P 
+
+> j
+
+max(0 , |qj | − qlimit ) Penalizes violations of physical joint limits. Torque 10 −4 −∥ τ ∥2 Prevents excessive torques. 
+
+TABLE V: Domain Randomization Parameters 
+
+Term Value 
+
+Dynamics Randomization 
+
+Link Mass U[0 .9, 1.1] × default (per link) CoM Offset (Torso) ∆x, y, z ∈ U [−0.05 , 0.05] mJoint Friction Static: U[0 .3, 2.0] ,Dynamic: U[0 .3, 1.6] 
+
+Actuator Gains Stiffness/Damping: U[0 .9, 1.1] 
+
+Restitution U[0 .0, 0.8] (Ground contact) Default Joint Pos ∆θ0 ∼ U [−0.01 , 0.01] rad (Calibration) Control Delay U[0 , 15] ms 
+
+External Perturbations 
+
+Robot Push (Linear) vx,y ∼ U [−0.4, 0.4] m/s, 
+
+vz ∼ U [−0.16 , 0.16] m/s Robot Push (Angular) ωx,y ∼ U [−0.4, 0.4] rad/s, 
+
+ωz ∼ U [−0.64 , 0.64] rad/s Push Interval Applied every 1.0 ∼ 3.0 sInitial Pose Offset ∆pos ∈ [−5, 5] cm, 
+
+∆yaw ∈ [−0.2, 0.2] rad 
+
+Communication Degradation 
+
+Peer Latency Proprioception & Relocalization: 
+
+U[20 , 60] ms 
+
+individual self-motion, leading to an optimization that lacks focus on core interaction information. 
+
+Policy Learning Baselines (Dynamic Level) 
+
+To isolate the contribution of specific components in our IGRL framework, we compare against the following variants. All variants are trained using the same PPO hyperparameters and network architecture unless specified otherwise.  
+
+> •
+
+Single Agent: Represents the “Status Quo” approach. This policy treats the peer robot merely as a dynamic obstacle or ignores it entirely. 
+
+Implementation: The peer observation opeer is masked, and the reward function includes only standard tracking terms ( rtrack ) without any interaction ( rinter ) or contact (rcontact ) objectives. The agent is rewarded solely for tracking its own retargeted reference.  
+
+> •
+
+Ours w/o Peer Obs: Evaluates the necessity of explicit inter-agent perception. 
+
+Implementation: The policy architecture is identical to IGRL, but the peer observation stream opeer is zeroed out. The reward function remains full (including inter-action rewards), forcing the agent to infer interaction requirements solely from its own proprioception and the reference motion.  
+
+> •
+
+Ours w/o Contact Rew: Evaluates the contribution of the Physical Contact Graph. 
+
+Implementation: The policy is trained with the full ob-servation space, but the contact reward rcontact weight is set to zero. This tests whether kinematic tracking alone is sufficient to establish stable physical coupling.  
+
+> •
+
+Ours w/o Interaction Rew: Evaluates the contribution of the Spatial Interaction Graph. 
+
+Implementation: The interaction graph reward rinter is removed. The agent relies purely on standard po-sition/rotation tracking rewards to maintain formation. This tests the importance of explicitly optimizing relative topology for resolving geometric ambiguities. 
+
+2) Evaluation Metric Implementation Details: We employ specific metrics for each component of our framework to eval-uate kinematic quality and dynamic performance respectively. 
+
+Retargeting Evaluation Metrics (Q1) 
+
+We evaluate retargeting quality from three complementary as-pects: physical feasibility, interaction fidelity, and downstream utility.  
+
+> •
+
+Inter-Penetration Rate (IPR) & Max Penetration Depth (MPD): Measure physical feasibility by reporting the percentage of frames exhibiting inter-agent pene-tration and the maximum penetration depth across the sequence. Lower values indicate safer motion.  
+
+> •
+
+Interaction Edge Error (IEE): Quantifies geometric interaction fidelity as the normalized L2 distance between retargeted interaction edges and the scaled ground-truth edges.  
+
+> •
+
+Contact F1 Score: Evaluates binary contact accuracy against ground-truth interaction edges following [20, 29]. We report F1 scores under Strict (τ < 0.2 m) and 
+
+Loose (τ < 0.4 m) contact settings to assess precision at different scales.  
+
+> •
+
+Downstream Success Rate (DSR): Serves as a proxy for physical learnability. It is defined as the percentage of RL rollouts where the agent can track the retargeted reference while maintaining the interaction structure (i.e., maintaining an IEE deviation < 20% relative to the scaled ground truth). 
+
+Policy Learning Evaluation Metrics (Q2) 
+
+To assess the robustness and fidelity of the learned control policy in dynamic environments, we evaluate interaction and contact performance with respect to the retargeted reference trajectories.  
+
+> •
+
+Interaction Performance (ISR & IEE): Measures in-teraction fidelity by computing the distance-weighted relative error between simulated interaction edges and the retargeted reference edges. We report the mean Inter-action Edge Error (IEE) and the Interaction Success Rate (ISR) , defined as the percentage of steps where the IEE is kept within a strict tolerance ( < 10% ).  
+
+> •
+
+Contact Performance (CSR & CER): Evaluates phys-ical contact fidelity relative to the retargeted reference contacts. The Contact Error Rate (CER) measures the rate of violations of required contact constraints, while the Contact Success Rate (CSR) reports the percentage of steps where sufficient reference contacts ( > 80% ) are correctly recalled by the policy. 
+
+3) Sim-to-Real Hardware: We validate our approach on the Unitree G1 humanoid robot platform. To bridge the gap between ideal simulation states and real-world noisy sensor data, we implement a fully onboard perception and control stack written in C++ for real-time performance. 
+
+Robot Platform & Compute. The Unitree G1 (approx. 1.3 m height, 29 DoF) serves as our experimental testbed. Unlike simulation where state information is privileged, all computations—including state estimation, policy inference, and low-level control—are performed onboard the robot’s internal CPU. We utilize ONNX Runtime to execute the trained policies, achieving an inference latency of less than 3 ms, ensuring a stable 50 Hz control loop. 
+
+Hierarchical Localization System. Precise relative local-ization is a prerequisite for our Interaction Graph reward calculation. We develop a robust, coarse-to-fine localization framework fusing LiDAR and IMU data:  
+
+> •
+
+High-Frequency Odometry: We utilize Point-LIO [14], a robust LiDAR-Inertial Odometry framework, to provide high-bandwidth ( 10 Hz) state estimation robust to aggres-sive motions and vibrations.  
+
+> •
+
+Global Initialization (Coarse): To handle the “cold start” problem and global drift, we implement a neu-ral registration service based on GeoTransformer . This module extracts superpoint features to perform global registration between the current scan and a pre-built point cloud map, providing a reliable initial pose guess.  
+
+> •
+
+Real-Time Tracking (Fine): During operation, a C++ relocalization node refines the pose using GICP (Gen-eralized Iterative Closest Point) [35]. A Kalman Filter fuses the high-frequency relative odometry from Point-LIO with the low-frequency global pose corrections from GICP to output smooth, drift-free global states. 
+
+Control Architecture. The deployment system operates on a dual-frequency hierarchy to match the simulation setup:  
+
+> •
+
+High-Level Policy (50 Hz): The motion tracking policy constructs observations based on the fused state estimates and computes desired joint positions.  
+
+> •
+
+Low-Level Controller (500 Hz): A real-time PD con-troller converts these targets into motor torques, enforcing the physical compliance required for safe interaction. 
+
+Multi-Agent Synchronization. To enable coordinated inter-action, the agents exchange their estimated global poses and full peer observations (opeer ) via the LCM (Lightweight Communications and Marshalling) protocol [21].

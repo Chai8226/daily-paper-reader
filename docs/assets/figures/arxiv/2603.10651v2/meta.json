@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.10651v2/fig-001.webp",
+      "caption": "Figure 5: A logistics scenario with two robots (r0, r1) delivering two items (c0, c1) from l0 and l1. The first schedule is infeasible as Σ = {l0, l1} is blocked by Ω = {door} (Layer 1, RRT). The second schedule is geometrically feasible but trajectories need updated delays δ and durations d (Layer 2, ST-RRT*). Such motion planning’s feedback leads to a final valid SAMP schedule.",
+      "page": 7,
+      "index": 1,
+      "width": 1054,
+      "height": 194
+    }
+  ]
+}

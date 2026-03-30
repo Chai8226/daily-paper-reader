@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.10227v1/fig-001.webp",
+      "caption": "Fig. 11: The reactive whole-body navigation task, highlighting real-time decision making with the proposed perceptive HTMPC approach in closed-loop with fast perception feedback. Top row: time-series images from the experiment. Bottom row: corresponding illustrations of raw point clouds (black), perceived map (red), and the HTMPC prediction EE (yellow) and base (blue) paths.",
+      "page": 10,
+      "index": 1,
+      "width": 1076,
+      "height": 289
+    }
+  ]
+}

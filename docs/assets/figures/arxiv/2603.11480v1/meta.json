@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.11480v1/fig-001.webp",
+      "caption": "Fig. 1: Experimental results of highly dynamic side flip tracking on Unitree G1.",
+      "page": 1,
+      "index": 1,
+      "width": 512,
+      "height": 272
+    },
+    {
+      "url": "assets/figures/arxiv/2603.11480v1/fig-002.webp",
+      "caption": "Fig. 6: Unitree G1 performing a forward jump. The left case is the baseline, and the right one is edited to jump higher.",
+      "page": 7,
+      "index": 2,
+      "width": 439,
+      "height": 289
+    },
+    {
+      "url": "assets/figures/arxiv/2603.11480v1/fig-003.webp",
+      "caption": "Fig. 2: Retargeting framework.",
+      "page": 3,
+      "index": 3,
+      "width": 508,
+      "height": 274
+    },
+    {
+      "url": "assets/figures/arxiv/2603.11480v1/fig-004.webp",
+      "caption": "Fig. 8: Comparison of RL Empbpe learning curves of side flip tracking when the reference motions are provided by KTO, KDTO, KDTO+T.",
+      "page": 8,
+      "index": 4,
+      "width": 459,
+      "height": 270
+    },
+    {
+      "url": "assets/figures/arxiv/2603.11480v1/fig-005.webp",
+      "caption": "Fig. 4: Rest pose key frame calibration of human URDF to humanoid robot dimensions. We match the link lengths for arms regardless of their absolute positions, and the absolute positions for the remaining key frames. We also calibrate the orientation offsets for end effectors if the robot has enough degree of freedom to track end effector orientations.",
+      "page": 4,
+      "index": 5,
+      "width": 446,
+      "height": 289
+    }
+  ]
+}

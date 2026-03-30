@@ -1,0 +1,78 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.03243v1/fig-001.webp",
+      "caption": "Fig. 7: Laundry Task. (a) Our cross-embodiment hand-eye policy rollout, highlighting our system’s capability of whole-body coordination and active perception. (b) Different test scenarios with different objects and bin locations. (c) Typical failure cases of the baselines.",
+      "page": 6,
+      "index": 1,
+      "width": 1076,
+      "height": 452
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03243v1/fig-002.webp",
+      "caption": "Fig. 9: Delivery Task. (a) Our policy rollout, demonstrating long-horizon navigation over a large workspace and active perception. (b) Different test scenarios with different trolley locations and initial base positions and orientations. (c) Typical failure cases of the baselines.",
+      "page": 7,
+      "index": 2,
+      "width": 1074,
+      "height": 479
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03243v1/fig-003.webp",
+      "caption": "Fig. 10: Tablescape Task. (a) Our policy rollout, demonstrating precise bimanual and whole-body coordination. (b) Different test scenarios with different initial base positions and mat placement. (c) Typical failure cases of the baselines.",
+      "page": 7,
+      "index": 3,
+      "width": 529,
+      "height": 320
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03243v1/fig-004.webp",
+      "caption": "Fig. 2: HoMMI System Overview. We learn whole-body mobile manipulation from human demonstrations with an intuitive data collection interface (§ IV), a cross-embodiment policy design with an embodiment-agnostic visual representation and a relaxed head action representation (§ V), and a whole-body controller that achieves hand-eye tracking through whole-body motions respecting physical constraints (§ VI-B).",
+      "page": 3,
+      "index": 4,
+      "width": 1076,
+      "height": 300
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03243v1/fig-005.webp",
+      "caption": "Fig. 3: Embodiment-Agnostic Visual Representation. We use a 3D representation for egocentric observations that allows using an embodiment-agnostic gripper coordinate frame, and masking out embodiment-specific arms and body observations.",
+      "page": 3,
+      "index": 5,
+      "width": 474,
+      "height": 327
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03243v1/fig-006.webp",
+      "caption": "Fig. 12: Hardware Schematic.",
+      "page": 13,
+      "index": 6,
+      "width": 529,
+      "height": 298
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03243v1/fig-007.webp",
+      "caption": "TABLE I: Whole-body IK parameters for the three evaluation tasks",
+      "page": 13,
+      "index": 7,
+      "width": 529,
+      "height": 443
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03243v1/fig-008.webp",
+      "caption": "Fig. 11: Egocentric Attention Comparison. We visualize attention maps for egocentric observations with yellow representing higher attention values. Ours exhibits clean attention highlighted around task-relevant objects, while baselines’ attentions are less informative.",
+      "page": 8,
+      "index": 8,
+      "width": 529,
+      "height": 414
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03243v1/fig-009.webp",
+      "caption": "Fig. 5: HoMMI Whole-Body Controller is designed to achieve precise end-effector tracking for accurate manipulation and effective active perception for information gathering. To do so, it uses (a) a relaxed head look-at point action representation that allows accurate bimanual end-effectors SE(3) tracking, circumventing the infeasibility and increased error associated with simultaneous 6-DoF head-hand tracking. In addition, we also apply (b) constraints and regularization to ensure stability and prevent the disastrous behaviors that would otherwise occur.",
+      "page": 5,
+      "index": 9,
+      "width": 1074,
+      "height": 302
+    }
+  ]
+}

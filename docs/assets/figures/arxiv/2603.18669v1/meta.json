@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.18669v1/fig-001.webp",
+      "caption": "Fig. 4: Dynamic obstacle avoidance sequence for the 7-DoF manipulator.",
+      "page": 7,
+      "index": 1,
+      "width": 1026,
+      "height": 220
+    },
+    {
+      "url": "assets/figures/arxiv/2603.18669v1/fig-002.webp",
+      "caption": "TABLE VI: Comparative trajectory planning performance for the 7-DoF manipulator",
+      "page": 7,
+      "index": 2,
+      "width": 404,
+      "height": 316
+    },
+    {
+      "url": "assets/figures/arxiv/2603.18669v1/fig-003.webp",
+      "caption": "Fig. 2: Comparative analysis of trajectory optimization with safety constraints.",
+      "page": 5,
+      "index": 3,
+      "width": 512,
+      "height": 673
+    }
+  ]
+}

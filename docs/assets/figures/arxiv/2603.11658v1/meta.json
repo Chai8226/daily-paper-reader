@@ -1,0 +1,70 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.11658v1/fig-001.webp",
+      "caption": "Fig. 1. Our algorithm enables a task-specific sampling metric for approximating the feasible configuration space for a system. These approximated regions are then used for discovering a convex structured graph for effective motion planning within the actuator bounds. Note that the larger the size of the node, the larger is the volume of the corresponding convex set.",
+      "page": 1,
+      "index": 1,
+      "width": 514,
+      "height": 408
+    },
+    {
+      "url": "assets/figures/arxiv/2603.11658v1/fig-002.webp",
+      "caption": "Fig. 8. TT-Cross approximation of the PDF. The red points here denote samples taken from the TTD. Regions with a higher probability are sampled more likely.",
+      "page": 6,
+      "index": 2,
+      "width": 512,
+      "height": 244
+    },
+    {
+      "url": "assets/figures/arxiv/2603.11658v1/fig-003.webp",
+      "caption": "Fig. 7. Original PDF constructed using the Riemannian metric (γ = 1.0). The Riemannian metric results in comparatively more favorable manipulability configurations, whereas the Yoshikawa metric induces a more restricted spatial domain characterized by high-manipulability regions.",
+      "page": 6,
+      "index": 3,
+      "width": 512,
+      "height": 241
+    },
+    {
+      "url": "assets/figures/arxiv/2603.11658v1/fig-004.webp",
+      "caption": "Fig. 9. Performance evaluation of TANGO and RRT. Execution times of executed trajectories (left), PDF-Score (middle), and number of resulting waypoints (right). The execution times of the generated trajectories are, on average higher for TANGO, while having a better PDF Score (higher values indicate better performance). TANGO requires in general, fewer waypoints, leading to smooth trajectories after further refinement.",
+      "page": 7,
+      "index": 4,
+      "width": 1044,
+      "height": 365
+    },
+    {
+      "url": "assets/figures/arxiv/2603.11658v1/fig-005.webp",
+      "caption": "Fig. 3. An overview of our TANGO algorithm is illustrated as follows. We begin by sampling the configuration space and constructing an inverse probability density function (PDF) using a chosen task metric Lmin. From this distribution, samples are drawn and classified into feasible and infeasible categories. These classifications, along with IRIS, enable the discovery of safe convex regions within the configuration space. Finally, a shortest-path search over the discovered convex sets yields the resulting trajectory from start to goal configuration.",
+      "page": 3,
+      "index": 5,
+      "width": 1052,
+      "height": 260
+    },
+    {
+      "url": "assets/figures/arxiv/2603.11658v1/fig-006.webp",
+      "caption": "Fig. 10. Comparison between a naive RRT and TANGO. The plots show that our Riemannian sampling strategy in TANGO leads to approximate convergence in less time (left) and fewer waypoints (right) for different runs.",
+      "page": 8,
+      "index": 6,
+      "width": 1044,
+      "height": 483
+    },
+    {
+      "url": "assets/figures/arxiv/2603.11658v1/fig-007.webp",
+      "caption": "Fig. 4. Executed robot trajectory from start configuration (red sphere) to goal configuration (green sphere) using TANGO. It should be noted that, due to the presence of joint limits, the geodesically shortest path in the configuration space does not necessarily correspond to the shortest path in the task (operational) space.",
+      "page": 5,
+      "index": 7,
+      "width": 362,
+      "height": 373
+    },
+    {
+      "url": "assets/figures/arxiv/2603.11658v1/fig-008.webp",
+      "caption": "Fig. 6. Original pdf (top) and TT-Cross approximation (bottom) for the Yoshikawa metric. The red points (bottom picture) denote samples taken from the TTD. Regions with a higher probability are sampled more likely. For illustrative and visualization purposes, we fixed the scaling parameter value to γ = 0.1.",
+      "page": 5,
+      "index": 8,
+      "width": 514,
+      "height": 520
+    }
+  ]
+}

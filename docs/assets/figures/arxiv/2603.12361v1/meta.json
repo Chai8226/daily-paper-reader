@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.12361v1/fig-001.webp",
+      "caption": "TABLE IV: Cross-scenario generalization. LOTO¬f : trained excluding the test scenario’s family f . Gsim: trained on basic scenarios only. All methods achieve 100% SR. (50 runs, 20 s.)",
+      "page": 6,
+      "index": 1,
+      "width": 494,
+      "height": 502
+    },
+    {
+      "url": "assets/figures/arxiv/2603.12361v1/fig-002.webp",
+      "caption": "Fig. 1: GNN-DIP pipeline on a labyrinth with polygon obstacles. (a) Planning problem with start (⋆) and goal (◦). (b) CDT decomposes the free space into 385 triangular cells. (c) The GNN selects a corridor of 73 cells (light blue), and the Funnel algorithm computes the initial path (green) in parallel across corridor candidates. (d) Phase 2 refines the solution within a shrinking informed ellipsoid (orange dashed → red solid).",
+      "page": 2,
+      "index": 2,
+      "width": 998,
+      "height": 234
+    },
+    {
+      "url": "assets/figures/arxiv/2603.12361v1/fig-003.webp",
+      "caption": "Fig. 2: PDT convergence plots: success rate (top) and median cost (bottom) vs. time. Top row: 2D very hard scenarios (100 runs, 2 s). Bottom row: 3D bottleneck scenarios (50 runs, 20 s) and Dense BN Office (∼600 cells); G-DIP converges 2× faster than DIP on the dense variant.",
+      "page": 7,
+      "index": 3,
+      "width": 1049,
+      "height": 336
+    },
+    {
+      "url": "assets/figures/arxiv/2603.12361v1/fig-004.webp",
+      "caption": "Fig. 3: Dynamic 2D benchmark summary across 10 scenarios. (a) Average path cost: GNN-DIP achieves lower cost on all scenarios, especially multi-room (6–8% reduction). (b) Average solve time: GNN-DIP solves in 1.8–44 ms vs. OMPL’s 500 ms budget (50–280× speedup). (c) Success rate: GNN-DIP achieves 99% vs. OMPL’s 40% after collision post-validation.",
+      "page": 7,
+      "index": 4,
+      "width": 986,
+      "height": 245
+    },
+    {
+      "url": "assets/figures/arxiv/2603.12361v1/fig-005.webp",
+      "caption": "TABLE II: PDT benchmark. Top: SR/median cost. Bottom: time to first solution. 2D: 100 runs, 2 s; 3D: 50 runs, 20 s. D-BN = Dense Bottleneck. Bold = best; “—” = no solution.",
+      "page": 5,
+      "index": 5,
+      "width": 496,
+      "height": 444
+    }
+  ]
+}

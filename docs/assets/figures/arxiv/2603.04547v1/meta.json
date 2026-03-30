@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.04547v1/fig-001.webp",
+      "caption": "Fig. 1. The trees created by RRT⋆-Connect (top) vs. Many-RRT⋆ (bottom) in the task-space (left) and joint-space (right). Despite having denser, more extensive trees, RRT⋆-Connect chooses a suboptimal goal joint state from the preimage of the robot’s forward kinematics. Since our method samples multiple goal configurations, we can solve for many possible plans in parallel, improving success rate and decreasing path costs.",
+      "page": 1,
+      "index": 1,
+      "width": 514,
+      "height": 447
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04547v1/fig-002.webp",
+      "caption": "Fig. 4. The median cost per iteration across trials for the Random environment with 500 trials per method. Not only does Many-RRT⋆ converge to a feasible path before baselines, but it also finds lower-cost trajectories as the number of iterations increases. The performance difference widens as the dimension of the configuration-space increases: for the 7-DoF manipulator, Many-RRT⋆ finds a feasible solution in 6 times fewer iterations.",
+      "page": 6,
+      "index": 2,
+      "width": 512,
+      "height": 564
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04547v1/fig-003.webp",
+      "caption": "Fig. 2. A 2DoF Arm in an environment with obstacles that fully split the configuration space. A naive seed for Equation (5) would produce Goal 2, which is impossible to reach from the initial configuration. Sampling the optimal goal configuration is necessary for sampling-based planners to converge quickly. The configuration space Cfree is represented in green.",
+      "page": 2,
+      "index": 3,
+      "width": 512,
+      "height": 260
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04547v1/fig-004.webp",
+      "caption": "Fig. 3. Many-RRT⋆ solves many bidirectional RRTs in parallel. (a) We sample many points from the preimage of g = f(q), which is a continuous manifold for redundant manipulators. (b) Asynchronously and in parallel, we execute a separate RRT⋆ thread for each configuration sampled in (a). These configurations are the roots of these RRTs, and the start position is the goal. (c) We separately execute a RRT⋆ algorithm rooted at the start configuration that tries to connect to members of the trees in (b). This process is asynchronous, keeping track of the best solution yet given the state at each iteration.",
+      "page": 4,
+      "index": 4,
+      "width": 1052,
+      "height": 481
+    },
+    {
+      "url": "assets/figures/arxiv/2603.04547v1/fig-005.webp",
+      "caption": "TABLE I CONVERGENCE CHARACTERISTICS ACROSS 500 TRIALS FOR MANY-RRT⋆ AND BASELINES (MAX ITERATION: 3000, MAX RUNTIME: 3000MS).",
+      "page": 5,
+      "index": 5,
+      "width": 1052,
+      "height": 667
+    }
+  ]
+}

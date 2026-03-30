@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.03279v1/fig-001.webp",
+      "caption": "Fig. 1: ULTRA is an all-in-one controller for humanoid loco-manipulation that supports: Top. dense motion tracking from arbitrary reference. Middle. fine-grained control from operator commands. Bottom. long-horizon goal following with egocentric perception. It demonstrates autonomous whole-body behavior without relying on test-time motion references under real sensing. We provide additional examples in the webpage.",
+      "page": 1,
+      "index": 1,
+      "width": 1052,
+      "height": 286
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03279v1/fig-002.webp",
+      "caption": "TABLE I: Motion-tracking evaluation in IsaacGym. All methods are trained/evaluated on our data unless noted. Green highlights our primary tracking controller.",
+      "page": 6,
+      "index": 2,
+      "width": 471,
+      "height": 1094
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03279v1/fig-003.webp",
+      "caption": "Fig. 6: Sim-to-sim comparison for egocentric goal following. Blue/green: point cloud observation without/with noise; yellow: object goal. Top: without RL finetuning. Bottom: with RL finetuning.",
+      "page": 8,
+      "index": 3,
+      "width": 1052,
+      "height": 385
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03279v1/fig-004.webp",
+      "caption": "Fig. 2: ULTRA follows four stages: (i) Neural Retargeting: an RL policy converts MoCap data into physically feasible G1 rollouts with augmentation; (ii) Tracking: a privileged teacher tracks these rollouts using full state and references; (iii) Distillation: we distill the teacher into a multimodal student for realistic sensing and sparse goals, with additional RL finetuning; (iv) Deployment: the student runs under real sensing, supporting depth input or MoCap-based state estimation.",
+      "page": 4,
+      "index": 4,
+      "width": 1128,
+      "height": 608
+    },
+    {
+      "url": "assets/figures/arxiv/2603.03279v1/fig-005.webp",
+      "caption": "Fig. 3: Qualitative comparison of our retargeting and OmniRetarget [41] at the same frame/sequence. Top: final frame; the baseline shows undesired standing foot placement. Bottom: a contact frame; ours yields more stable contacts.",
+      "page": 5,
+      "index": 5,
+      "width": 514,
+      "height": 301
+    }
+  ]
+}

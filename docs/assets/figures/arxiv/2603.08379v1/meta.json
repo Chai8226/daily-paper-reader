@@ -1,0 +1,62 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.08379v1/fig-001.webp",
+      "caption": "Figure 1: Snapshot during a real-world experiment in the forest with 3 UAVs.",
+      "page": 1,
+      "index": 1,
+      "width": 523,
+      "height": 296
+    },
+    {
+      "url": "assets/figures/arxiv/2603.08379v1/fig-002.webp",
+      "caption": "Table IV: Simulation results with N = 10 robots in a crossing circle scenario with obstacles. We report the traversability τ , the length of the path l, the time to reach the goal t, the average speed v̄, and the minimum distance between the robots dmin. We considered 4 different field-of-views (FoV). The limited FoV {180,59,-20} (deg), half FoV {180,180,-90} (deg), full FoV {180,360,0} (deg), and the two-dimensional case {360,0,0} (deg).",
+      "page": 6,
+      "index": 2,
+      "width": 534,
+      "height": 266
+    },
+    {
+      "url": "assets/figures/arxiv/2603.08379v1/fig-003.webp",
+      "caption": "Table V: Simulation results with N = 5 robots in a forest-like environment. We report the traversability τ , the length of the path l, the time to reach the goal t, the average speed v̄, and the minimum distance between the robots dmin. We considered 4 different field-ofviews (FoV). The limited FoV {180,59,-20} (deg), half FoV {180,180,- 90} (deg), full FoV {180,360,0} (deg), and the two-dimensional case {360,0,0} (deg).",
+      "page": 6,
+      "index": 3,
+      "width": 534,
+      "height": 250
+    },
+    {
+      "url": "assets/figures/arxiv/2603.08379v1/fig-004.webp",
+      "caption": "Figure 8: Top view for the robots’ trajectories with the iRBL half FoV case and δi = 0.2 (m), in three different scenarios. The crossing circle without obstacle (N = 10), crossing circle with obstacles (N = 10) and forest-like environment (N = 5). The color indicates the velocities according to the colorbars.",
+      "page": 7,
+      "index": 4,
+      "width": 1044,
+      "height": 279
+    },
+    {
+      "url": "assets/figures/arxiv/2603.08379v1/fig-005.webp",
+      "caption": "Figure 9: Different experimental scenarios. The top row contains snapshots from the camera, while the bottom row shows the corresponding snapshots extracted from RViz for the same experiment. Similarly to Figure 5, the robot pose is represented by an axis reference frame. The set Wi is depicted as blue dots, and the centroid cBi as an orange sphere. The planned path is shown as a red line. The active waypoint wpi lies on the planned path and is represented by a purple sphere. The grey boxes represent the positions of the other robots. The colored point cloud represents obstacles, where different colors correspond to different z-values. The “eye” symbol indicates the robot whose viewpoint is currently shown in the bottom RViz visualization.",
+      "page": 7,
+      "index": 5,
+      "width": 1044,
+      "height": 427
+    },
+    {
+      "url": "assets/figures/arxiv/2603.08379v1/fig-006.webp",
+      "caption": "Figure 10: Different viewpoints from experiment #1 in Table VI. We depict the trajectories followed by the two robots during the mission. The robots’ velocities can be inferred from the color-bars on the right-hand side. Different colors in the point cloud indicate different z-values.",
+      "page": 8,
+      "index": 6,
+      "width": 1048,
+      "height": 194
+    },
+    {
+      "url": "assets/figures/arxiv/2603.08379v1/fig-007.webp",
+      "caption": "Figure 5: Illustration of the main variables associated with the i-th robot during a real-world experiment. The robot’s pose pi is shown as an axis reference frame. The set Wi is represented by the magenta set, and the centroid position cBi is shown in orange. The planned path is depicted by a red line. The wpi and ei indicate respectively the active waypooint and the final goal positions. Other robots positions pj are indicated by a grey box. The colored point cloud illustrates obstacles, with different colors corresponding to different z-values.",
+      "page": 4,
+      "index": 7,
+      "width": 520,
+      "height": 298
+    }
+  ]
+}

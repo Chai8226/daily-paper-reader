@@ -1,0 +1,70 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.01517v1/fig-001.webp",
+      "caption": "Fig. 8. RoboCore implemented with OP unit clusters (a) or specialized collision OP units (b), with changes highlighted in orange.",
+      "page": 6,
+      "index": 1,
+      "width": 430,
+      "height": 332
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01517v1/fig-002.webp",
+      "caption": "Fig. 7. Details of the baseline TTA+ architecture (a) compared to the RoboCore architecture with predication (b) and conditional returns (c). RoboCore modifications are highlighted in orange.",
+      "page": 6,
+      "index": 2,
+      "width": 1060,
+      "height": 324
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01517v1/fig-003.webp",
+      "caption": "Fig. 2. Example point cloud from the Tabletop environment of MπNet [30], with the robot’s OBBs shown in red.",
+      "page": 2,
+      "index": 3,
+      "width": 542,
+      "height": 254
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01517v1/fig-004.webp",
+      "caption": "Fig. 10. Applying ray tracing to PointNet++. (a) P-Ray: Modeling sampled points as spheres and other points as rays. (b) P-Sphere: Modeling sampled points as rays and other points as spheres.",
+      "page": 7,
+      "index": 4,
+      "width": 467,
+      "height": 336
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01517v1/fig-005.webp",
+      "caption": "Fig. 19. Execution time of DeliBot from RoWild on RoboCore compared to CUDA and TTA+ implementations.",
+      "page": 10,
+      "index": 5,
+      "width": 504,
+      "height": 298
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01517v1/fig-006.webp",
+      "caption": "Fig. 18. Latency breakdown of proposed motion planning pipeline on RoboGPU with RoboCore compared to the baseline CUDA implementation for Cubby environment.",
+      "page": 10,
+      "index": 6,
+      "width": 511,
+      "height": 377
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01517v1/fig-007.webp",
+      "caption": "Fig. 4. Baseline GPU architecture. RoboGPU replaces RTA with RoboCore.",
+      "page": 3,
+      "index": 7,
+      "width": 526,
+      "height": 250
+    },
+    {
+      "url": "assets/figures/arxiv/2603.01517v1/fig-008.webp",
+      "caption": "Fig. 6. Staged collision detection with bounding and inscribing sphere tests and early termination. Box-Normal axis tests are executed first, marked with (A), then Edge×Edge axis tests marked with (B). Reproduced from [79].",
+      "page": 4,
+      "index": 8,
+      "width": 515,
+      "height": 450
+    }
+  ]
+}

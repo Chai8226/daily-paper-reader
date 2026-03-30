@@ -1,0 +1,70 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.09031v1/fig-001.webp",
+      "caption": "Fig. 4: Static cluttered environment with hard obstacles and one human. Soft compliance near the human results in larger deflection and reduced speed.",
+      "page": 6,
+      "index": 1,
+      "width": 512,
+      "height": 415
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09031v1/fig-002.webp",
+      "caption": "Fig. 3: Static environment with hard obstacles and a gate. Rigid compliance with small deflection is observed near hard objects.",
+      "page": 6,
+      "index": 2,
+      "width": 512,
+      "height": 413
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09031v1/fig-003.webp",
+      "caption": "Fig. 5: Dynamic environment with one moving human and one hard obstacle. Soft compliance near the human and rigid compliance near the chair are observed.",
+      "page": 7,
+      "index": 3,
+      "width": 512,
+      "height": 408
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09031v1/fig-004.webp",
+      "caption": "Fig. 6: Dynamic scenario with two humans. Soft compliance with large deflection is observed.",
+      "page": 7,
+      "index": 4,
+      "width": 512,
+      "height": 413
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09031v1/fig-005.webp",
+      "caption": "TABLE II: PERFORMANCE COMPARISON ACROSS EIGHT EXPERIMENTAL SCENARIOS",
+      "page": 7,
+      "index": 5,
+      "width": 437,
+      "height": 348
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09031v1/fig-006.webp",
+      "caption": "TABLE I: EXPERIMENTALLY VALIDATED SAFE VIRTUAL IMPEDANCE LINK AND PATH PARAMETERS FOR DRONE–DRONE AND DRONE–OBSTACLE INTERACTIONS, STORED IN THE CUSTOM DATABASE FOR EACH OBSTACLE TYPE",
+      "page": 3,
+      "index": 6,
+      "width": 490,
+      "height": 256
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09031v1/fig-007.webp",
+      "caption": "Fig. 2: System architecture of ImpedanceDiffusion. A top-view image and user prompt are processed by Molmo to identify obstacle type. The VLM–RAG module retrieves the corresponding impedance parameters from a custom database. In parallel, the image is provided to the diffusion model to generate a global trajectory, which is executed using APF-based tracking with adaptive inter-drone and drone–obstacle impedance control.",
+      "page": 3,
+      "index": 7,
+      "width": 1052,
+      "height": 593
+    },
+    {
+      "url": "assets/figures/arxiv/2603.09031v1/fig-008.webp",
+      "caption": "Fig. 1: ImpedanceDiffusion in a mixed hard (rigid poles) and soft (human) obstacle environment. Diffusion-based planning generates the global path, APF ensures reactive avoidance (red dashed), and adaptive impedance links maintain formation cohesion and compliant interaction during flight.",
+      "page": 1,
+      "index": 8,
+      "width": 512,
+      "height": 389
+    }
+  ]
+}
