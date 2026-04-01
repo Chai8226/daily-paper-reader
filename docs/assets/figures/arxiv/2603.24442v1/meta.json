@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.24442v1/fig-001.webp",
+      "caption": "Fig. 6. Illustration of the proof of the correctness of movement along the new path",
+      "page": 11,
+      "index": 1,
+      "width": 466,
+      "height": 333
+    },
+    {
+      "url": "assets/figures/arxiv/2603.24442v1/fig-002.webp",
+      "caption": "Fig. 3. Movement of agents in case of violation of the distance condition between 𝛾𝑗(𝑡) and 𝜏.",
+      "page": 7,
+      "index": 2,
+      "width": 400,
+      "height": 327
+    },
+    {
+      "url": "assets/figures/arxiv/2603.24442v1/fig-003.webp",
+      "caption": "Fig. 1. Illustration of the basic conflict resolution method. The figure is taken from paper [7]",
+      "page": 5,
+      "index": 3,
+      "width": 533,
+      "height": 329
+    }
+  ]
+}
