@@ -6,76 +6,76 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-01
-- 运行时间：2026-04-01 20:13:18 UTC
+- 最新运行日期：2026-04-02
+- 运行时间：2026-04-02 20:20:25 UTC
 - 运行状态：成功
 - 本次总论文数：18
 - 精读区：7
 - 速读区：11
 
 ### 今日简报（AI）
-聚焦人形机器人与空间协作，今日 18 篇论文深度解析了从文本驱动控制到多臂协同规划的前沿突破。
-满分论文 SafeFlow 凭借物理引导修正流实现了人形机器人实时全身控制，同时强化学习正重塑轨道机器人的复杂作业能力。
-推荐优先研读人形机器人安全监控与通用运动规划，把握机器人从实验室走向复杂环境的技术趋势。
-- 详情：[/202604/01/README](/202604/01/README)
+今日深度解析 18 篇机器人前沿论文，聚焦人形机器人全身控制与实时运动模仿的重大突破。
+重点推荐 SafeFlow 的文本驱动物理安全控制及 MIRROR 的高效视觉重定向技术，展现了极高的实时性与物理仿真精度。
+建议关注多目标强化学习与通用神经规划器，探索如何让机器人更灵活地平衡运动性能与个性化安全需求。
+- 详情：[/202604/02/README](/202604/02/README)
 
 ### 精读区论文标签
-1. [SafeFlow: Real-Time Text-Driven Humanoid Whole-Body Control via Physics-Guided Rectified Flow and Selective Safety Gating](/202604/01/2603.23983v1-safeflow-real-time-text-driven-humanoid-whole-body-control-via-physics-guided-rectified-flow-and-selective-safety-gating)  
-   标签：评分：10.0/10、query:q3
-   evidence：带安全门控的人形机器人全身控制
-2. [Path Planning and Reinforcement Learning-Driven Control of On-Orbit Free-Flying Multi-Arm Robots](/202604/01/2603.23182v1-path-planning-and-reinforcement-learning-driven-control-of-on-orbit-free-flying-multi-arm-robots)  
-   标签：评分：9.0/10、query:q7
-   evidence：考虑动力学和运动学约束的多臂机器人轨迹优化
-3. [MIRROR: Visual Motion Imitation via Real-time Retargeting and Teleoperation with Parallel Differential Inverse Kinematics](/202604/01/2603.23995v1-mirror-visual-motion-imitation-via-real-time-retargeting-and-teleoperation-with-parallel-differential-inverse-kinematics)  
-   标签：评分：9.0/10、query:profile-1
-   evidence：具有自碰撞约束和冗余的人形机器人远程操作
-4. [Accelerated Spline-Based Time-Optimal Motion Planning with Continuous Safety Guarantees for Non-Differentially Flat Systems](/202604/01/2603.24133v1-accelerated-spline-based-time-optimal-motion-planning-with-continuous-safety-guarantees-for-non-differentially-flat-systems)  
-   标签：评分：9.0/10、query:q7
-   evidence：基于优化的运动规划与连续避障
-5. [A Minimum-Energy Control Approach for Redundant Mobile Manipulators in Physical Human-Robot Interaction Applications](/202604/01/2603.25259v1-a-minimum-energy-control-approach-for-redundant-mobile-manipulators-in-physical-human-robot-interaction-applications)  
-   标签：评分：9.0/10、query:q7
-   evidence：移动操作机的最小能量全身控制
-6. [Towards Embodied AI with MuscleMimic: Unlocking full-body musculoskeletal motor learning at scale](/202604/01/2603.25544v1-towards-embodied-ai-with-musclemimic-unlocking-full-body-musculoskeletal-motor-learning-at-scale)  
+1. [SafeFlow: Real-Time Text-Driven Humanoid Whole-Body Control via Physics-Guided Rectified Flow and Selective Safety Gating](/202604/02/2603.23983v1-safeflow-real-time-text-driven-humanoid-whole-body-control-via-physics-guided-rectified-flow-and-selective-safety-gating)  
    标签：评分：9.0/10、query:q3
-   evidence：人形机器人的全身肌肉骨骼运动学习
-7. [Heracles: Bridging Precise Tracking and Generative Synthesis for General Humanoid Control](/202604/01/2603.27756v2-heracles-bridging-precise-tracking-and-generative-synthesis-for-general-humanoid-control)  
+   evidence：类人机器人全身控制框架及安全门控机制
+2. [MIRROR: Visual Motion Imitation via Real-time Retargeting and Teleoperation with Parallel Differential Inverse Kinematics](/202604/02/2603.23995v1-mirror-visual-motion-imitation-via-real-time-retargeting-and-teleoperation-with-parallel-differential-inverse-kinematics)  
+   标签：评分：9.0/10、query:q4
+   evidence：具有自碰撞约束和并行逆运动学的类人机器人遥操作
+3. [A Minimum-Energy Control Approach for Redundant Mobile Manipulators in Physical Human-Robot Interaction Applications](/202604/02/2603.25259v1-a-minimum-energy-control-approach-for-redundant-mobile-manipulators-in-physical-human-robot-interaction-applications)  
    标签：评分：9.0/10、query:q3
-   evidence：通用人形机器人控制与动作追踪
+   evidence：全身移动操作机控制与优化
+4. [Towards Embodied AI with MuscleMimic: Unlocking full-body musculoskeletal motor learning at scale](/202604/02/2603.25544v1-towards-embodied-ai-with-musclemimic-unlocking-full-body-musculoskeletal-motor-learning-at-scale)  
+   标签：评分：9.0/10、query:q3
+   evidence：类人机器人的全身肌肉骨骼运动学习与动作模仿
+5. [Long-Horizon Geometry-Aware Navigation among Polytopes via MILP-MPC and Minkowski-Based CBFs](/202604/02/2604.00162v1-long-horizon-geometry-aware-navigation-among-polytopes-via-milp-mpc-and-minkowski-based-cbfs)  
+   标签：评分：9.0/10、query:q2
+   evidence：多胞体机器人的几何感知安全保障
+6. [BAT: Balancing Agility and Stability via Online Policy Switching for Long-Horizon Whole-Body Humanoid Control](/202604/02/2604.01064v1-bat-balancing-agility-and-stability-via-online-policy-switching-for-long-horizon-whole-body-humanoid-control)  
+   标签：评分：9.0/10、query:q5
+   evidence：类人机器人全身控制与运动切换
+7. [SMASH: Mastering Scalable Whole-Body Skills for Humanoid Ping-Pong with Egocentric Vision](/202604/02/2604.01158v1-smash-mastering-scalable-whole-body-skills-for-humanoid-ping-pong-with-egocentric-vision)  
+   标签：评分：9.0/10、query:q3
+   evidence：类人机器人的敏捷全身协调
 
 ### 速读区论文标签
-1. [Learning Safe-Stoppability Monitors for Humanoid Robots](/202604/01/2603.22703v1-learning-safe-stoppability-monitors-for-humanoid-robots)  
+1. [PCHC: Enabling Preference Conditioned Humanoid Control via Multi-Objective Reinforcement Learning](/202604/02/2603.24047v1-pchc-enabling-preference-conditioned-humanoid-control-via-multi-objective-reinforcement-learning)  
    标签：评分：8.0/10、query:q3
-   evidence：类人机器人保持平衡的安全停止能力
-2. [Learning Multi-Agent Local Collision-Avoidance for Collaborative Carrying tasks with Coupled Quadrupedal Robots](/202604/01/2603.23278v1-learning-multi-agent-local-collision-avoidance-for-collaborative-carrying-tasks-with-coupled-quadrupedal-robots)  
-   标签：评分：8.0/10、query:q4
-   evidence：耦合四足机器人的局部避障
-3. [Toward Generalist Neural Motion Planners for Robotic Manipulators: Challenges and Opportunities](/202604/01/2603.24318v1-toward-generalist-neural-motion-planners-for-robotic-manipulators-challenges-and-opportunities)  
-   标签：评分：8.0/10、query:q5
-   evidence：机械臂神经运动规划器的技术现状
-4. [Integrated Multi-Drone Task Allocation, Sequencing, and Optimal Trajectory Generation in Obstacle-Rich 3D Environments](/202604/01/2603.24908v1-integrated-multi-drone-task-allocation-sequencing-and-optimal-trajectory-generation-in-obstacle-rich-3d-environments)  
-   标签：评分：8.0/10、query:profile-1
-   evidence：障碍物密集环境下的最优轨迹生成与避障
-5. [Trajectory Generation for Underactuated Soft Robot Manipulators using Discrete Elastic Rod Dynamics](/202604/01/2603.22604v1-trajectory-generation-for-underactuated-soft-robot-manipulators-using-discrete-elastic-rod-dynamics)  
-   标签：评分：7.0/10、query:q7
-   evidence：软体机器人机械臂的轨迹生成
-6. [PCHC: Enabling Preference Conditioned Humanoid Control via Multi-Objective Reinforcement Learning](/202604/01/2603.24047v1-pchc-enabling-preference-conditioned-humanoid-control-via-multi-objective-reinforcement-learning)  
-   标签：评分：7.0/10、query:q3
-   evidence：类人机器人感知运动等复杂技能的控制
-7. [Relaxing Constraints in Anonymous Multi Agent Path Finding for Large Agents](/202604/01/2603.24442v1-relaxing-constraints-in-anonymous-multi-agent-path-finding-for-large-agents)  
+   evidence：基于多目标强化学习的偏好调节类人机器人控制
+2. [Accelerated Spline-Based Time-Optimal Motion Planning with Continuous Safety Guarantees for Non-Differentially Flat Systems](/202604/02/2603.24133v1-accelerated-spline-based-time-optimal-motion-planning-with-continuous-safety-guarantees-for-non-differentially-flat-systems)  
+   标签：评分：8.0/10、query:q7
+   evidence：基于样条的运动规划作为具有连续避障能力的优化控制问题
+3. [Toward Generalist Neural Motion Planners for Robotic Manipulators: Challenges and Opportunities](/202604/02/2603.24318v1-toward-generalist-neural-motion-planners-for-robotic-manipulators-challenges-and-opportunities)  
+   标签：评分：8.0/10、query:q3
+   evidence：复杂环境下机械臂的神经运动规划器
+4. [Chasing Autonomy: Dynamic Retargeting and Control Guided RL for Performant and Controllable Humanoid Running](/202604/02/2603.25902v1-chasing-autonomy-dynamic-retargeting-and-control-guided-rl-for-performant-and-controllable-humanoid-running)  
+   标签：评分：8.0/10、query:q7
+   evidence：类人机器人跑步的动态重定向与优化
+5. [Relaxing Constraints in Anonymous Multi Agent Path Finding for Large Agents](/202604/02/2603.24442v1-relaxing-constraints-in-anonymous-multi-agent-path-finding-for-large-agents)  
+   标签：评分：7.0/10、query:q6
+   evidence：考虑代理尺寸的路径规划
+6. [Latent-WAM: Latent World Action Modeling for End-to-End Autonomous Driving](/202604/02/2603.24581v1-latent-wam-latent-world-action-modeling-for-end-to-end-autonomous-driving)  
    标签：评分：7.0/10、query:q2
-   evidence：在路径规划中考虑智能体的尺寸
-8. [Chasing Autonomy: Dynamic Retargeting and Control Guided RL for Performant and Controllable Humanoid Running](/202604/01/2603.25902v1-chasing-autonomy-dynamic-retargeting-and-control-guided-rl-for-performant-and-controllable-humanoid-running)  
+   evidence：用于轨迹规划的空间感知潜世界表示
+7. [Integrated Multi-Drone Task Allocation, Sequencing, and Optimal Trajectory Generation in Obstacle-Rich 3D Environments](/202604/02/2603.24908v1-integrated-multi-drone-task-allocation-sequencing-and-optimal-trajectory-generation-in-obstacle-rich-3d-environments)  
+   标签：评分：7.0/10、query:q6
+   evidence：在障碍物丰富的空间中生成安全轨迹
+8. [Connectivity-Aware Representations for Constrained Motion Planning via Multi-Scale Contrastive Learning](/202604/02/2603.25298v1-connectivity-aware-representations-for-constrained-motion-planning-via-multi-scale-contrastive-learning)  
    标签：评分：7.0/10、query:q3
-   evidence：类人机器人运动重定向与控制
-9. [CATNAV: Cached Vision-Language Traversability for Efficient Zero-Shot Robot Navigation](/202604/01/2603.22800v1-catnav-cached-vision-language-traversability-for-efficient-zero-shot-robot-navigation)  
+   evidence：约束运动规划与关节配置
+9. [C-STEP: Continuous Space-Time Empowerment for Physics-informed Safe Reinforcement Learning of Mobile Agents](/202604/02/2603.24241v1-c-step-continuous-space-time-empowerment-for-physics-informed-safe-reinforcement-learning-of-mobile-agents)  
    标签：评分：6.0/10、query:q4
-   evidence：针对避障的具身感知代价地图与轨迹选择
-10. [A Multimodal Framework for Human-Multi-Agent Interaction](/202604/01/2603.23271v1-a-multimodal-framework-for-human-multi-agent-interaction)  
-   标签：评分：6.0/10、query:profile-1
-   evidence：人形机器人的具身表达与协调决策
-11. [ABot-PhysWorld: Interactive World Foundation Model for Robotic Manipulation with Physics Alignment](/202604/01/2603.23376v1-abot-physworld-interactive-world-foundation-model-for-robotic-manipulation-with-physics-alignment)  
-   标签：评分：6.0/10、query:profile-1
-   evidence：符合物理规律的机器人操纵规划
+   evidence：联合优化任务完成与避障
+10. [FODMP: Fast One-Step Diffusion of Movement Primitives Generation for Time-Dependent Robot Actions](/202604/02/2603.24806v1-fodmp-fast-one-step-diffusion-of-movement-primitives-generation-for-time-dependent-robot-actions)  
+   标签：评分：6.0/10、query:q7
+   evidence：使用运动基元参数化完整轨迹
+11. [Characterization of Constraints in Flexible Unknown Environments](/202604/02/2603.24813v1-characterization-of-constraints-in-flexible-unknown-environments)  
+   标签：评分：6.0/10、query:q6
+   evidence：未知环境中安全操作的在线路径规划
 
 
 <div class="dpr-home-promo-card">

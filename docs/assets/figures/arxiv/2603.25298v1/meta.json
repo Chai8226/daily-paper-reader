@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.25298v1/fig-001.webp",
+      "caption": "Fig. 1: Illustration of how different configuration selections in constrained motion planning result in varying levels of planning difficulty. (Left) Multiple inverse kinematic solutions for the start and goal pose. (Right) Connected configurations are easy to plan, configurations in narrow passages are difficult to plan, and disconnected configurations are infeasible.",
+      "page": 1,
+      "index": 1,
+      "width": 504,
+      "height": 315
+    },
+    {
+      "url": "assets/figures/arxiv/2603.25298v1/fig-002.webp",
+      "caption": "Fig. 4: Experimental setup in simulation using Franka Panda robots across diverse manipulation tasks.",
+      "page": 6,
+      "index": 2,
+      "width": 1054,
+      "height": 806
+    },
+    {
+      "url": "assets/figures/arxiv/2603.25298v1/fig-003.webp",
+      "caption": "TABLE I: Comparison of start–goal selection method on Franka Panda across diverse manipulation tasks (100 scenes, 100 second time limit). Metrics are the average planning time (successful trials only) and the success rates.",
+      "page": 6,
+      "index": 3,
+      "width": 944,
+      "height": 460
+    },
+    {
+      "url": "assets/figures/arxiv/2603.25298v1/fig-004.webp",
+      "caption": "Fig. 5: Experimental setup in simulation using the Tocabi humanoid for dual-arm manipulation tasks.",
+      "page": 7,
+      "index": 4,
+      "width": 1054,
+      "height": 378
+    },
+    {
+      "url": "assets/figures/arxiv/2603.25298v1/fig-005.webp",
+      "caption": "Fig. 2: Overview of the proposed method. The pipeline consists of two stages: (i) multi-scale pseudo-label generation via manifold learning and clustering at different neighborhood scales, and (ii) multi-scale contrastive learning guided by these labels, where configurations sharing the same pseudo-label are pulled closer in the feature-space and those with different labels are pushed apart, resulting in a connectivity-aware representation.",
+      "page": 3,
+      "index": 5,
+      "width": 1032,
+      "height": 348
+    },
+    {
+      "url": "assets/figures/arxiv/2603.25298v1/fig-006.webp",
+      "caption": "Fig. 3: Multi-scale pseudo-label generation on a modified Swiss Roll dataset emulating constrained regions in robotic configuration spaces. (Top) pseudo-labels projected onto the original data. (Bottom) latent embeddings with clustering. Left to right: increasing nearest neighborhood (NN) scales from local to global connectivity.",
+      "page": 4,
+      "index": 6,
+      "width": 1032,
+      "height": 435
+    }
+  ]
+}
