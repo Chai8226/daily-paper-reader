@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.25395v1/fig-001.webp",
+      "caption": "Fig. 1. Top: Task plans with 12 robots coordinating to track 4 dynamic targets across 12 tasks in two scenes (Scene-1: left and middle; Scene2: right). Middle: ROS simulation with 8 robots and 3 dynamic targets executing 10 tasks. Bottom: Hardware experiments with 4 robots and 2 dynamic targets performing 7 tasks, showing snapshots at different times.",
+      "page": 1,
+      "index": 1,
+      "width": 512,
+      "height": 533
+    },
+    {
+      "url": "assets/figures/arxiv/2603.25395v1/fig-002.webp",
+      "caption": "TABLE I COMPARISON AGAINST BASELINES",
+      "page": 7,
+      "index": 2,
+      "width": 508,
+      "height": 344
+    },
+    {
+      "url": "assets/figures/arxiv/2603.25395v1/fig-003.webp",
+      "caption": "Fig. 2. Overview of the proposed framework, consisting of four main components: (i) trajectory estimation via LSTM and CP, (ii) task decomposition into an R-poset, (iii) CP-MCTS for uncertainty-aware assignment, and (iv) online execution and receding-horizon adaptation. In the R-poset illustration, precedence and mutual-exclusion relations are marked by black and red arrows, respectively.",
+      "page": 3,
+      "index": 3,
+      "width": 1052,
+      "height": 362
+    },
+    {
+      "url": "assets/figures/arxiv/2603.25395v1/fig-004.webp",
+      "caption": "Fig. 5. ROS simulation results. Top: Robot and target trajectories. Bottom: Gantt chart of the execution timeline with task allocation and replanning.",
+      "page": 8,
+      "index": 4,
+      "width": 512,
+      "height": 291
+    },
+    {
+      "url": "assets/figures/arxiv/2603.25395v1/fig-005.webp",
+      "caption": "Fig. 6. Hardware experiment results. Left: Recorded robot and target trajectories. Top-right: Example trajectory snapshots highlighting robottarget interactions. Bottom-right: Gantt chart of the execution timeline.",
+      "page": 8,
+      "index": 5,
+      "width": 512,
+      "height": 260
+    }
+  ]
+}
