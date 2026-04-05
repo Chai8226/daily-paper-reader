@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.28674v1/fig-001.webp",
+      "caption": "Fig. 4: Gray objects denote static obstacles while light blue objects denote dynamic obstacles. (a) The region of the spatial grid affected by the obstacle’s motion is highlighted in orange. (b) Roadmap edges associated with these grid cells are highlighted in orange and processed by SerRGG. (c) Final edge classification produced by SerRGG, where ref edges are invalid, gray edges remain unknown, and green edges are valid.",
+      "page": 11,
+      "index": 1,
+      "width": 723,
+      "height": 217
+    },
+    {
+      "url": "assets/figures/arxiv/2603.28674v1/fig-002.webp",
+      "caption": "Table 2: Comparing SPITE, RGG and SerRGG for Environment Size 20×20×20",
+      "page": 13,
+      "index": 2,
+      "width": 721,
+      "height": 223
+    },
+    {
+      "url": "assets/figures/arxiv/2603.28674v1/fig-003.webp",
+      "caption": "Fig. 2: Gray objects denote static obstacles while light blue objects denote dynamic obstacles. (a) Initial roadmap validation with the obstacle in its starting position. (b) Over-approximations of the edges represented as OBBs in dark blue. (c) Under-approximations of the edges represented as splines in light blue.",
+      "page": 8,
+      "index": 3,
+      "width": 723,
+      "height": 217
+    },
+    {
+      "url": "assets/figures/arxiv/2603.28674v1/fig-004.webp",
+      "caption": "Fig. 3: Light blue objects denote dynamic obstacles. (a) The edges corresponding to gray OBBs will be processed by SerRGG. (b) Red splines correspond to edges that are invalid, whereas gray splines are unknown (c) Final edge classification produced by SerRGG, where red edges are invalid, gray edges remain unknown, and green edges are valid.",
+      "page": 8,
+      "index": 4,
+      "width": 723,
+      "height": 216
+    },
+    {
+      "url": "assets/figures/arxiv/2603.28674v1/fig-005.webp",
+      "caption": "Fig. 1: Examples of outer- and inner-approximations of swept volumes corresponding to roadmap edges. A manipulator link and a mobile robot are overapproximated by oriented bounding boxes (pink) and under-approximated by splines (dark blue). Obstacles are over-approximated by OBBs (gray) and underapproximated by oval shapes (light blue). In (a), o1 yields a gray edge (invalid) and o2 yields a green edge. In (b), o1 yields a gray edge (valid) and o2 yields a red edge.",
+      "page": 4,
+      "index": 5,
+      "width": 704,
+      "height": 428
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2603.27934v1/fig-001.webp",
+      "caption": "Figure 1: Lightrover. Figure 2: Balancewave rose FAV4318P.",
+      "page": 3,
+      "index": 1,
+      "width": 694,
+      "height": 200
+    }
+  ]
+}
