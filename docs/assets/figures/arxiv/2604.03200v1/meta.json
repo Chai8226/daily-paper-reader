@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.03200v1/fig-001.webp",
+      "caption": "Fig. 1. Snapshot of two Unitree Go2 quadrupedal robots cooperatively transporting a shared payload using the proposed CBF-based centralized NMPC framework in a cluttered environment with cylindrical obstacles. The framework autonomously adjusts the orientations of the robots and the payload to avoid collisions while maintaining safe and stable transportation.",
+      "page": 1,
+      "index": 1,
+      "width": 512,
+      "height": 387
+    },
+    {
+      "url": "assets/figures/arxiv/2604.03200v1/fig-002.webp",
+      "caption": "Fig. 6. Reference and actual CoM velocity trajectories along the xy-axes for agent 1 during nominal cooperative payload transportation with a 5 kg payload. The yaw plot corresponds to the payload orientation, which is autonomously adjusted by the proposed algorithm to safely navigate through obstacles. The figure also shows the optimal GRFs and interaction wrench profiles (forces and torques) computed by the high-level CBF-based NMPC. The second column illustrates the HOCBF functions hi,ℓ for each agent and the six obstacles. All HOCBF functions remain nonnegative throughout the experiment, certifying safety for both the robots and the payload.",
+      "page": 6,
+      "index": 2,
+      "width": 511,
+      "height": 429
+    },
+    {
+      "url": "assets/figures/arxiv/2604.03200v1/fig-003.webp",
+      "caption": "Fig. 2. Overview of the proposed layered control framework. The high-level CBF-based NMPC computes optimal trajectories for the interconnected robot–payload SRB system under holonomic constraints, while low-level nonlinear whole-body controllers enforce full-order robot dynamics.",
+      "page": 2,
+      "index": 3,
+      "width": 1052,
+      "height": 193
+    },
+    {
+      "url": "assets/figures/arxiv/2604.03200v1/fig-004.webp",
+      "caption": "Fig. 8. Reference and actual CoM velocity trajectories along the xy-axes for agent 1 during cooperative payload transportation with an uncertain payload of 11.2 kg, subject to unmodeled external push disturbances. The yaw plot corresponds to the payload orientation, which is autonomously adjusted by the proposed algorithm to safely navigate through obstacles. The figure also shows the optimal GRFs and interaction wrench profiles (forces and torques) computed by the high-level CBF-based NMPC. The second column illustrates the HOCBF functions hi,ℓ for each agent and the six obstacles, with the time intervals of external pushes highlighted. The HOCBF functions remain nonnegative throughout the experiment, except for a minor and transient violation in h2,6 immediately following a push disturbance; the controller subsequently drives agent 2 back to the safe set.",
+      "page": 7,
+      "index": 4,
+      "width": 511,
+      "height": 430
+    },
+    {
+      "url": "assets/figures/arxiv/2604.03200v1/fig-005.webp",
+      "caption": "Fig. 7. CoM trajectories of the robotic agents and the shared payload in the xy-plane. The rigid mechanism is illustrated by a black line connecting the three systems. The obstacles are represented by solid circles, and the dashed regions around them denote the corresponding safe sets. The plot presents results for Experiments 1, 3, and 4.",
+      "page": 7,
+      "index": 5,
+      "width": 453,
+      "height": 370
+    }
+  ]
+}
