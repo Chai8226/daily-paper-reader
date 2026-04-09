@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.00380v1/fig-001.webp",
+      "caption": "Fig. 5. Trajectory comparison in the standard obstacle environment from [5]. Fixed Low (γ=0.01) collides twice; the other three methods reach the goal collision-free.",
+      "page": 6,
+      "index": 1,
+      "width": 505,
+      "height": 294
+    },
+    {
+      "url": "assets/figures/arxiv/2604.00380v1/fig-002.webp",
+      "caption": "Fig. 2. Conceptual illustration of certified region expansion. (a) Under the uncurated baseline, large prediction error ϵ yields a small certified region C(ϵ); the trajectory exits and collides. (b) DA-CBF reduces ϵ to ϵ′ < ϵ, expanding the certified region C(ϵ′) ⊃ C(ϵ) and enabling collision-free navigation.",
+      "page": 5,
+      "index": 2,
+      "width": 387,
+      "height": 510
+    },
+    {
+      "url": "assets/figures/arxiv/2604.00380v1/fig-003.webp",
+      "caption": "Fig. 1. Overview of the DA-CBF pipeline. Stage 1: TracIn-based attribution identifies and removes the top 10% harmful training samples. Stage 2: Curated PENN predicts safety loss with 36% lower RMSE, filtered by JRD and CVaR thresholds. Stage 3: Adaptive CBF-QP achieves collision-free navigation where the baseline incurs 3 collisions.",
+      "page": 2,
+      "index": 3,
+      "width": 1054,
+      "height": 337
+    }
+  ]
+}
