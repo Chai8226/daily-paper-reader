@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.02779v1/fig-001.webp",
+      "caption": "Fig. 1. Visualization of the training and real-world evaluation: The top row shows depth image sequences collected during training; the middle row shows depth images captured by the real drone during execution; the bottom row illustrates the real-world trajectory, where the drone first flies through a regular gate similar to the training scenarios and then successfully navigates an irregular, previously unseen gap, demonstrating the policy’s generalization ability.",
+      "page": 1,
+      "index": 1,
+      "width": 524,
+      "height": 367
+    },
+    {
+      "url": "assets/figures/arxiv/2604.02779v1/fig-002.webp",
+      "caption": "Fig. 6. Ablation study on the impact of BIO and state reset. (a-b) Average position and attitude errors across three consecutive gaps. (c-d) Trajectory comparison for validating BIO and gap-crossing prediction.",
+      "page": 6,
+      "index": 2,
+      "width": 519,
+      "height": 285
+    },
+    {
+      "url": "assets/figures/arxiv/2604.02779v1/fig-003.webp",
+      "caption": "Fig. 8. Evaluation of the traversability prediction module on the real quadrotor. The quadrotor first successfully traverses the gap, while the predicted traversability score remains high. When the target gap is switched to an irregular hole partially occluded by an obstacle, the predicted score drops sharply, triggering an emergency stop.",
+      "page": 7,
+      "index": 3,
+      "width": 529,
+      "height": 365
+    },
+    {
+      "url": "assets/figures/arxiv/2604.02779v1/fig-004.webp",
+      "caption": "Fig. 3. Mesh-based depth renderer. A high-speed CUDA-based renderer generates depth images from mesh geometries. Domain randomization is applied by perturbing the angles and corner vertices, producing diverse gap configurations for training.",
+      "page": 4,
+      "index": 4,
+      "width": 513,
+      "height": 290
+    }
+  ]
+}
