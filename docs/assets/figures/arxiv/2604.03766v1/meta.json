@@ -1,0 +1,86 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.03766v1/fig-001.webp",
+      "caption": "Figure 4: Joint angle tracking (left column) and tracking error (right column) for the hip, knee, and ankle joints. The Hybrid PID-LQR controller (dotted green) most closely follows the OpenSim reference trajectory (solid black) across all three biomechanical phases, with the smallest tracking error throughout the STS motion cycle.",
+      "page": 6,
+      "index": 1,
+      "width": 979,
+      "height": 806
+    },
+    {
+      "url": "assets/figures/arxiv/2604.03766v1/fig-002.webp",
+      "caption": "Figure 5: Tracking accuracy comparison: (a) Root Mean Square Error (RMSE) and (b) Mean Absolute Error (MAE) per joint for PID, LQR, and Hybrid PID-LQR controllers. The Hybrid PID-LQR achieves the lowest values at all three joints, with improvements of up to 72.3% over PID at the hip joint.",
+      "page": 7,
+      "index": 2,
+      "width": 979,
+      "height": 400
+    },
+    {
+      "url": "assets/figures/arxiv/2604.03766v1/fig-003.webp",
+      "caption": "Figure 1: Overall simulation framework for the exoskeleton control system. The mechanical model is designed in SolidWorks and imported into MATLAB/Simulink via Simscape Multibody, while joint reference trajectories (q, q̇, q̈) are derived from OpenSim Moco gait data. The controller receives reference trajectories alongside feedback states (q, q̇) from the Simscape model and computes the required joint torques (τ ) to drive the human-exoskeleton system through the STS transition.",
+      "page": 3,
+      "index": 3,
+      "width": 882,
+      "height": 408
+    },
+    {
+      "url": "assets/figures/arxiv/2604.03766v1/fig-004.webp",
+      "caption": "Figure 2: CAD-to-Simulink Simscape Multibody workflow for the bilateral lower limb exoskeleton. (Left) SolidWorks CAD assembly showing the bilateral kinematic chain with labeled rigid links L1–L9 and annotated revolute joints at the hip, knee, and ankle. (Center) Simscape Multibody Link toolbox import interface. (Right) Auto-generated Simscape Multibody block diagram with the Mechanics Explorer 3-D rendering inset.",
+      "page": 3,
+      "index": 4,
+      "width": 979,
+      "height": 433
+    },
+    {
+      "url": "assets/figures/arxiv/2604.03766v1/fig-005.webp",
+      "caption": "Figure 6: Transient response parameters: overshoot (%), rise time (s), and settling time (s), for the hip, knee, and ankle joints across all three controllers. Star markers indicate best-performing values per joint. The Hybrid PID-LQR achieves the lowest overshoot and settling time at all three joints, while maintaining comparable rise times.",
+      "page": 8,
+      "index": 5,
+      "width": 979,
+      "height": 736
+    },
+    {
+      "url": "assets/figures/arxiv/2604.03766v1/fig-006.webp",
+      "caption": "Table 3: Transient response parameters of PID, LQR, and Hybrid PID-LQR controllers for the sit-to-stand operation. Bold values indicate the best performance per joint per metric.",
+      "page": 8,
+      "index": 6,
+      "width": 544,
+      "height": 331
+    },
+    {
+      "url": "assets/figures/arxiv/2604.03766v1/fig-007.webp",
+      "caption": "Table 1: Physical parameters of the lower limb exoskeleton links extracted from the CAD-integrated Simscape Multibody model (Al 6061-T6, ρ = 2700 kg/m3).",
+      "page": 4,
+      "index": 7,
+      "width": 614,
+      "height": 299
+    },
+    {
+      "url": "assets/figures/arxiv/2604.03766v1/fig-008.webp",
+      "caption": "Figure 3: Sit-to-stand (STS) gait generation. (Left) Simscape Multibody simulation showing sequential postural configurations of the human-exoskeleton system from seated to full upright stance in the sagittal plane. (Right) Reference joint angle trajectories for the hip, knee, and ankle joints over normalised motion time (0–100%, total duration 3.0 s), with dashed vertical lines demarcating the three biomechanical phases: flexion-momentum (0–33%), momentum-transfer (34–66%), and extension (67–100%).",
+      "page": 4,
+      "index": 8,
+      "width": 979,
+      "height": 489
+    },
+    {
+      "url": "assets/figures/arxiv/2604.03766v1/fig-009.webp",
+      "caption": "Figure 7: Simscape Multibody exoskeleton STS motion sequence under the proposed Hybrid PID-LQR controller, presenting five key postural configurations along the normalised motion timeline (0–100%): Seated, Push-Up, MidStand, Stand, and Final Stand. The smooth and progressive transitions confirm stable postural evolution and accurate joint trajectory tracking throughout the full STS cycle.",
+      "page": 9,
+      "index": 9,
+      "width": 976,
+      "height": 358
+    },
+    {
+      "url": "assets/figures/arxiv/2604.03766v1/fig-010.webp",
+      "caption": "Table 2: Tuned control parameters of PID, LQR, and Hybrid PID-LQR controllers for sit-to-stand exoskeleton assistance.",
+      "page": 5,
+      "index": 10,
+      "width": 586,
+      "height": 389
+    }
+  ]
+}

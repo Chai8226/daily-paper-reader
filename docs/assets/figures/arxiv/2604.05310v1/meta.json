@@ -1,0 +1,86 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.05310v1/fig-001.webp",
+      "caption": "Fig. 4: Identifying a safe invariant region around the AUV (at origin) relative to a synthetically generated point cloud",
+      "page": 6,
+      "index": 1,
+      "width": 529,
+      "height": 379
+    },
+    {
+      "url": "assets/figures/arxiv/2604.05310v1/fig-002.webp",
+      "caption": "TABLE III: Location error as a function of communicating range around the target T",
+      "page": 11,
+      "index": 2,
+      "width": 1040,
+      "height": 238
+    },
+    {
+      "url": "assets/figures/arxiv/2604.05310v1/fig-003.webp",
+      "caption": "TABLE I: Recorded Performance Metrics",
+      "page": 11,
+      "index": 3,
+      "width": 1052,
+      "height": 333
+    },
+    {
+      "url": "assets/figures/arxiv/2604.05310v1/fig-004.webp",
+      "caption": "Fig. 5: The green dots represent each individual entry of dmax in (10) computed around the vehicle based on the point clouds perceived onboard (blue shaded)",
+      "page": 7,
+      "index": 4,
+      "width": 529,
+      "height": 352
+    },
+    {
+      "url": "assets/figures/arxiv/2604.05310v1/fig-005.webp",
+      "caption": "Fig. 11: Key stages of RexRov navigation in a dynamic environment (row-wise left-to-right)",
+      "page": 10,
+      "index": 5,
+      "width": 1076,
+      "height": 671
+    },
+    {
+      "url": "assets/figures/arxiv/2604.05310v1/fig-006.webp",
+      "caption": "Fig. 1: Succession of overlapping invariant regions (associated with T k) such that the sequence of T k safely converges to T . The green marker indicates the initial position of the AUV.",
+      "page": 3,
+      "index": 6,
+      "width": 474,
+      "height": 593
+    },
+    {
+      "url": "assets/figures/arxiv/2604.05310v1/fig-007.webp",
+      "caption": "Fig. 8: Key elements in the RViz visualization",
+      "page": 8,
+      "index": 7,
+      "width": 420,
+      "height": 358
+    },
+    {
+      "url": "assets/figures/arxiv/2604.05310v1/fig-008.webp",
+      "caption": "Fig. 2: Motion modelling using the 3D unicycle motion model; the AUV shown is RexRov [47]",
+      "page": 4,
+      "index": 8,
+      "width": 474,
+      "height": 373
+    },
+    {
+      "url": "assets/figures/arxiv/2604.05310v1/fig-009.webp",
+      "caption": "Fig. 9: Key stages of RexRov navigation in a static environment",
+      "page": 9,
+      "index": 9,
+      "width": 1076,
+      "height": 654
+    },
+    {
+      "url": "assets/figures/arxiv/2604.05310v1/fig-010.webp",
+      "caption": "Fig. 3: Aligning the AUV [47] in the direction along T k - Objective O1. Illustration of the stabilizing effect of Fk in achieving alignment from two different configurations. The blue arrow over the AUV shows the direction of alignment.",
+      "page": 5,
+      "index": 10,
+      "width": 474,
+      "height": 477
+    }
+  ]
+}
