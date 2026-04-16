@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.09431v1/fig-001.webp",
+      "caption": "Fig. 3. Generated exoskeleton assistive torque profiles (Nm/kg, normalized by model mass) for the hip and ankle joints during walking and running. The assistance profiles from the fine-tuned policy (blue gradients, ranging from 0.6 to 2.2 m/s) are compared against experimentally optimized torque profiles from prior work [13], [39], [40]. Reference profiles for running with a hip exoskeleton consist of optimized extension-only splines, while reference ankle profiles represent optimized plantarflexion-only splines.",
+      "page": 6,
+      "index": 1,
+      "width": 512,
+      "height": 375
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09431v1/fig-002.webp",
+      "caption": "Fig. 1. Overview of the musculoskeletal simulation and learning framework. (a) Reference kinematics and joint moments are extracted from a biomechanics dataset [21] containing synchronized motion capture and force plate data using OpenSim [22]. The policy observes future reference kinematics and outputs muscle activations to imitate able-bodied human locomotion. The reward function is designed to track reference kinematics and moments while simultaneously minimizing energy expenditure via a metabolic cost probe. (b) Fine-tuning phase for the human-exoskeleton system. The action space is extended to include assistive torque motors alongside muscle activations to simulate exoskeleton assistance. (c) Fine-tuning phase for the impaired gait policy. An activation mask reduces the maximum excitation of targeted muscles to generate compensatory impaired gait patterns. Both conditions can be applied simultaneously to generate impaired-gait-specific exoskeleton assistance. For both downstream fine-tuning tasks, the framework uses lower kinematic tracking weights and a higher metabolic energy penalty to accommodate the induced physical changes.",
+      "page": 2,
+      "index": 2,
+      "width": 1054,
+      "height": 404
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09431v1/fig-003.webp",
+      "caption": "Fig. 5. Kinematic and kinetic deviations of simulated impaired gaits (orange) relative to the able-bodied baseline (blue). Top row: joint angles and moments for the affected side of the model with simulated ankle plantarflexor weakness, characterized by excessive dorsiflexion and a reduced plantarflexion pushoff moment. Bottom row: results for the model with simulated hip flexor weakness, exhibiting a compensatory hip-hiking strategy and a corresponding reduction in the biological hip flexion moment.",
+      "page": 7,
+      "index": 3,
+      "width": 1054,
+      "height": 287
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09431v1/fig-004.webp",
+      "caption": "Fig. 7. Effect of impaired-gait-specific exoskeleton assistance on kinematics and energy expenditure at a walking speed of 1.2 m/s. (a) Joint kinematics of the affected (orange) and non-affected (blue) sides for models with ankle plantarflexor weakness (top) and hip flexor weakness (bottom). (b) Gross metabolic cost for simulated impaired gait with exoskeleton assistance (green) compared to the no-exoskeleton baseline (gray).",
+      "page": 7,
+      "index": 4,
+      "width": 514,
+      "height": 266
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09431v1/fig-005.webp",
+      "caption": "Fig. 2. Kinematic and kinetic tracking performance of the baseline policy across five locomotor speeds (walking and running). Blue and gray lines represent the simulated agent and the ground-truth data, respectively. Joint angles and moments for the hip, knee, and ankle are compared against the ground truth; ground reaction force is not included as a reference signal during training. All values are segmented into gait cycles using heel contact events, interpolated to 100 data points, and averaged over 10 cycles. A fourth-order zero-lag Butterworth low-pass filter with a 4 Hz cutoff frequency is applied to both the ground-truth and simulated joint moment signals to reduce noise.",
+      "page": 5,
+      "index": 5,
+      "width": 1054,
+      "height": 564
+    }
+  ]
+}

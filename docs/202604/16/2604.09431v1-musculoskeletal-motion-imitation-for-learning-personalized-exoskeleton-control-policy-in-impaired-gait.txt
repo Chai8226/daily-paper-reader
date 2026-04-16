@@ -1,0 +1,222 @@
+Title: Musculoskeletal Motion Imitation for Learning Personalized Exoskeleton Control Policy in Impaired Gait
+
+URL Source: https://arxiv.org/pdf/2604.09431v1
+
+Published Time: Mon, 13 Apr 2026 01:16:12 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+# Musculoskeletal Motion Imitation for Learning Personalized Exoskeleton Control Policy in Impaired Gait 
+
+Itak Choi ∗, Ilseung Park ∗, Eni Halilaj, and Inseung Kang 
+
+Abstract — Designing generalizable control policies for lower-limb exoskeletons remains fundamentally constrained by ex-haustive data collection or iterative optimization procedures, which limit accessibility to clinical populations. To address this challenge, we introduce a device-agnostic framework that com-bines physiologically plausible musculoskeletal simulation with reinforcement learning to enable scalable personalized exoskele-ton assistance for both able-bodied and clinical populations. Our control policies not only generate physiologically plausible locomotion dynamics but also capture clinically observed com-pensatory strategies under targeted muscular deficits, providing a unified computational model of both healthy and pathological gait. Without task-specific tuning, the resulting exoskeleton control policies produce assistive torque profiles at the hip and ankle that align with state-of-the-art profiles validated in human experiments, while consistently reducing metabolic cost across walking speeds. For simulated impaired-gait models, the learned control policies yield asymmetric, deficit-specific exoskeleton assistance that improves both energetic efficiency and bilateral kinematic symmetry without explicit prescrip-tion of the target gait pattern. These results demonstrate that physiologically plausible musculoskeletal simulation via reinforcement learning can serve as a scalable foundation for personalized exoskeleton control across both able-bodied and clinical populations, eliminating the need for extensive physical trials. 
+
+Index Terms — Musculoskeletal simulation, reinforcement learning, motion imitation, exoskeleton control, impaired gait 
+
+I. I NTRODUCTION 
+
+Over the past decade, lower-limb wearable robots, such as exoskeletons, have advanced considerably in both their target user populations and objectives [1], [2]. Initially developed and evaluated for able-bodied individuals, these systems are now being deployed for people with motor impairments, in-cluding those with neurological disorders [3]. Concurrently, the objectives of these devices have expanded from a primary focus on reducing human energy expenditure to broader and more clinically relevant outcomes such as enhancing stability, relieving pain, and improving user preference [4]– [10]. Despite these advances, developing effective exoskeleton controllers remains a central challenge. Controller design must account for how humans regulate their movements, which is still not fully understood. To address this chal-lenge, prior studies have employed human-in-the-loop op-timization [11]–[14], where assistance parameters are iter-atively adjusted based on human physiological responses  
+
+> ∗These authors contributed equally to this work. (Corresponding author: Itak Choi, itakc@andrew.cmu.edu )All authors are with the Department of Mechanical Engineering, Carnegie Mellon University, Pittsburgh, PA, 15213 USA. This research was supported by the NIH R21 Award 1R21EB037268-01.
+
+using gradient-free methods. This approach identifies user-and task-specific assistance profiles that improve human outcomes such as reducing metabolic cost [15]. However, because optimization is typically performed for a single user and task, the resulting parameters do not readily generalize to diverse locomotor activities. In addition, the process requires exhaustive search iterations across parameter conditions, making it time-consuming, labor-intensive, and physically demanding, limiting practicality for real-world deployment. To overcome the task-specific limitations of existing con-trollers, Molinaro et al . proposed a deep learning-based, task-agnostic paradigm using real-time estimates of physiological states, specifically biological joint moments [16], [17]. The controller generalizes across diverse locomotor tasks and to new users without motor impairments, improving out-comes such as reduced metabolic cost and improved joint mechanics. However, this approach has limitations. Deep learning models are data-intensive, requiring extensive and labor-intensive biomechanical experiments with large subject cohorts, typically conducted in high-fidelity laboratory en-vironments equipped with motion capture systems. Further-more, while this strategy may improve certain biomechanical metrics, it may not directly address other clinically relevant objectives, such as enhancing stability. Reinforcement learning (RL) in physiologically plausi-ble musculoskeletal simulation offers a compelling path to address these limitations [18]–[20]. Training entirely in silico enables systematic evaluation across prolonged and diverse locomotor tasks, including challenging or potentially hazardous conditions that are difficult to study extensively in human experiments. This capability is particularly valuable for populations with motor impairments, where experimental protocols are often constrained by fatigue, limited physical tolerance, and an increased risk of falling. Simulation further allows for controlled isolation and manipulation of indepen-dent variables, enabling clearer attribution of the causal ef-fects of specific interventions on movement. Together, these advantages make physiologically plausible musculoskeletal simulation a powerful framework for the design and evalua-tion of exoskeleton control policies. Various approaches have explored musculoskeletal simu-lation to achieve physiologically plausible locomotion [23]– [26]. These frameworks have focused on motion imitation from reference motion-capture data, achieving high kine-matic fidelity but providing limited validation of internal states such as joint moments or muscle activations. Build-ing on this foundation, several studies have developed ex-oskeleton controllers using musculoskeletal simulation. For  
+
+> arXiv:2604.09431v1 [cs.RO] 10 Apr 2026 Fig. 1. Overview of the musculoskeletal simulation and learning framework. (a) Reference kinematics and joint moments are extracted from a biomechanics dataset [21] containing synchronized motion capture and force plate data using OpenSim [22]. The policy observes future reference kinematics and outputs muscle activations to imitate able-bodied human locomotion. The reward function is designed to track reference kinematics and moments while simultaneously minimizing energy expenditure via a metabolic cost probe. (b) Fine-tuning phase for the human-exoskeleton system. The action space is extended to include assistive torque motors alongside muscle activations to simulate exoskeleton assistance. (c) Fine-tuning phase for the impaired gait policy. An activation mask reduces the maximum excitation of targeted muscles to generate compensatory impaired gait patterns. Both conditions can be applied simultaneously to generate impaired-gait-specific exoskeleton assistance. For both downstream fine-tuning tasks, the framework uses lower kinematic tracking weights and a higher metabolic energy penalty to accommodate the induced physical changes.
+
+instance, Leem et al . optimized parameters for a model-based exoskeleton controller in simulation [18], but did not explicitly characterize the biomechanical mechanisms through which these parameters improve abnormal gait kinematics. Similarly, Yuan et al . introduced a multi-agent training paradigm for human-exoskeleton co-adaptation and sim-to-real transfer [19], although validation was limited to reductions in hip muscle activation in simulation and basic torque application in real-world experiments. Lastly, Park et al . developed a learned control policy that does not rely on reference motion and demonstrated its experimental feasibility; yet, this approach has not yet been generalized to clinical populations [20]. Existing simulation-based controllers face two major lim-itations. First, to our knowledge, no study has demonstrated improvements in impaired gait using simulation-trained con-trollers, despite the clear advantages these models offer. Second, existing methods typically produce device-specific assistive torque, limiting their use to a single device, such as a hip exoskeleton. To overcome these challenges, we present a framework with four key contributions: (1) a muscle-driven motion imitation that reproduces physiologically plausible human kinematics and kinetics; (2) a device-agnostic ex-oskeleton control policy; (3) modeling compensatory im-paired gait patterns arising from muscle weakness; and (4) designing an optimized assistive profile for individuals with specific muscular deficits (Fig. 1). Our simulations show that the learned control policy can augment both healthy users and individuals with motor impairments, improving energetics, kinematics, and gait symmetry. This framework establishes a foundation for personalized exoskeleton assis-tance, particularly valuable for patients who cannot undergo extensive experimental trials. II. M ETHODS 
+
+A. Environment 1) Simulation Setup: The simulation environment was built on the Hyfydy physics engine [27] with the SCONE Python API [28]. Hyfydy is designed for high-fidelity mus-culoskeletal simulation, executing physics integration at 200 Hz while querying the control policy at 25 Hz, with contact forces that include realistic nonlinear damping for both dynamic and viscous friction coefficients. SCONE provided direct access to the internal states of the model, including kinematics, kinetics, and detailed muscle-level data, which served as inputs to the observation space of the policy. 
+
+2) Human-Exoskeleton System: For this study, we utilized the Hyfydy 3D H2190 model, which features 21 degrees of freedom and 90 muscles. The model incorporates key muscle properties, including tendon elasticity, muscle pennation, and fiber damping, enabling the agent to reproduce a wide range of complex, 3-dimensional, lifelike motions [29]. To simulate exoskeleton assistance, we augmented the model with ideal torque motors at the bilateral hip, knee, and ankle joints in the sagittal plane. For assisted conditions, device mass was incorporated to enable a more realistic estimation of energy expenditure. Total mass values were obtained from open-source exoskeleton hardware reported in the literature [30], and distributed across the corresponding limb segments using a heuristic approach. The inertia of each affected segment was then scaled proportionally to reflect the added mass (Table I). TABLE I MASS DISTRIBUTION OF SIMULATED EXOSKELETON DEVICES                   
+
+> Pelvis Thigh Shank Foot Total
+> (kg) (kg, each) (kg, each) (kg, each) (kg) Hip Exo 1.5 0.7 ––2.9 Ankle Exo 1.5 –1.0 0.2 3.9
+
+B. Reference Motion Processing 
+
+The target reference motion for our framework was ob-tained from an open-source biomechanics dataset [21], which includes 12 participants performing 31 activities with syn-chronized motion-capture and ground reaction force (GRF) data. For this study, we used treadmill walking data from a single subject, consisting of an approximately two-minute clip covering five speeds ranging from 0.6 to 2.2 m/s during walking and running. The treadmill data were first converted to an overground reference frame by adding the treadmill belt velocity, extracted from the toe markers during the stance phase, to all marker trajectories. Reference joint angles and moments were then computed using inverse kinematics and inverse dynamics in OpenSim [22], along with positions of key body segments such as the head, pelvis, and feet. To ensure bilateral symmetry in the learned policy and prevent overfitting to asymmetric gait patterns, the clip was duplicated and mirrored across the sagittal plane, effectively augmenting the training dataset. 
+
+C. Deep Reinforcement Learning 
+
+The learning pipeline follows the architecture established by DeepMimic [31]. The training framework for the able-bodied policy is formulated as a standard RL problem, in which a neural network-based control policy π(at|st)
+
+maps the current state vector st ∈ S to an action vector 
+
+at ∈ A. Unlike goal-directed RL, where the state vector typically represents only the agent’s current configuration, our observation also includes the reference state at the next timestep. The policy processes this augmented state and outputs muscle excitations to track trajectories derived from human motion-capture data. The Hyfydy physics engine then integrates the system dynamics to the next control step, computing the scalar reward rt and updating the state to 
+
+st+1 .
+
+1) Action Space: The action space of the human-exoskeleton system is defined as A = [ −1, 1] 96 , consisting of muscle excitations Am and exoskeleton torques Ae. The muscle action space Am = [ −1, 1] 90 is linearly mapped to 
+
+[0 , 1] 90 , directly representing the excitation levels of all 90 muscles. Within the Hyfydy integrator, these excitations are converted to muscle activations through first-order forward Euler integration, capturing the physiological delay inherent in muscle activation dynamics. The exoskeleton action space 
+
+Ae = [ −1, 1] 6 represents the normalized torques applied to the bilateral hip, knee, and ankle joints in the sagittal plane. This component is activated only during fine-tuning to generate assistive torque and is otherwise clamped to zero. In this study, hip and ankle exoskeleton control policies are demonstrated as representative downstream tasks. 
+
+2) Observation Space: The observation space S = R839 
+
+consists of the current model state Sc and kinematic devi-ations relative to future reference motion Sf . The current state Sc includes physiological muscle data (fiber length, force, and activation level) alongside GRFs, joint angles, and the linear velocities of the root and feet. The future reference component Sf encodes the sequence of joint angle changes over the next four reference frames, expressed as 
+
+Sf = (Θ t+k − Θt)5
+
+> k=1
+
+, where Θ denotes the vector of all joint angles. The complete observation space is thus defined as S = {Sc, S f }.
+
+3) Reward: The reward function is designed to maximize both kinematic and kinetic tracking to the reference motion while minimizing metabolic energy expenditure and control noise. At each time step t, the scalar reward rt is computed as a weighted sum of eight terms, as defined in equation (1). 
+
+rt = wpos rpos t + wvel rvel t + wroot rroot t + wee ree t
+
++wtorq rtorq t − wef f ref f t − wsmt rsmt t − wexo rexo t
+
+(1) The joint position reward rpos t captures angular discrep-ancies across all 21 degrees of freedom of the model, where 
+
+ˆθit and θit denote the angular position of the ith joint in the reference motion and the simulated agent, respectively. This term also includes the orientation of the root segment. 
+
+rpos t = exp 
+
+(
+
+kpos X
+
+> i
+
+(ˆθit − θit)2
+
+)
+
+(2) The joint velocity reward, rvel t , penalizes differences in angular velocities across the model’s degrees of freedom, encouraging the agent to match the temporal dynamics of the reference motion. 
+
+rvel t = exp 
+
+(
+
+kvel X
+
+> i
+
+(ˆ˙θit − ˙θit)2
+
+)
+
+(3) The root trajectory reward rroot t ensures the model accu-rately tracks the spatial progression of the reference pelvis trajectory, where ˆproot t and proot t denote the Cartesian posi-tions of the pelvis in the global coordinate system for the reference and simulation, respectively. 
+
+rroot t = exp kroot || ˆproot t − proot t || 2 (4) The end-effector reward ree t maximizes tracking of the end-effectors, defined in this model as the feet and head. 
+
+ree t = exp 
+
+kee X
+
+> j
+
+|| ˆpjt − pjt || 2
+
+ (5) Equations (2) through (5) collectively encourage high-fidelity kinematic tracking. However, a central objective of this work is to develop an agent that also exhibits phys-iological plausibility. To this end, three additional reward components are introduced. The torque reward rtorq t penal-izes deviations between the agent’s joint torques τ it and the ground-truth values ˆτ it derived from inverse dynamics of the reference motion. 
+
+rtorq t = exp 
+
+(
+
+ktorq X
+
+> i
+
+(ˆ τ it − τ it )2
+
+)
+
+(6) To encourage biologically plausible muscle activation patterns, we imposed a metabolic energy penalty. Since metabolic cost minimization is considered a fundamental principle of human locomotion, we hypothesize that this constraint promotes human-like activation patterns, which in turn influence the generation of assistive torque profiles. A metabolic cost probe was implemented within the simulation environment based on the models developed by Umberger et al. and Uchida et al. [32], [33]. In this formulation, the total rate of muscle energy expenditure is the sum of the activa-tion and maintenance heat rate ( ˙hAM ), the shortening and lengthening heat rate ( ˙hSL ), and the mechanical work rate ( ˙wCE ). The ratio of fast-twitch fibers for each muscle was obtained from the literature [34]–[36], while the remaining muscle parameters were adopted from the default values of the Hyfydy model. 
+
+ref f t = ˙E = ˙hAM + ˙hSL + ˙ wCE (7) The smoothness penalty rsmt t regularizes abrupt changes in muscle excitation between consecutive time steps, en-couraging biologically realistic activation curves. Here, emt
+
+denotes the excitation level of muscle m, which is the direct output of the policy network. 
+
+rsmt t = 1
+
+N
+
+> N
+
+X
+
+> m
+
+(emt − emt−1)2 (8) The exoskeleton energy penalty rexo t is introduced during assistive torque training to regularize excessive torque usage. Although applying maximum torque at low speeds may reduce metabolic cost within simulation, it can compromise device usability in real-world deployment. 
+
+rexo t = 12
+
+X
+
+> k∈L,R
+
+|τ k,exo t |
+
+τ exo max 
+
+(9) The reward weights w and the gain constants k were empirically determined (Table II). 
+
+D. Policy Training 
+
+The training process consists of three distinct phases. First, a base model is trained to reproduce human-like motion in both joint kinematics and kinetics. This model is subse-quently fine-tuned to (1) reduce muscle energy expenditure through assistive torque, and (2) simulate impaired gait with muscle weaknesses.                                            
+
+> TABLE II GAIN CONSTANTS (k)AND REWARD WEIGHTS (w)
+> Base Model Fine-Tuning Component kwkw
+> Position (pos) -2.0 0.25 -0.4 0.25 Velocity (vel) -0.05 0.1 -0.01 0.1 Root position (root) -500.0 0.15 -500.0 0.15 End-effector (ee) -80.0 0.25 -16.0 0.25 Torque (torq) -2.0 0.25 -0.4 0.25 Effort (eff) –-3e-5 –-3e-4 Smoothness (smo) –-1.0 –-1.0 Exo energy (exo) –––-0.2
+
+1) Able-Bodied Gait Policy: The policy was trained (Fig. 1a) using the Soft Actor-Critic (SAC) algorithm [37], as implemented in the Stable-Baselines3 library [38]. Maximum entropy frameworks such as SAC are particularly well-suited for RL problems involving high-dimensional continuous ac-tion spaces. This high-exploration property is critical for musculoskeletal simulation: unlike torque-driven robots, hu-man joints are over-actuated, meaning that an infinite number of muscle activation combinations can produce the same net joint torque. The model was trained across 96 parallel environments for a total of 600 million steps on a desktop workstation equipped with an NVIDIA RTX 5090 GPU and an Intel Ultra 9 285K CPU, requiring approximately 48 hours (Table III).                
+
+> TABLE III SAC H YPERPARAMETERS
+> Parameter Value
+> Network Size (Actor / Critic) [512, 512, 256] Batch Size 256 Learning Rate Linear decay from 3×10 −4
+> Soft Update Coefficient 0.02 Entropy Coefficient auto Discount Factor 0.95 Train Frequency 4Gradient Steps 4Target Update Interval 1Total Steps (Base Policy) 600 million Total Steps (Fine-Tune) 150 million
+
+The policy network and the Q-networks share a consistent architecture, both employing multi-layer perceptrons with three hidden layers of 512, 512, and 256 units, respectively. The policy network π(a|s) generates conditional Gaussian distributions over the action space, while the twin Q-networks estimate the action-value function for each state-action pair. Each training episode begins by uniformly sam-pling a starting time from the motion clip. The model’s joint positions and velocities are then initialized to match the corresponding reference state. Because the reference motion-capture data and the simulation environment do not share identical physical conditions, the vertical position of the model is adjusted such that the net GRF equals the total body weight at initialization. At each control step (25 Hz), the agent processes the current observation and samples Fig. 2. Kinematic and kinetic tracking performance of the baseline policy across five locomotor speeds (walking and running). Blue and gray lines represent the simulated agent and the ground-truth data, respectively. Joint angles and moments for the hip, knee, and ankle are compared against the ground truth; ground reaction force is not included as a reference signal during training. All values are segmented into gait cycles using heel contact events, interpolated to 100 data points, and averaged over 10 cycles. A fourth-order zero-lag Butterworth low-pass filter with a 4 Hz cutoff frequency is applied to both the ground-truth and simulated joint moment signals to reduce noise. 
+
+excitation values for all 90 muscles. The simulation then advances to the subsequent control time step, at which point the reward and next observation are computed. Episodes are truncated to a maximum of 250 steps, corresponding to 10 seconds of simulation time. An early termination condition is triggered if the model’s root position deviates by more than 0.4 m in Euclidean distance from the reference root position. 
+
+2) Exoskeleton Control Policy: Starting from the trained base model, an additional 150 million training steps were conducted for each device condition, activating the extended action space for exoskeleton torque (Fig. 1b). To account for the kinematic changes induced by assistive torque, the gain constants for several tracking terms ( kpos , k vel , k ee , k torq )were reduced and the metabolic energy penalty (wef f )was increased during fine-tuning (Table II). The mass and inertia of the robotic devices were incorporated into the corresponding limb segments to minimize the sim-to-real gap. In this study, control policies were generated separately for hip and ankle exoskeletons to independently assess their individual effects. The policy output for exoskeleton torque, bounded within 
+
+[−1, 1] , is first linearly mapped to [−τ exo max , τ exo max ]. To ensure smooth exoskeleton assistance, the rate of change is clipped such that it does not exceed τ exo max per step. The clipped output then passes through a first-order low-pass filter with a cutoff frequency of 1 Hz for the hip exoskeleton and 2 Hz for the ankle exoskeleton. The resulting torque is applied directly to the respective joint to assist the muscle-driven model. 
+
+3) Impaired Gait Policy: Once the base model success-fully reproduced the reference motion with human-like kine-matics and kinetics, targeted muscle groups were artificially weakened and the policy was fine-tuned to generate impaired gait patterns. In this work, we demonstrate the simulation of unilateral plantarflexor and hip flexor weakness. These con-ditions were simulated by reducing the maximum excitation of the affected muscle group to 5% of the baseline value in the able-bodied gait model. To isolate the resulting kinematic changes, the same reward weight adjustments used during exoskeleton control policy training were applied. By simultaneously weakening these muscles and activating the exoskeleton action space, the policy was further trained to generate assistive torque commands tailored for individuals exhibiting such muscular deficits. This approach is grounded in the hypothesis that training the weakened model to imitate healthy gait with exoskeleton assistance produces torque pro-files that effectively compensate for the underlying impaired gait mechanics. III. R ESULTS 
+
+A. Physiological Plausibility 
+
+The simulated agent achieved high-fidelity kinematic and kinetic tracking performance relative to the ground-truth data (Fig. 2). For joint kinematics, averaged across all speeds, the model tracked hip, knee, and ankle angles with root mean square errors (RMSE) of 2.85°, 4.03°, and 3.68°, respectively, and corresponding R2 values of 0.97, 0.97, Fig. 3. Generated exoskeleton assistive torque profiles (Nm/kg, normalized by model mass) for the hip and ankle joints during walking and running. The assistance profiles from the fine-tuned policy (blue gradients, ranging from 0.6 to 2.2 m/s) are compared against experimentally optimized torque profiles from prior work [13], [39], [40]. Reference profiles for running with a hip exoskeleton consist of optimized extension-only splines, while reference ankle profiles represent optimized plantarflexion-only splines.  
+
+> Fig. 4. Gross metabolic cost (W/kg) of the generated exoskeleton control policies for the able-bodied model. (a) Metabolic cost across locomotion speeds for the no-exoskeleton baseline (gray), hip assistance (blue), and ankle assistance (green) conditions. (b) Average metabolic cost during walking and running. All values are computed using the metabolic cost probe.
+
+and 0.85. For joint kinetics, moment tracking yielded RMSE values of 0.10, 0.10, and 0.11 Nm/kg for the hip, knee, and ankle, respectively, with corresponding R2 values of 0.94, 0.87, and 0.97. Notably, the model also reproduced GRF with an RMSE of 0.14 body weights and an R2 of 0.95, despite the agent having no access to GRF data during training. 
+
+B. Able-Bodied Exoskeleton Control Policy 
+
+From the fine-tuned policy simulations, assistance profiles were extracted for the hip and ankle exoskeletons across each speed condition. The generated profiles were compared against state-of-the-art controllers validated in human exper-iments (Fig. 3), including those optimized via human-in-the-loop optimization [13], [39] and musculoskeletal simulation [40], yielding comparable assistance patterns. Both the hip and ankle exoskeleton conditions reduced gross metabolic cost relative to the no-exoskeleton baseline at every evaluated speed (Fig. 4a), with greater reductions at higher speeds. Specifically, hip assistance reduced metabolic cost by 4.57% and 6.95%, while ankle assistance achieved reductions of 6.15% and 13.81%, during walking and running, respectively (Fig. 4b). 
+
+C. Impaired Gait Policy 
+
+The simulated impaired-gait models exhibited kinematic and kinetic deviations on the affected side relative to the healthy gait generated by the base policy (Fig. 5). The model with ankle plantarflexor weakness demonstrated ex-cessive dorsiflexion and a reduced plantarflexion moment, diminishing push-off force. For hip flexor weakness, the model employed hip-hiking as a compensatory strategy, characterized by pelvic tilt peaking at 9◦ near toe-off, with a corresponding reduction in biological hip flexion moment. 
+
+D. Impaired Exoskeleton Control Policy 
+
+At a walking speed of 1.2 m/s, the learned policy generated asymmetric exoskeleton assistance that targeted the affected side (Fig. 6). Peak plantarflexion assistance on the affected side was 59% higher than on the non-affected side, and peak hip flexion assistance was 49% higher. This targeted assistance reduced gross metabolic cost by 8.1% for the plantarflexion weakness model and 13.1% for the hip flexion weakness model (Fig. 7). The exoskeleton assistance also improved bilateral kinematic symmetry: the RMSE between affected and non-affected joint angles decreased from 6.31° to 3.56° for the plantarflexion weakness model and from 6.15° to 2.59° for the hip flexion weakness model. IV. D ISCUSSION 
+
+This study presents a framework that trains a physio-logically plausible locomotion agent using RL and fine-tunes the resulting model for downstream tasks, including exoskeleton control policy development, impaired gait gen-eration, and their combination. While previous studies have explored various approaches to generating optimal exoskele-ton assistance [11], [17], this framework is distinct in that assistive torque profiles can be generated entirely within simulation for diverse muscular deficits and targeted joints. In the two downstream tasks demonstrated, the application of the learned assistive torque reduced metabolic cost and improved kinematic symmetry within simulation, supporting its potential applicability to real-world deployment. A central contribution of our work is the physiological plausibility of the simulated agent, validated through both kinematic and kinetic tracking objectives. Although many previous imitation-learning-based approaches have reported human-like motion primarily at the kinematic level, only a limited number have evaluated whether the generated movements are also physiologically plausible in terms of joint kinetics [23]–[26]. Despite being trained under more constrained conditions than many existing frameworks, the agent reproduced both kinematic and kinetic patterns across different locomotor speeds on level ground. To our knowl-edge, this represents one of the most physiologically plausi-ble imitation outcomes reported in the context of locomotion policy learning. Fig. 5. Kinematic and kinetic deviations of simulated impaired gaits (orange) relative to the able-bodied baseline (blue). Top row: joint angles and moments for the affected side of the model with simulated ankle plantarflexor weakness, characterized by excessive dorsiflexion and a reduced plantarflexion push-off moment. Bottom row: results for the model with simulated hip flexor weakness, exhibiting a compensatory hip-hiking strategy and a corresponding reduction in the biological hip flexion moment.  
+
+> Fig. 6. Exoskeleton assistive torque profiles for the affected and non-affected sides of the impaired-gait models at a walking speed of 1.2 m/s. In the model with ankle plantarflexor weakness (left), peak plantarflexion assistance on the affected side (orange) is 59% greater than on the non-affected side (dark blue). In the model with hip flexor weakness (right), peak hip flexion assistance on the affected side is 49% greater.
+
+The exoskeleton control policies learned in simulation were well aligned with assistance profiles previously iden-tified through human-in-the-loop optimization. Using a con-sistent reward formulation, the agent successfully generated both hip and ankle assistive torque profiles comparable to those reported in prior experimental studies [13], [39], [40], while eliminating the need for iterative optimization procedures conducted with human participants. These find-ings suggest that physiologically plausible musculoskeletal simulation can serve as a scalable alternative for exoskeleton control policy development. To extend the applicability of the trained baseline model, specific muscle activation levels were reduced to simulate impaired gait. A central hypothesis of this study is that training an impaired-gait model to imitate a healthy reference gait naturally yields a impaired-gait-specific exoskeleton control policy. Accordingly, the primary objective of this framework is not to precisely replicate the pathophysiology of impaired gait, but rather to generate targeted assistance for individuals exhibiting specific muscular deficits. Never-theless, without exoskeleton assistance, the simulated muscle weakness produced physiologically plausible compensatory gait patterns, such as hip hiking in response to hip flexor weakness [41], providing confidence in the fidelity of the  
+
+> Fig. 7. Effect of impaired-gait-specific exoskeleton assistance on kine-matics and energy expenditure at a walking speed of 1.2 m/s. (a) Joint kinematics of the affected (orange) and non-affected (blue) sides for models with ankle plantarflexor weakness (top) and hip flexor weakness (bottom). (b) Gross metabolic cost for simulated impaired gait with exoskeleton assistance (green) compared to the no-exoskeleton baseline (gray).
+
+underlying impaired-gait model. The generated assistive torque profiles exhibited greater plantarflexion and hip flexion assistance on the affected side relative to the non-affected side, effectively compen-sating for the targeted muscular deficits. This asymmetric assistance resulted in a substantial reduction in metabolic cost for both simulated impaired-gait models, and bilateral kinematic symmetry improved relative to the no-exoskeleton conditions. Although the peak torque magnitudes applied to the impaired-gait models may exceed the current mechanical capabilities of lightweight portable devices, these results re-main significant: they demonstrate the theoretical efficacy of the learned control policies by producing positive adaptations in both kinematics and energy expenditure within simulation. However, several limitations should be acknowledged. Although our framework demonstrated the capability to gen-erate control policies across different exoskeleton configura-tions and user populations, the policies identified in this study have not yet been deployed or validated on physical hard-ware. In addition, while the simulated impaired gait patterns exhibited clinically recognized compensatory strategies, it remains difficult to conclude that these models fully capture the broad and complex characteristics of real pathological gait. Future work should therefore focus on deploying the learned control policies onto physical exoskeleton devices, a transition that can be facilitated through techniques such as policy distillation [20]. Furthermore, while the simulation results indicate the potential to reduce energy expenditure across user populations, physical experiments involving pa-tient populations are ultimately required to establish clinical validity in real-world settings. V. C ONCLUSION 
+
+This study presented a device-agnostic exoskeleton con-trol framework trained through physiologically plausible musculoskeletal simulation and adaptable to clinical pop-ulations. The framework achieved accurate kinematic and kinetic tracking of able-bodied reference gait, while simu-lated impaired gait policies exhibited clinically recognized compensatory strategies. For both able-bodied individuals and individuals with motor impairments, the generated as-sistive torque profiles produced peak timings consistent with state-of-the-art approaches validated in human experiments. A key advantage of this framework is its scalability to diverse locomotor tasks and user populations. While the current study focused on level-ground walking and running, future work should expand the locomotor domain to develop task-agnostic controllers and validate their efficacy through deployment on physical exoskeleton hardware. REFERENCES [1] G. S. Sawicki, O. N. Beck, I. Kang, and A. J. Young, “The exoskeleton expansion: improving walking and running economy,” Journal of neuroengineering and rehabilitation , vol. 17, no. 1, p. 25, 2020. [2] C. Siviy, L. M. Baker, B. T. Quinlivan, F. Porciuncula, K. Swami-nathan, L. N. Awad, and C. J. Walsh, “Opportunities and challenges in the development of exoskeletons for locomotor assistance,” Nature biomedical engineering , vol. 7, no. 4, pp. 456–472, 2023. [3] S. Gao, J. Chen, Y. Xia, X. Li, W. Ma, H. Yang, J. Li, X. Zhou, T. Jia, Y. Xu, et al. , “Wearable technologies for assisted mobility in the real world,” Nature Communications , 2025. [4] Z. F. Lerner, D. L. Damiano, and T. C. Bulea, “A lower-extremity exoskeleton improves knee extension in children with crouch gait from cerebral palsy,” Science translational medicine , vol. 9, no. 404, p. eaam9145, 2017. [5] L. N. Awad, J. Bae, K. O’donnell, S. M. De Rossi, K. Hendron, L. H. Sloot, P. Kudzia, S. Allen, K. G. Holt, T. D. Ellis, et al. , “A soft robotic exosuit improves walking in patients after stroke,” Science translational medicine , vol. 9, no. 400, p. eaai9084, 2017. [6] K. A. Ingraham, C. D. Remy, and E. J. Rouse, “The role of user preference in the customized control of robotic exoskeletons,” Science robotics , vol. 7, no. 64, p. eabj3487, 2022. [7] J. Kim, F. Porciuncula, H. D. Yang, N. Wendel, T. Baker, A. Chin, T. D. Ellis, and C. J. Walsh, “Soft robotic apparel to avert freezing of gait in parkinson’s disease,” Nature medicine , vol. 30, no. 1, pp. 177– 185, 2024. [8] A. J. Gunnell, S. V. Sarkisian, H. A. Hayes, K. B. Foreman, L. Gabert, and T. Lenzi, “Powered knee exoskeleton improves sit-to-stand transitions in stroke patients using electromyographic control,” 
+
+Communications Engineering , vol. 4, no. 1, p. 104, 2025. [9] I. Kang, D. D. Molinaro, D. Park, D. Lee, P. Kunapuli, K. R. Herrin, and A. J. Young, “Online adaptation framework enables personaliza-tion of exoskeleton assistance during locomotion in patients affected by stroke,” IEEE Transactions on Robotics , 2025. [10] K. Pruyn, R. Murray, L. Gabert, K. B. Foreman, and T. Lenzi, “Portable hip exoskeleton improves walking economy for stroke survivors,” Nature Communications , 2026. [11] J. Zhang, P. Fiers, K. A. Witte, R. W. Jackson, K. L. Poggensee, C. G. Atkeson, and S. H. Collins, “Human-in-the-loop optimization of exoskeleton assistance during walking,” Science , vol. 356, no. 6344, pp. 1280–1284, 2017. [12] Y. Ding, M. Kim, S. Kuindersma, and C. J. Walsh, “Human-in-the-loop optimization of hip assistance with a soft exosuit during walking,” 
+
+Science robotics , vol. 3, no. 15, p. eaar5438, 2018. [13] K. A. Witte, P. Fiers, A. L. Sheets-Singer, and S. H. Collins, “Im-proving the energy economy of human running with powered and unpowered ankle exoskeleton assistance,” Science Robotics , vol. 5, no. 40, p. eaay9108, 2020. [14] J. Kim, B. T. Quinlivan, L.-A. Deprey, D. Arumukhom Revi, A. Eckert-Erdheim, P. Murphy, D. Orzel, and C. J. Walsh, “Reducing the energy cost of walking with low assistance levels through opti-mized hip flexion assistance from a soft exosuit,” Scientific reports ,vol. 12, no. 1, p. 11004, 2022. [15] P. Slade, C. Atkeson, J. M. Donelan, H. Houdijk, K. A. Ingraham, M. Kim, K. Kong, K. L. Poggensee, R. Riener, M. Steinert, et al. , “On human-in-the-loop optimization of human–robot interaction,” Nature ,vol. 633, no. 8031, pp. 779–788, 2024. [16] D. D. Molinaro, I. Kang, and A. J. Young, “Estimating human joint moments unifies exoskeleton control, reducing user effort,” Science robotics , vol. 9, no. 88, p. eadi8852, 2024. [17] D. D. Molinaro, K. L. Scherpereel, E. B. Schonhaut, G. Evangelopou-los, M. K. Shepherd, and A. J. Young, “Task-agnostic exoskeleton control via biological joint moment estimation,” Nature , vol. 635, no. 8038, pp. 337–344, 2024. [18] G. Leem, J. Lee, J. Lee, S. Song, and J. Won, “Exo-plore: Exploring exoskeleton control space through human-aligned simulation,” arXiv preprint arXiv:2601.22550 , 2026. [19] Y. Yuan, G. Androwis, and X. Zhou, “Smat: Staged multi-agent training for co-adaptive exoskeleton control,” arXiv preprint arXiv:2603.07618 , 2026. [20] I. Park, C. Song, and I. Kang, “Learning hip exoskeleton control policy via predictive neuromusculoskeletal simulation,” arXiv preprint arXiv:2603.04166 , 2026. [21] K. Scherpereel, D. Molinaro, O. Inan, M. Shepherd, and A. Young, “A human lower-limb biomechanics and wearable sensors dataset during cyclic and non-cyclic activities,” Scientific Data , vol. 10, no. 1, p. 924, 2023. [22] S. L. Delp, F. C. Anderson, A. S. Arnold, P. Loan, A. Habib, C. T. John, E. Guendelman, and D. G. Thelen, “Opensim: open-source soft-ware to create and analyze dynamic simulations of movement,” IEEE transactions on biomedical engineering , vol. 54, no. 11, pp. 1940– 1950, 2007. [23] M. Simos, A. Silvio Chiappa, and A. Mathis, “Reinforcement learning-based motion imitation for physiologically plausible musculoskeletal motor control,” arXiv e-prints , pp. arXiv–2503, 2025. [24] Y. Feng, X. Xu, and L. Liu, “Musclevae: Model-based controllers of muscle-actuated characters,” in SIGGRAPH Asia 2023 Conference Papers , pp. 1–11, 2023. [25] J. Park, E. Jung, J. Lee, and J. Won, “Magnet: Muscle activation generation networks for diverse human movement,” in Proceedings of the Special Interest Group on Computer Graphics and Interactive Techniques Conference Conference Papers , pp. 1–11, 2025. [26] C. Li, C. Wang, B. Ziliotto, M. Simos, J. Kovecses, G. Durandau, and A. Mathis, “Towards embodied ai with musclemimic: Unlocking full-body musculoskeletal motor learning at scale,” arXiv preprint arXiv:2603.25544 , 2026. [27] T. Geijtenbeek, “The Hyfydy simulation software,” 11 2021. https: //hyfydy.com .[28] T. Geijtenbeek, “Scone: Open source software for predictive simula-tion of biological motion,” Journal of Open Source Software , vol. 4, no. 38, p. 1421, 2019. [29] P. Schumacher, T. Geijtenbeek, V. Caggiano, V. Kumar, S. Schmitt, G. Martius, and D. F. Haeufle, “Emergence of natural and robust bipedal walking by learning from biologically plausible objectives,” 
+
+iScience , vol. 28, no. 4, 2025. [30] J. R. Williams, C. F. Cuddeback, S. Fang, D. Colley, N. Enlow, P. Cox, P. Pridham, and Z. F. Lerner, “Openexo: An open-source modular exoskeleton to augment human function,” Science Robotics , vol. 10, no. 103, p. eadt1591, 2025. [31] X. B. Peng, P. Abbeel, S. Levine, and M. Van de Panne, “Deepmimic: Example-guided deep reinforcement learning of physics-based char-acter skills,” ACM Transactions On Graphics (TOG) , vol. 37, no. 4, pp. 1–14, 2018. [32] B. R. Umberger, K. G. Gerritsen, and P. E. Martin, “A model of human muscle energy expenditure,” Computer methods in biomechanics and biomedical engineering , vol. 6, no. 2, pp. 99–111, 2003. [33] T. K. Uchida, J. L. Hicks, C. L. Dembia, and S. L. Delp, “Stretching your energetic budget: how tendon compliance affects the metabolic cost of running,” PloS one , vol. 11, no. 3, p. e0150378, 2016. [34] M. R. Pierrynowski and J. B. Morrison, “A physiological model for the evaluation of muscular forces in human locomotion: theoretical aspects,” Mathematical Biosciences , vol. 75, no. 1, pp. 69–101, 1985. [35] M. Johnson, J. Polgar, D. Weightman, and D. Appleton, “Data on the distribution of fibre types in thirty-six human muscles: an autopsy study,” Journal of the neurological sciences , vol. 18, no. 1, pp. 111– 129, 1973. [36] T. H¨ aggmark and A. Thorstensson, “Fibre types in human abdominal muscles,” Acta Physiologica Scandinavica , vol. 107, no. 4, pp. 319– 325, 1979. [37] T. Haarnoja, A. Zhou, P. Abbeel, and S. Levine, “Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor,” in International conference on machine learning , pp. 1861– 1870, Pmlr, 2018. [38] A. Raffin, A. Hill, A. Gleave, A. Kanervisto, M. Ernestus, and N. Dormann, “Stable-baselines3: Reliable reinforcement learning im-plementations,” Journal of machine learning research , vol. 22, no. 268, pp. 1–8, 2021. [39] G. M. Bryan, P. W. Franks, S. Song, A. S. Voloshina, R. Reyes, M. P. O’Donovan, K. N. Gregorczyk, and S. H. Collins, “Optimized hip–knee–ankle exoskeleton assistance at a range of walking speeds,” 
+
+Journal of neuroengineering and rehabilitation , vol. 18, no. 1, p. 152, 2021. [40] J. Kim, G. Lee, R. Heimgartner, D. A. Revi, N. Karavas, D. Nathanson, I. Galiana, A. Eckert-Erdheim, P. Murphy, D. Perry, N. Menard, D. K. Choe, P. Malcolm, and C. J. Walsh, “Reducing the metabolic rate of walking and running with a versatile, portable exosuit,” Science ,vol. 365, no. 6454, pp. 668–672, 2019. [41] D. C. Kerrigan, E. P. Frates, S. Rogan, and P. O. Riley, “Hip hiking and circumduction,” American Journal of Physical Medicine & Rehabilitation , vol. 79, no. 3, p. 247–252, 2000.
