@@ -1,0 +1,126 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-001.webp",
+      "caption": "Fig. 8. (A) Trajectories of five test cases in one scene. (B) Trajectories of our policy. (C) Failure cases of baselines.",
+      "page": 11,
+      "index": 1,
+      "width": 1076,
+      "height": 891
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-002.webp",
+      "caption": "Fig. 7. Large-scale forest environments at four obstacle densities: 0.02, 0.04, 0.06, and 0.08 obstacles/m2. For each density, we generate five map instances and evaluate each instance from five different start positions as fig. 9.A, with the goal located on the opposite side of the forest.",
+      "page": 11,
+      "index": 2,
+      "width": 1076,
+      "height": 237
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-003.webp",
+      "caption": "Fig. 11. Real-world experiment in a regular forest environment with an obstacle density of 0.1 m−2. (A) Reconstructed scene and flight trajectory. (B) Velocity profile during flight. (C) Jerk profile during flight. (D) Real-world scene and flight trajectory. (E) First-person view of the drone at the time steps indicated in (A).",
+      "page": 15,
+      "index": 3,
+      "width": 1076,
+      "height": 758
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-004.webp",
+      "caption": "Fig. 3. Multimodal representation supervision. Geometrical representation of one scene supervises the trajectory inferred by graphical representation. The gradient chain of differentiable simulation backpropagates the regulatory effect of the collision-based analytical reward.",
+      "page": 7,
+      "index": 4,
+      "width": 1076,
+      "height": 429
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-005.webp",
+      "caption": "TABLE II KEY CHARACTER COMPARISON OF BASELINES IN SUPERDENSE SCENES (DENSITY 0.16 AND 0.25)",
+      "page": 14,
+      "index": 5,
+      "width": 1068,
+      "height": 433
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-006.webp",
+      "caption": "Fig. 1. This section provides an overview of the proposed method. The policy is trained using backpropagation-through-time (BPTT) within a differentiable simulation that is aligned with real-world control responses. The high-fidelity simulation incorporates a series of precise dynamic computations, enabling successful policy training through straightforward training and inference pipelines, as well as zero-shot deployment on real-world robots.",
+      "page": 3,
+      "index": 6,
+      "width": 1076,
+      "height": 673
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-007.webp",
+      "caption": "Fig. 9. Top: Comparison of success rates under varying obstacle densities (0.02–0.08 obs/m2) and commanded speeds (3–12 m/s). Our method maintains near-perfect reliability even in the most aggressive and dense environments. Bottom: Probability density distribution of average jerk across speeds. Our end-to-end policy executes the smoothest maneuvers with consistently lower overall jerk compared to all baselines.",
+      "page": 13,
+      "index": 7,
+      "width": 1076,
+      "height": 408
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-008.webp",
+      "caption": "Fig. 10. Panoramic views of the super-dense environments at two obstacle densities: 0.16 and 0.25 obstacles/m2.",
+      "page": 13,
+      "index": 8,
+      "width": 529,
+      "height": 229
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-009.webp",
+      "caption": "Fig. 4. A schematic diagram of ESDF map reshaping. (A): The shifting operation applied to the nearest obstacle point, which transforms the gradient direction from opposing the velocity to the lateral direction. (B): The shifting angle ∆a as a function of distance to the nearest obstacle d and incidence angle a. (C.1 and C.2): The ESDF gradient field for scenes containing one round obstacle and one rectangular obstacle, where the ”death zone” with nearly uniform gradient direction is highlighted in red. (C.3): An approximate visualization of the reshaped gradient field. (C.4) The gradient field after reshaping. Note that the gradient fields in (C) are not exact ESDFs; they are the same only without the shifting operation.",
+      "page": 8,
+      "index": 9,
+      "width": 1076,
+      "height": 763
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-010.webp",
+      "caption": "TABLE I KEY CHARACTER COMPARISON OF BASELINES ACROSS ALL VELOCITIES AND DENSITIES.",
+      "page": 12,
+      "index": 10,
+      "width": 1076,
+      "height": 611
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-011.webp",
+      "caption": "Fig. 5. Representative examples of the three groups of training scenes. The first group consists of boxes and pillars of varying shapes. The second group comprises short pillars. The third group contains tall pillars.",
+      "page": 9,
+      "index": 11,
+      "width": 860,
+      "height": 233
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-012.webp",
+      "caption": "Fig. 6. Normalized training curves of SHAC and PPO.",
+      "page": 9,
+      "index": 12,
+      "width": 529,
+      "height": 302
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-013.webp",
+      "caption": "Fig. 2. Training and inference pipeline of a state-of-the-art learning-based algorithm for collision-free flight without mapping. Our algorithm achieves true end-to-end control by eliminating intermediate trajectory representations in the reference frame. Direct generation of CTBR commands yields the shortest and most efficient inference chain, thereby avoiding dynamics-infeasible issues while improving maneuverability and stability.",
+      "page": 5,
+      "index": 13,
+      "width": 1076,
+      "height": 531
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-014.webp",
+      "caption": "Fig. 12. Real-world experiment in a super-dense forest with an obstacle density of approximately 1 m−2. (A) Reconstructed three-dimensional scene and the actual flight trajectory. (B) Velocity profile recorded during the flight. (C) Jerk profile recorded during the flight. (D) Photograph of the real-world environment alongside the corresponding flight trajectory. (E) First-person view (FPV) captured at the time steps indicated in (A).",
+      "page": 16,
+      "index": 14,
+      "width": 1076,
+      "height": 804
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10548v2/fig-015.webp",
+      "caption": "Fig. 13. Multiple experiments for testing policy generalization in various environments including wild and urban scenes.",
+      "page": 16,
+      "index": 15,
+      "width": 1076,
+      "height": 408
+    }
+  ]
+}

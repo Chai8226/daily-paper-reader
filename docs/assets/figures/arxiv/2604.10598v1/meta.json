@@ -1,0 +1,94 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.10598v1/fig-001.webp",
+      "caption": "Fig. 2. Generation of the Unified Panoramic Representation. Left: The aggregated 3D pointcloud ScanBlock 𝑡 and the spherical projection model relative to the UAV body frame. Right: The resulting 2D Panoramic Depth Map 𝑡. Each pixel (𝑢, 𝑣) corresponds to an angular direction and stores the minimum depth value, min(‖𝐩‖), to accurately represent the closest environmental obstacles.",
+      "page": 6,
+      "index": 1,
+      "width": 1010,
+      "height": 390
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10598v1/fig-002.webp",
+      "caption": "Fig. 12. Estimated trajectories aligned with the ground truth and the corresponding Absolute Pose Error (APE) across four real-world environments. (a) Abandoned Athletic Infrastructure; (b) Underground Tunnel; (c) Abandoned Bunker; (d) Dense Forest. Blue solid lines denote the ground truth, and red dashed lines denote the aligned estimates. Insets highlight zoomed-in views of local alignment details.",
+      "page": 15,
+      "index": 2,
+      "width": 989,
+      "height": 212
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10598v1/fig-003.webp",
+      "caption": "Fig. 1. Overview of the proposed AWARE framework. Upper left: Bio-inspired active sensing strategy that expands FoV through adaptive yaw control. Lower left: The RL agent learns adaptive cost weights from a diverse scene database, balancing observability and flight stability. Center: System architecture with predictive observability analysis and hybrid MPC, operating under humanin-the-loop operations and safe flight corridor constraints. Right: Real-world validation showing observability-aware yaw planning along the pilot’s intended path.",
+      "page": 2,
+      "index": 3,
+      "width": 1010,
+      "height": 461
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10598v1/fig-004.webp",
+      "caption": "Fig. 6. Overview of the simulation dataset and training configuration. (a) Diverse training scenarios spanning structured, degraded, and unstructured environments, from which dense point cloud maps are collected. (b) Trajectory and training setup: expertdemonstrated reference trajectories (𝐱𝑟𝑒𝑓 ) serve as navigation baselines, with randomized initialization points along the path; the first 50% of each trajectory is used for training and the remainder for evaluation.",
+      "page": 10,
+      "index": 4,
+      "width": 979,
+      "height": 615
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10598v1/fig-005.webp",
+      "caption": "Table 1 Detailed specification of the diverse simulation scenarios selected for active scanning training. The dataset is categorized into Structured, Degraded, and Unstructured environments, each presenting unique geometric challenges ranging from featureless tunnel to high-frequency clutter, ensuring comprehensive policy generalization.",
+      "page": 10,
+      "index": 5,
+      "width": 1029,
+      "height": 272
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10598v1/fig-006.webp",
+      "caption": "Table 4 Absolute Pose Error (APE, in meters) of AWARE across real-world environments. The drift rate is computed as the ratio of APE Max to the trajectory length and serves as a normalized measure of accumulated drift over the traveled distance.",
+      "page": 14,
+      "index": 6,
+      "width": 1029,
+      "height": 237
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10598v1/fig-007.webp",
+      "caption": "Table 2 APE (in meters) of different scanning control methods across simulated scenes. Lower is better. Bold indicates best performance. Underline indicates second-best.",
+      "page": 13,
+      "index": 7,
+      "width": 1021,
+      "height": 213
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10598v1/fig-008.webp",
+      "caption": "Fig. 8. Estimated trajectories on our simulation datasets aligned with the ground truth. The plots display the single run with the minimum Absolute Pose Error (APE) for each sequence.",
+      "page": 12,
+      "index": 8,
+      "width": 998,
+      "height": 408
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10598v1/fig-009.webp",
+      "caption": "Fig. 7. Trajectory errors on the eight sequences of the AWARE dataset evaluated against the ground truth across five independent runs.",
+      "page": 12,
+      "index": 9,
+      "width": 996,
+      "height": 550
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10598v1/fig-010.webp",
+      "caption": "Fig. 5. Simulation pipeline for the proposed active sensing framework. The environment integrates real-world point clouds and expert trajectories to drive UAV and LiDAR simulations. Within this closed loop, observability metrics and LIO feedback continuously train the RL policy to output control commands that maximize state estimation robustness.",
+      "page": 9,
+      "index": 10,
+      "width": 489,
+      "height": 313
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10598v1/fig-011.webp",
+      "caption": "Fig. 14. Guided by the hybrid RL-MPC framework, AWARE adaptively modulates the commanded yaw rate ?̇? according to scene features. Left: representative corridor-like (featurepoor) and landmark-rich (feature-rich) subregions. Right: corresponding controller traces, where the corridor-like segment exhibits a higher average ?̇? , whereas the landmark-rich segment requires a lower average ?̇? .",
+      "page": 16,
+      "index": 11,
+      "width": 489,
+      "height": 267
+    }
+  ]
+}

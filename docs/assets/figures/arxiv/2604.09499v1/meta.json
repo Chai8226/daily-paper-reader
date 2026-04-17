@@ -1,0 +1,86 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.09499v1/fig-001.webp",
+      "caption": "Fig. 10: Examples of overtaking trajectories. The positions of the overtaking and obstacle cars are causally color coded.",
+      "page": 15,
+      "index": 1,
+      "width": 976,
+      "height": 1127
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09499v1/fig-002.webp",
+      "caption": "Fig. 2: Simulated track layouts. (a) Training Track. (b) OOD Track 1. (c) OOD Track 2.",
+      "page": 7,
+      "index": 2,
+      "width": 419,
+      "height": 489
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09499v1/fig-003.webp",
+      "caption": "Fig. 9: Trajectories on hardware at different constant velocities.",
+      "page": 14,
+      "index": 3,
+      "width": 474,
+      "height": 475
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09499v1/fig-004.webp",
+      "caption": "Fig. 8: Zero-shot trajectories in OOD physical track configurations. A video can be viewed at https://www.youtube.com/watch?v=DVxlOARi4aY.",
+      "page": 13,
+      "index": 4,
+      "width": 492,
+      "height": 650
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09499v1/fig-005.webp",
+      "caption": "TABLE XI: Neural Activation Saturation Rates by Driving Stage",
+      "page": 17,
+      "index": 5,
+      "width": 636,
+      "height": 213
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09499v1/fig-006.webp",
+      "caption": "Fig. 12: ANN hidden layer activations.",
+      "page": 17,
+      "index": 6,
+      "width": 1076,
+      "height": 565
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09499v1/fig-007.webp",
+      "caption": "Fig. 13: Tire dynamics: Lateral acceleration across the slip angle range.",
+      "page": 17,
+      "index": 7,
+      "width": 488,
+      "height": 383
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09499v1/fig-008.webp",
+      "caption": "TABLE VIII: Velocities at the Curriculum and Unconstrained Velocities (m/s)",
+      "page": 12,
+      "index": 8,
+      "width": 860,
+      "height": 613
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09499v1/fig-009.webp",
+      "caption": "Fig. 7: Telemetry at the curriculum and unconstrained velocities.",
+      "page": 12,
+      "index": 9,
+      "width": 976,
+      "height": 645
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09499v1/fig-010.webp",
+      "caption": "Fig. 11: Example of an overtake motion sequence. (a) The overtaking car switches lane to traverse side-by-side. (b) Ahead before the corner apex on the outside. (c) The obstacle car is cleared and the overtaking car navigates back to the racing line. (d) The overtake is complete.",
+      "page": 16,
+      "index": 10,
+      "width": 518,
+      "height": 429
+    }
+  ]
+}

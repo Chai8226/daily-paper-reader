@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.10058v1/fig-001.webp",
+      "caption": "TABLE III SOLUTION TIMES FOR GROWTH DISTANCE COMPUTATION",
+      "page": 11,
+      "index": 1,
+      "width": 1054,
+      "height": 262
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10058v1/fig-002.webp",
+      "caption": "TABLE I COMPARISON OF GROWTH DISTANCE METHODS",
+      "page": 2,
+      "index": 2,
+      "width": 1052,
+      "height": 294
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10058v1/fig-003.webp",
+      "caption": "Fig. 3. Growth distance benchmark results for various types of convex sets, with cold and warm starts, across different methods. For each bar plot, the bars correspond to the 25-th, 50-th, and 75-th percentile values, and the whiskers show the 0.01 and 99.99 percentile values. The outliers are shown as dots. Our algorithm achieves state-of-the-art solution times for curved primitives and mesh sets (in cold start) across all existing methods. For DSFs, the hybrid Newton solver DCF proposed in [17] outperforms our algorithm. This is primarily because the DCF method requires fewer iterations to converge.",
+      "page": 10,
+      "index": 3,
+      "width": 512,
+      "height": 600
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10058v1/fig-004.webp",
+      "caption": "Fig. 7. Motion planning for a manipulator robot in a workspace with five tightly-placed obstacles. The red dots indicate the end-effector position. The robot’s state validity during motion planning is verified using our growth distance implementation.",
+      "page": 13,
+      "index": 4,
+      "width": 1044,
+      "height": 277
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10058v1/fig-005.webp",
+      "caption": "Fig. 6. Multi-rigid-body simulation of 50 randomly generated polytopes falling on the ground, with our growth distance implementation used as the collision detection and contact frame computation backend in the Bullet Physics SDK. The polytopes with larger speeds are depicted in red, and the stationary polytopes in blue. The total kinetic energy of the system reaches zero at the end of 10 s. The maximum penetration depth across all collisions is 1.39 cm, which is similar to the maximum penetration depth achieved using the default signed distance-based collision detector.",
+      "page": 12,
+      "index": 5,
+      "width": 1044,
+      "height": 277
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10058v1/fig-006.webp",
+      "caption": "TABLE II GROWTH DISTANCE ALGORITHM NOTATION",
+      "page": 5,
+      "index": 6,
+      "width": 1052,
+      "height": 279
+    }
+  ]
+}
