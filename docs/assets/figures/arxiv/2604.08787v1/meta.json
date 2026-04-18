@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.08787v1/fig-001.webp",
+      "caption": "Fig. 1. Motion Planning Visialization. A) Planned Cartesian motion of the robotic arm end-effector on the x–z plane through four waypoints, with uniform 2-second durations. Motion trails illustrate key snapshots. B) Online replanning triggered at the red triangle introduces three new waypoints. The arm smoothly transitions to the updated path and lands on the lower-left corner on time.",
+      "page": 1,
+      "index": 1,
+      "width": 506,
+      "height": 354
+    },
+    {
+      "url": "assets/figures/arxiv/2604.08787v1/fig-002.webp",
+      "caption": "Fig. 5. Geometric Drawing Task: Planned Trajectory and Real Execution",
+      "page": 6,
+      "index": 2,
+      "width": 527,
+      "height": 277
+    },
+    {
+      "url": "assets/figures/arxiv/2604.08787v1/fig-003.webp",
+      "caption": "Fig. 6. Joint 7 trajectories during geometric drawing tasks. Left: straight-line drawing; right: halfway through circle drawing. Plots show planned trajectory ?̂?, waypoints set 𝓓, and actual path 𝐬 from encoder data.",
+      "page": 6,
+      "index": 3,
+      "width": 527,
+      "height": 420
+    },
+    {
+      "url": "assets/figures/arxiv/2604.08787v1/fig-004.webp",
+      "caption": "Fig. 8. Interruptible motion planning and grasping execution under dynamic target tracking using dual-camera perception.",
+      "page": 7,
+      "index": 4,
+      "width": 1052,
+      "height": 412
+    },
+    {
+      "url": "assets/figures/arxiv/2604.08787v1/fig-005.webp",
+      "caption": "Fig. 2. Real-time end-effector control pipeline in WOS for heterogeneous collaborative robots.",
+      "page": 3,
+      "index": 5,
+      "width": 525,
+      "height": 591
+    },
+    {
+      "url": "assets/figures/arxiv/2604.08787v1/fig-006.webp",
+      "caption": "Fig. 9. Overview and trajectory analysis of the dual-arm teleoperation experiment. (A) Keyframes from the execution sequence, including drawer interaction, regrasping, stamping, and return motion. (B) Representative short-duration trajectories of Joint 3 around 𝑡 = 42.9𝑠 (dynamic phase) and 𝑡 = 67.8𝑠 (gentle phase), illustrating the continuity and smoothness of planned motion.",
+      "page": 8,
+      "index": 6,
+      "width": 946,
+      "height": 677
+    }
+  ]
+}
