@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.11587v1/fig-001.webp",
+      "caption": "Fig. 3: Comparative performance of evaluated planners across different domains in terms of median solution cost and success rate over time, with 95% confidence interval in each plot. Note that the median solution cost is ∞ when the success rate of a planner is below 50%. The dots in each plot denote median initial solution times and costs with 95% confidence intervals (CI), while shadows around the dots indicate a more conservative 99% CI.",
+      "page": 6,
+      "index": 1,
+      "width": 1052,
+      "height": 804
+    }
+  ]
+}
