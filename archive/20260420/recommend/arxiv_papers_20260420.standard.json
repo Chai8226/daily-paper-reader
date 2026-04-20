@@ -1,0 +1,837 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-20T20:19:24.358497+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 13,
+    "deep_cap": 6,
+    "deep_selected": 10,
+    "quick_candidates": 25,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2604.11251v3",
+      "source": "arxiv",
+      "title": "CLAW: Composable Language-Annotated Whole-body Motion Generation",
+      "abstract": "Training language-conditioned whole-body controllers for humanoid robots demands large-scale motion-language datasets. Existing approaches based on motion capture are costly and limited in diversity, while text-to-motion generative models produce purely kinematic outputs that are not guaranteed to be physically feasible. We present CLAW, a pipeline for scalable generation of language-annotated whole-body motion data for the Unitree G1 humanoid robot. CLAW composes motion primitives from a kinematic planner, parameterized by movement, heading, speed, pelvis height, and duration, and provides two browser-based interfaces--a real-time keyboard mode and a timeline-based sequence editor--for exploratory and batch data collection. A low-level controller tracks these references in MuJoCo simulation, yielding physically grounded trajectories. In parallel, a template-based engine generates diverse natural-language annotations at both segment and trajectory levels. To support scalable generation of motion-language paired data for humanoid robot learning, we make our system publicly available at: https://github.com/JianuoCao/CLAW",
+      "authors": [
+        "Jianuo Cao",
+        "Yuxin Chen",
+        "Masayoshi Tomizuka"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-13T10:02:04+00:00",
+      "link": "https://arxiv.org/pdf/2604.11251v3",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "whole-body motion generation for humanoid robots using kinematic planners",
+      "llm_evidence_cn": "使用运动学规划器为人形机器人生成全身运动",
+      "llm_evidence": "使用运动学规划器为人形机器人生成全身运动",
+      "canonical_evidence": "使用运动学规划器为人形机器人生成全身运动",
+      "llm_tldr_en": "CLAW generates language-annotated whole-body motion data for humanoid robots using a kinematic planner.",
+      "llm_tldr_cn": "CLAW为人形机器人提供了一种可扩展的语言标注全身运动数据生成管线。",
+      "llm_tldr": "CLAW为人形机器人提供了一种可扩展的语言标注全身运动数据生成管线。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.12565v1",
+      "source": "arxiv",
+      "title": "Scalable Trajectory Generation for Whole-Body Mobile Manipulation",
+      "abstract": "Robots deployed in unstructured environments must coordinate whole-body motion -- simultaneously moving a mobile base and arm -- to interact with the physical world. This coupled mobility and dexterity yields a state space that grows combinatorially with scene and object diversity, demanding datasets far larger than those sufficient for fixed-base manipulation. Yet existing acquisition methods, including teleoperation and planning, are either labor-intensive or computationally prohibitive at scale. The core bottleneck is the lack of a scalable pipeline for generating large-scale, physically valid, coordinated trajectory data across diverse embodiments and environments. Here we introduce AutoMoMa, a GPU-accelerated framework that unifies AKR modeling, which consolidates base, arm, and object kinematics into a single chain, with parallelized trajectory optimization. AutoMoMa achieves 5,000 episodes per GPU-hour (over $80\\times$ faster than CPU-based baselines), producing a dataset of over 500k physically valid trajectories spanning 330 scenes, diverse articulated objects, and multiple robot embodiments. Prior datasets were forced to compromise on scale, diversity, or kinematic fidelity; AutoMoMa addresses all three simultaneously. Training downstream IL policies further reveals that even a single articulated-object task requires tens of thousands of demonstrations for SOTA methods to reach $\\approx 80\\%$ success, confirming that data scarcity -- not algorithmic limitations -- has been the binding constraint. AutoMoMa thus bridges high-performance planning and reliable IL-based control, providing the infrastructure previously missing for coordinated mobile manipulation research. By making large-scale, kinematically valid training data practical, AutoMoMa showcases generalizable whole-body robot policies capable of operating in the diverse, unstructured settings of the real world.",
+      "authors": [
+        "Yida Niu",
+        "Xinhai Chang",
+        "Xin Liu",
+        "Ziyuan Jiao",
+        "Yixin Zhu"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "published": "2026-04-14T10:47:06+00:00",
+      "link": "https://arxiv.org/pdf/2604.12565v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "scalable trajectory generation for whole-body mobile manipulation",
+      "llm_evidence_cn": "全身移动操作的大规模轨迹生成",
+      "llm_evidence": "全身移动操作的大规模轨迹生成",
+      "canonical_evidence": "全身移动操作的大规模轨迹生成",
+      "llm_tldr_en": "Introduces AutoMoMa, a framework for generating large-scale coordinated whole-body trajectory data.",
+      "llm_tldr_cn": "引入AutoMoMa框架，用于生成大规模协调的全身轨迹数据。",
+      "llm_tldr": "引入AutoMoMa框架，用于生成大规模协调的全身轨迹数据。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.13323v1",
+      "source": "arxiv",
+      "title": "Vectorizing Projection in Manifold-Constrained Motion Planning for Real-Time Whole-Body Control",
+      "abstract": "Many robot planning tasks require satisfaction of one or more constraints throughout the entire trajectory. For geometric constraints, manifold-constrained motion planning algorithms are capable of planning collision-free path between start and goal configurations on the constraint submanifolds specified by task. Current state-of-the-art methods can take tens of seconds to solve these tasks for complex systems such as humanoid robots, making real-world use impractical, especially in dynamic settings. Inspired by recent advances in hardware accelerated motion planning, we present a CPU SIMD-accelerated manifold-constrained motion planner that revisits projection-based constraint satisfaction through the lens of parallelization. By transforming relevant components into parallelizable structures, we use SIMD parallelism to plan constraint satisfying solutions. Our approach achieves up to 100-1000x speed-ups over the state-of-the-art, making real-time constrained motion planning feasible for the first time. We demonstrate our planner on a real humanoid robot and show real-time whole-body quasi-static plan generation. Our work is available at https://commalab.org/papers/mcvamp/.",
+      "authors": [
+        "Shrutheesh R Iyer",
+        "I-Chia Chang",
+        "Andrew Z. Liu",
+        "Yan Gu",
+        "Zachary Kingston"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-14T22:00:53+00:00",
+      "link": "https://arxiv.org/pdf/2604.13323v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "real-time whole-body control and manifold-constrained motion planning",
+      "llm_evidence_cn": "实时全身控制与流形约束运动规划",
+      "llm_evidence": "实时全身控制与流形约束运动规划",
+      "canonical_evidence": "实时全身控制与流形约束运动规划",
+      "llm_tldr_en": "Accelerated manifold-constrained motion planning for real-time whole-body control of complex robots.",
+      "llm_tldr_cn": "针对复杂机器人实时全身控制的硬件加速流形约束运动规划方法。",
+      "llm_tldr": "针对复杂机器人实时全身控制的硬件加速流形约束运动规划方法。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.11251v1",
+      "source": "arxiv",
+      "title": "CLAW: Composable Language-Annotated Whole-body Motion Generation",
+      "abstract": "Training language-conditioned whole-body controllers for humanoid robots requires large-scale datasets pairing motion trajectories with natural-language descriptions.Existing approaches based on motion capture are costly and limited in diversity, while text-to-motion generative models produce purely kinematic outputs that are not guaranteed to be physically feasible.Therefore, we present CLAW, an interactive web-based pipeline for scalable generation of language-annotated whole-body motion data for the Unitree G1 humanoid robot. CLAW treats the motion modes of a kinematic planner as composable building blocks, each parameterized by movement, heading, speed, pelvis height and duration, and provides two browser-based interfaces -- a real-time keyboard mode and a timeline-based sequence editor -- for exploratory and batch data collection. A low-level whole-body controller tracks the planner's kinematic references in MuJoCo simulation, producing physically grounded trajectories recorded at 50Hz. Simultaneously, a deterministic template-based annotation engine generates diverse natural-language descriptions at multiple stylistic registers for every segment and for the full trajectory. We release the system as open source to support scalable generation of language-motion paired data for humanoid robot learning.",
+      "authors": [
+        "Jianuo Cao",
+        "Yuxin Chen",
+        "Masayoshi Tomizuka"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-13T10:02:04+00:00",
+      "link": "https://arxiv.org/pdf/2604.11251v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "whole-body motion generation for humanoid robots using kinematic planners",
+      "llm_evidence_cn": "人形机器人的全身运动生成与运动学规划",
+      "llm_evidence": "人形机器人的全身运动生成与运动学规划",
+      "canonical_evidence": "人形机器人的全身运动生成与运动学规划",
+      "llm_tldr_en": "Introduces CLAW, a pipeline for generating language-annotated whole-body motion data for humanoid robots.",
+      "llm_tldr_cn": "介绍了CLAW，一个用于为人形机器人生成语言标注全身运动数据的流水线。",
+      "llm_tldr": "介绍了CLAW，一个用于为人形机器人生成语言标注全身运动数据的流水线。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.11251v2",
+      "source": "arxiv",
+      "title": "CLAW: Composable Language-Annotated Whole-body Motion Generation",
+      "abstract": "Training language-conditioned whole-body controllers for humanoid robots requires large-scale datasets pairing motion trajectories with natural-language descriptions. Existing approaches based on motion capture are costly and limited in diversity, while text-to-motion generative models produce purely kinematic outputs that are not guaranteed to be physically feasible. Therefore, we present CLAW, an interactive web-based pipeline for scalable generation of language-annotated whole-body motion data for the Unitree G1 humanoid robot. CLAW treats the motion modes of a kinematic planner as composable building blocks, each parameterized by movement, heading, speed, pelvis height and duration, and provides two browser-based interfaces -- a real-time keyboard mode and a timeline-based sequence editor -- for exploratory and batch data collection. A low-level whole-body controller tracks the planner's kinematic references in MuJoCo simulation, producing physically grounded trajectories recorded at 50Hz. Simultaneously, a deterministic template-based annotation engine generates diverse natural-language descriptions at multiple stylistic registers for every segment and for the full trajectory. We release the system as open source to support scalable generation of language-motion paired data for humanoid robot learning.",
+      "authors": [
+        "Jianuo Cao",
+        "Yuxin Chen",
+        "Masayoshi Tomizuka"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-13T10:02:04+00:00",
+      "link": "https://arxiv.org/pdf/2604.11251v2",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "whole-body motion generation for humanoid robots",
+      "llm_evidence_cn": "人形机器人的全身运动生成",
+      "llm_evidence": "人形机器人的全身运动生成",
+      "canonical_evidence": "人形机器人的全身运动生成",
+      "llm_tldr_en": "Introduces a pipeline for generating language-annotated whole-body motion data for humanoid robots.",
+      "llm_tldr_cn": "介绍了一种为人形机器人生成带语言注释的全身运动数据的流水线。",
+      "llm_tldr": "介绍了一种为人形机器人生成带语言注释的全身运动数据的流水线。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.11447v1",
+      "source": "arxiv",
+      "title": "Safe Human-to-Humanoid Motion Imitation Using Control Barrier Functions",
+      "abstract": "Ensuring operational safety is critical for human-to-humanoid motion imitation. This paper presents a vision-based framework that enables a humanoid robot to imitate human movements while avoiding collisions. Human skeletal keypoints are captured by a single camera and converted into joint angles for motion retargeting. Safety is enforced through a Control Barrier Function (CBF) layer formulated as a Quadratic Program (QP), which filters imitation commands to prevent both self-collisions and human-robot collisions. Simulation results validate the effectiveness of the proposed framework for real-time collision-aware motion imitation.",
+      "authors": [
+        "Wenqi Cai",
+        "John Abanes",
+        "Nikolaos Evangeliou",
+        "Anthony Tzes"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY"
+      ],
+      "published": "2026-04-13T13:28:15+00:00",
+      "link": "https://arxiv.org/pdf/2604.11447v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "collision-aware motion imitation using Control Barrier Functions",
+      "llm_evidence_cn": "使用控制屏障函数的避障运动模仿",
+      "llm_evidence": "使用控制屏障函数的避障运动模仿",
+      "canonical_evidence": "使用控制屏障函数的避障运动模仿",
+      "llm_tldr_en": "A framework for safe humanoid motion imitation using CBFs to prevent self and environment collisions.",
+      "llm_tldr_cn": "一种使用控制屏障函数防止自碰撞和环境碰撞的人形机器人安全运动模仿框架。",
+      "llm_tldr": "一种使用控制屏障函数防止自碰撞和环境碰撞的人形机器人安全运动模仿框架。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "whole-body collision avoidance algorithms",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.12509v1",
+      "source": "arxiv",
+      "title": "Whole-Body Mobile Manipulation using Offline Reinforcement Learning on Sub-optimal Controllers",
+      "abstract": "Mobile Manipulation (MoMa) of articulated objects, such as opening doors, drawers, and cupboards, demands simultaneous, whole-body coordination between a robot's base and arms. Classical whole-body controllers (WBCs) can solve such problems via hierarchical optimization, but require extensive hand-tuned optimization and remain brittle. Learning-based methods, on the other hand, show strong generalization capabilities but typically rely on expensive whole-body teleoperation data or heavy reward engineering. We observe that even a sub-optimal WBC is a powerful structural prior: it can be used to collect data in a constrained, task-relevant region of the state-action space, and its behavior can still be improved upon using offline reinforcement learning. Building on this, we propose WHOLE-MoMa, a two-stage pipeline that first generates diverse demonstrations by randomizing a lightweight WBC, and then applies offline RL to identify and stitch together improved behaviors via a reward signal. To support the expressive action-chunked diffusion policies needed for complex coordination tasks, we extend offline implicit Q-learning with Q-chunking for chunk-level critic evaluation and advantage-weighted policy extraction. On three tasks of increasing difficulty using a TIAGo++ mobile manipulator in simulation, WHOLE-MoMa significantly outperforms WBC, behavior cloning, and several offline RL baselines. Policies transfer directly to the real robot without finetuning, achieving 80% success in bimanual drawer manipulation and 68% in simultaneous cupboard opening and object placement, all without any teleoperated or real-world training data.",
+      "authors": [
+        "Snehal Jauhri",
+        "Vignesh Prasad",
+        "Georgia Chalvatzaki"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "published": "2026-04-14T09:32:24+00:00",
+      "link": "https://arxiv.org/pdf/2604.12509v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "whole-body coordination between base and arms for mobile manipulation",
+      "llm_evidence_cn": "移动操作中底盘与机械臂的全身协同",
+      "llm_evidence": "移动操作中底盘与机械臂的全身协同",
+      "canonical_evidence": "移动操作中底盘与机械臂的全身协同",
+      "llm_tldr_en": "Uses offline RL to improve whole-body mobile manipulation by leveraging sub-optimal controllers as priors.",
+      "llm_tldr_cn": "利用离线强化学习，通过次优全身控制器作为先验来改进移动操作的全身协同。",
+      "llm_tldr": "利用离线强化学习，通过次优全身控制器作为先验来改进移动操作的全身协同。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.12879v1",
+      "source": "arxiv",
+      "title": "FastGrasp: Learning-based Whole-body Control method for Fast Dexterous Grasping with Mobile Manipulators",
+      "abstract": "Fast grasping is critical for mobile robots in logistics, manufacturing, and service applications. Existing methods face fundamental challenges in impact stabilization under high-speed motion, real-time whole-body coordination, and generalization across diverse objects and scenarios, limited by fixed bases, simple grippers, or slow tactile response capabilities. We propose \\textbf{FastGrasp}, a learning-based framework that integrates grasp guidance, whole-body control, and tactile feedback for mobile fast grasping. Our two-stage reinforcement learning strategy first generates diverse grasp candidates via conditional variational autoencoder conditioned on object point clouds, then executes coordinated movements of mobile base, arm, and hand guided by optimal grasp selection. Tactile sensing enables real-time grasp adjustments to handle impact effects and object variations. Extensive experiments demonstrate superior grasping performance in both simulation and real-world scenarios, achieving robust manipulation across diverse object geometries through effective sim-to-real transfer.",
+      "authors": [
+        "Heng Tao",
+        "Yiming Zhong",
+        "Zemin Yang",
+        "Yuexin Ma"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-04-14T15:30:57+00:00",
+      "link": "https://arxiv.org/pdf/2604.12879v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "whole-body control and coordination for mobile manipulators",
+      "llm_evidence_cn": "移动操作手的全身控制与协调",
+      "llm_evidence": "移动操作手的全身控制与协调",
+      "canonical_evidence": "移动操作手的全身控制与协调",
+      "llm_tldr_en": "Learning-based whole-body control for fast dexterous grasping with mobile manipulators.",
+      "llm_tldr_cn": "基于学习的移动操作手全身控制方法，实现快速灵巧抓取。",
+      "llm_tldr": "基于学习的移动操作手全身控制方法，实现快速灵巧抓取。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.13015v1",
+      "source": "arxiv",
+      "title": "Learning Versatile Humanoid Manipulation with Touch Dreaming",
+      "abstract": "Humanoid robots promise general-purpose assistance, yet real-world humanoid loco-manipulation remains challenging because it requires whole-body stability, dexterous hands, and contact-aware perception under frequent contact changes. In this work, we study dexterous, contact-rich humanoid loco-manipulation. We first develop an RL-based whole-body controller that provides stable lower-body and torso execution during complex manipulation. Built on this controller, we develop a whole-body humanoid data collection system that combines VR-based teleoperation with human-to-humanoid motion mapping, enabling efficient collection of real-world demonstrations. We then propose Humanoid Transformer with Touch Dreaming (HTD), a multimodal encoder--decoder Transformer that models touch as a core modality alongside multi-view vision and proprioception. HTD is trained in a single stage with behavioral cloning augmented by touch dreaming: in addition to predicting action chunks, the policy predicts future hand-joint forces and future tactile latents, encouraging the shared Transformer trunk to learn contact-aware representations for dexterous interaction. Across five contact-rich tasks, Insert-T, Book Organization, Towel Folding, Cat Litter Scooping, and Tea Serving, HTD achieves a 90.9% relative improvement in average success rate over the stronger baseline. Ablation results further show that latent-space tactile prediction is more effective than raw tactile prediction, yielding a 30% relative gain in success rate. These results demonstrate that combining robust whole-body execution, scalable humanoid data collection, and predictive touch-centered learning enables versatile, high-dexterity humanoid manipulation in the real world. Project webpage: humanoid-touch-dream.github.io.",
+      "authors": [
+        "Yaru Niu",
+        "Zhenlong Fang",
+        "Binghong Chen",
+        "Shuai Zhou",
+        "Revanth Senthilkumaran",
+        "Hao Zhang",
+        "Bingqing Chen",
+        "Chen Qiu",
+        "H. Eric Tseng",
+        "Jonathan Francis",
+        "Ding Zhao"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-14T17:54:17+00:00",
+      "link": "https://arxiv.org/pdf/2604.13015v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "RL-based whole-body controller for humanoid loco-manipulation",
+      "llm_evidence_cn": "基于强化学习的人形机器人全身运动与操作控制器",
+      "llm_evidence": "基于强化学习的人形机器人全身运动与操作控制器",
+      "canonical_evidence": "基于强化学习的人形机器人全身运动与操作控制器",
+      "llm_tldr_en": "Develops an RL-based whole-body controller and a Transformer model for dexterous humanoid loco-manipulation.",
+      "llm_tldr_cn": "开发了基于强化学习的全身控制器和Transformer模型，用于人形机器人的灵巧全身操作。",
+      "llm_tldr": "开发了基于强化学习的全身控制器和Transformer模型，用于人形机器人的灵巧全身操作。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.14834v1",
+      "source": "arxiv",
+      "title": "Switch: Learning Agile Skills Switching for Humanoid Robots",
+      "abstract": "Recent advancements in whole-body control through deep reinforcement learning have enabled humanoid robots to achieve remarkable progress in real-world chal lenging locomotion skills. However, existing approaches often struggle with flexible transitions between distinct skills, cre ating safety concerns and practical limitations. To address this challenge, we introduce a hierarchical multi-skill system, Switch, enabling seamless skill transitions at any moment. Our approach comprises three key components: (1) a Skill Graph (SG) that establishes potential cross-skill transitions based on kinematic similarity within multi-skill motion data, (2) a whole-body tracking policy trained on this skill graph through deep reinforcement learning, and (3) an online skill scheduler to drive the tracking policy for robust skill execution and smooth transitions. For skill switching or significant tracking deviations, the scheduler performs online graph search to find the optimal feasible path, which ensures efficient, stable, and real-time execution of diverse locomotion skills. Comprehensive experiments demonstrate that Switch empowers humanoid to execute agile skill transitions with high success rates while maintaining strong motion imitation performance.",
+      "authors": [
+        "Yuen-Fui Lau",
+        "Qihan Zhao",
+        "Yinhuai Wang",
+        "Runyi Yu",
+        "Hok Wai Tsui",
+        "Qifeng Chen",
+        "Ping Tan"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-16T10:11:28+00:00",
+      "link": "https://arxiv.org/pdf/2604.14834v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "whole-body control and motion switching for humanoid robots",
+      "llm_evidence_cn": "人形机器人的全身控制与动作切换",
+      "llm_evidence": "人形机器人的全身控制与动作切换",
+      "canonical_evidence": "人形机器人的全身控制与动作切换",
+      "llm_tldr_en": "Presents a hierarchical system for agile whole-body skill switching in humanoid robots.",
+      "llm_tldr_cn": "展示了一种用于人形机器人敏捷全身技能切换的分层系统。",
+      "llm_tldr": "展示了一种用于人形机器人敏捷全身技能切换的分层系统。",
+      "llm_tags": [
+        "query:q5"
+      ],
+      "matched_query_tag": "query:q5",
+      "matched_query_text": "state of the art in robot whole body motion planning",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.10358v1",
+      "source": "arxiv",
+      "title": "COSMIK-MPPI: Scaling Constrained Model Predictive Control to Collision Avoidance in Close-Proximity Dynamic Human Environments",
+      "abstract": "Ensuring safe physical interaction between torque-controlled manipulators and humans is essential for deploying robots in everyday environments. Model Predictive Control (MPC) has emerged as a suitable framework thanks to its capacity to handle hard constraints, provide strong guarantees and zero-shot adaptability through predictive reasoning. However, Gradient-Based MPC (GB-MPC) solvers have demonstrated limited performance for collision avoidance in complex environments. Sampling-based approaches such as Model Predictive Path Integral (MPPI) control offer an alternative via stochastic rollouts, but enforcing safety via additive penalties is inherently fragile, as it provides no formal constraint satisfaction guarantees. We propose a collision avoidance framework called COSMIK-MPPI combining MPPI with the toolbox for human motion estimation RT-COSMIK and the Constraints-as-Terminations transcription, which enforces safety by treating constraint violations as terminal events, without relying on large penalty terms or explicit human motion prediction. The proposed approach is evaluated against state-of-the-art GB-MPC and vanilla MPPI in simulation and on a real manipulator arm. Results show that COSMIK-MPPI achieves a 100% task success rate with a constant computation time (22 ms), largely outperforming GB-MPC. In simulated infeasible scenarios, COSMIK-MPPI consistently generates collision-free trajectories, contrary to vanilla MPPI. These properties enabled safe execution of complex real-world human-robot interaction tasks in shared workspaces using an affordable markerless human motion estimator, demonstrating a robust, compliant, and practical solution for predictive collision avoidance (cf. results showcased at https://exquisite-parfait-ffa925.netlify.app)",
+      "authors": [
+        "Ege Gursoy",
+        "Maxime Sabbah",
+        "Arthur Haffemayer",
+        "Joao Cavalcanti Santos",
+        "Pietro Noah Crestaz",
+        "Vladimir Petrik",
+        "Nicolas Mansard",
+        "Vincent Bonnet"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-11T22:04:22+00:00",
+      "link": "https://arxiv.org/pdf/2604.10358v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "constrained model predictive control for collision avoidance in dynamic environments",
+      "llm_evidence_cn": "动态环境下用于避障的约束模型预测控制",
+      "llm_evidence": "动态环境下用于避障的约束模型预测控制",
+      "canonical_evidence": "动态环境下用于避障的约束模型预测控制",
+      "llm_tldr_en": "Scales constrained MPC to collision avoidance in dynamic human environments using sampling-based methods.",
+      "llm_tldr_cn": "利用采样方法将约束模型预测控制扩展到动态人体环境中的避障任务。",
+      "llm_tldr": "利用采样方法将约束模型预测控制扩展到动态人体环境中的避障任务。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "whole-body collision avoidance algorithms",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2604.10548v1",
+      "source": "arxiv",
+      "title": "Simple but Stable, Fast and Safe: Achieve End-to-end Control by High-Fidelity Differentiable Simulation",
+      "abstract": "Obstacle avoidance is a fundamental vision-based task essential for enabling quadrotors to perform advanced applications. When planning the trajectory, existing approaches both on optimization and learning typically regard quadrotor as a point-mass model, giving path or velocity commands then tracking the commands by outer-loop controller. However, at high speeds, planned trajectories sometimes become dynamically infeasible in actual flight, which beyond the capacity of controller. In this paper, we propose a novel end-to-end policy that directly maps depth images to low-level bodyrate commands by reinforcement learning via differentiable simulation. The high-fidelity simulation in training after parameter identification significantly reduces all the gaps between training, simulation and real world. Analytical process by differentiable simulation provides accurate gradient to ensure efficiently training the low-level policy without expert guidance. The policy employs a lightweight and the most simple inference pipeline that runs without explicit mapping, backbone networks, primitives, recurrent structures, or backend controllers, nor curriculum or privileged guidance. By inferring low-level command directly to the hardware controller, the method enables full flight envelope control and avoids the dynamic-infeasible issue.Experimental results demonstrate that the proposed approach achieves the highest success rate and the lowest jerk among state-of-the-art baselines across multiple benchmarks. The policy also exhibits strong generalization, successfully deploying zero-shot in unseen, outdoor environments while reaching speeds of up to 7.5m/s as well as stably flying in the super-dense forest.",
+      "authors": [
+        "Fanxing Li",
+        "Shengyang Wang",
+        "Yuxiang Huang",
+        "Fangyu Sun",
+        "Yufei Yan",
+        "Danping Zou",
+        "Wenxian Yu"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-12T09:38:00+00:00",
+      "link": "https://arxiv.org/pdf/2604.10548v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "obstacle avoidance in complex environments via differentiable simulation",
+      "llm_evidence_cn": "通过可微仿真在复杂环境中进行避障",
+      "llm_evidence": "通过可微仿真在复杂环境中进行避障",
+      "canonical_evidence": "通过可微仿真在复杂环境中进行避障",
+      "llm_tldr_en": "Achieves end-to-end obstacle avoidance control for quadrotors using high-fidelity differentiable simulation.",
+      "llm_tldr_cn": "利用高保真可微仿真实现四旋翼无人机的端到端避障控制。",
+      "llm_tldr": "利用高保真可微仿真实现四旋翼无人机的端到端避障控制。",
+      "llm_tags": [
+        "query:q6"
+      ],
+      "matched_query_tag": "query:q6",
+      "matched_query_text": "algorithms for whole body obstacle avoidance in complex environments",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.10598v1",
+      "source": "arxiv",
+      "title": "AWARE: Adaptive Whole-body Active Rotating Control for Enhanced LiDAR-Inertial Odometry under Human-in-the-Loop Interaction",
+      "abstract": "Human-in-the-loop (HITL) UAV operation is essential in complex and safety-critical aerial surveying environments, where human operators provide navigation intent while onboard autonomy must maintain accurate and robust state estimation. A key challenge in this setting is that resource-constrained UAV platforms are often limited to narrow-field-of-view LiDAR sensors. In geometrically degenerate or feature-sparse scenes, limited sensing coverage often weakens LiDAR Inertial Odometry (LIO)'s observability, causing drift accumulation, degraded geometric accuracy, and unstable state estimation, which directly compromise safe and effective HITL operation and the reliability of downstream surveying products. To overcome this limitation, we present AWARE, a bio-inspired whole-body active yawing framework that exploits the UAV's own rotational agility to extend the effective sensor horizon and improve LIO's observability without additional mechanical actuation. The core of AWARE is a differentiable Model Predictive Control (MPC) framework embedded in a Reinforcement Learning (RL) loop. It first identifies the viewing direction that maximizes information gain across the full yaw space, and a lightweight RL agent then adjusts the MPC cost weights online according to the current environmental context, enabling an adaptive balance between estimation accuracy and flight stability. A Safe Flight Corridor mechanism further ensures operational safety within this HITL paradigm by decoupling the operator's navigational intent from autonomous yaw optimization to enable safe and efficient cooperative control. We validate AWARE through extensive experiments in diverse simulated and real-world environments.",
+      "authors": [
+        "Yizhe Zhang",
+        "Jianping Li",
+        "Liangliang Yin",
+        "Zhen Dong",
+        "Bisheng Yang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-12T12:07:58+00:00",
+      "link": "https://arxiv.org/pdf/2604.10598v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "adaptive whole-body active rotating control for UAVs",
+      "llm_evidence_cn": "无人机的自适应全身主动旋转控制",
+      "llm_evidence": "无人机的自适应全身主动旋转控制",
+      "canonical_evidence": "无人机的自适应全身主动旋转控制",
+      "llm_tldr_en": "Proposes AWARE for adaptive whole-body control of UAVs to enhance LiDAR-Inertial Odometry performance.",
+      "llm_tldr_cn": "提出AWARE，通过无人机的自适应全身控制来增强激光雷达惯性里程计的性能。",
+      "llm_tldr": "提出AWARE，通过无人机的自适应全身控制来增强激光雷达惯性里程计的性能。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.14818v1",
+      "source": "arxiv",
+      "title": "CBF-based Probabilistic Safe Navigation under Unknown Nonlinear Obstacle Dynamics",
+      "abstract": "Safe navigation for an ego vehicle in uncertain environments characterized by dynamic obstacles with unknown nonlinear dynamics is a challenging problem of significant practical interest. Existing approaches in the literature either lack formal safety guarantees, require full model knowledge, or fail to account for the risk associated with the vehicle's exact body geometry and the temporal evolution of uncertainty between sampling instants. In this paper, we propose a data-driven observer for the unknown obstacle dynamics that generates an alpha-confidence set flow, which is exactly transformed into a Control Barrier Function (CBF) to enforce (1-alpha)-probability safety. The proposed framework accommodates nonlinear ego vehicle dynamics of arbitrary relative degree, as demonstrated through case studies involving first- and second-order dynamics of an unmanned surface vehicle.",
+      "authors": [
+        "Jiwon Lee",
+        "Hugo Matias",
+        "Daniel Silvestre",
+        "Thinh T. Doan"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY"
+      ],
+      "published": "2026-04-16T09:38:16+00:00",
+      "link": "https://arxiv.org/pdf/2604.14818v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "safe navigation accounting for vehicle body geometry and obstacles",
+      "llm_evidence_cn": "考虑车辆几何形状与障碍物的安全导航",
+      "llm_evidence": "考虑车辆几何形状与障碍物的安全导航",
+      "canonical_evidence": "考虑车辆几何形状与障碍物的安全导航",
+      "llm_tldr_en": "Proposes a CBF-based safe navigation framework that accounts for exact vehicle body geometry.",
+      "llm_tldr_cn": "提出一种基于控制屏障函数的安全导航框架，考虑了车辆的精确几何形状。",
+      "llm_tldr": "提出一种基于控制屏障函数的安全导航框架，考虑了车辆的精确几何形状。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "whole-body collision avoidance algorithms",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2604.10548v2",
+      "source": "arxiv",
+      "title": "Simple but Stable, Fast and Safe: Achieve End-to-end Control by High-Fidelity Differentiable Simulation",
+      "abstract": "Obstacle avoidance is a fundamental vision-based task essential for enabling quadrotors to perform advanced applications. When planning the trajectory, existing approaches both on optimization and learning typically regard quadrotor as a point-mass model, giving path or velocity commands then tracking the commands by outer-loop controller. However, at high speeds, planned trajectories sometimes become dynamically infeasible in actual flight, which beyond the capacity of controller. In this paper, we propose a novel end-to-end policy that directly maps depth images to low-level bodyrate commands by reinforcement learning via differentiable simulation. The high-fidelity simulation in training after parameter identification significantly reduces all the gaps between training, simulation and real world. Analytical process by differentiable simulation provides accurate gradient to ensure efficiently training the low-level policy without expert guidance. The policy employs a lightweight and the most simple inference pipeline that runs without explicit mapping, backbone networks, primitives, recurrent structures, or backend controllers, nor curriculum or privileged guidance. By inferring low-level command directly to the hardware controller, the method enables full flight envelope control and avoids the dynamic-infeasible issue.Experimental results demonstrate that the proposed approach achieves the highest success rate and the lowest jerk among state-of-the-art baselines across multiple benchmarks. The policy also exhibits strong generalization, successfully deploying zero-shot in unseen, outdoor environments while reaching speeds of up to 7.5m/s as well as stably flying in the super-dense forest. This work is released at https://github.com/Fanxing-LI/avoidance.",
+      "authors": [
+        "Fanxing Li",
+        "Shengyang Wang",
+        "Yuxiang Huang",
+        "Fangyu Sun",
+        "Shuyu Wu",
+        "Yufei Yan",
+        "Danping Zou",
+        "Wenxian Yu"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-12T09:38:00+00:00",
+      "link": "https://arxiv.org/pdf/2604.10548v2",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "obstacle avoidance in complex environments using differentiable simulation",
+      "llm_evidence_cn": "利用可微仿真在复杂环境中进行避障",
+      "llm_evidence": "利用可微仿真在复杂环境中进行避障",
+      "canonical_evidence": "利用可微仿真在复杂环境中进行避障",
+      "llm_tldr_en": "End-to-end control for quadrotor obstacle avoidance using high-fidelity differentiable simulation.",
+      "llm_tldr_cn": "利用高保真可微仿真实现四旋翼无人机避障的端到端控制。",
+      "llm_tldr": "利用高保真可微仿真实现四旋翼无人机避障的端到端控制。",
+      "llm_tags": [
+        "query:q6"
+      ],
+      "matched_query_tag": "query:q6",
+      "matched_query_text": "algorithms for whole body obstacle avoidance in complex environments",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.11302v1",
+      "source": "arxiv",
+      "title": "3D-Anchored Lookahead Planning for Persistent Robotic Scene Memory via World-Model-Based MCTS",
+      "abstract": "We present 3D-Anchored Lookahead Planning (3D-ALP), a System 2 reasoning engine for robotic manipulation that combines Monte Carlo Tree Search (MCTS) with a 3D-consistent world model as the rollout oracle. Unlike reactive policies that evaluate actions from the current camera frame only, 3D-ALP maintains a persistent camera-to-world (c2w) anchor that survives occlusion, enabling accurate replanning to object positions that are no longer directly observable. On a 5-step sequential reach task requiring spatial memory (Experiment E3), 3D-ALP achieves 0.650 0.109 success rate on memory-required steps versus 0.006 0.008 for a greedy reactive baseline (Δ=+0.645), while step 5 success reaches 0.822 against 0.000 for greedy. An ablation study (30 episodes, 3 seeds) isolates tree search spatial memory as the primary driver (+0.533, 82% of gain) with additional benefit from deeper lookahead (+0.111, 17%). We also identify and resolve four structural failure modes in applying UCT-MCTS (Upper Confidence Bounds applied to Trees [10]) to continuous robotic manipulation.",
+      "authors": [
+        "Bronislav Sidik",
+        "Dror Mizrahi"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-04-13T11:01:30+00:00",
+      "link": "https://arxiv.org/pdf/2604.11302v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D-consistent world model for lookahead planning and obstacle awareness",
+      "llm_evidence_cn": "用于前瞻规划和障碍物感知的3D一致性世界模型",
+      "llm_evidence": "用于前瞻规划和障碍物感知的3D一致性世界模型",
+      "canonical_evidence": "用于前瞻规划和障碍物感知的3D一致性世界模型",
+      "llm_tldr_en": "A reasoning engine using MCTS and 3D world models to enable persistent spatial memory in robotic manipulation.",
+      "llm_tldr_cn": "一种结合MCTS和3D世界模型的推理引擎，为机器人操作提供持久的空间记忆和规划能力。",
+      "llm_tldr": "一种结合MCTS和3D世界模型的推理引擎，为机器人操作提供持久的空间记忆和规划能力。",
+      "llm_tags": [
+        "query:q6"
+      ],
+      "matched_query_tag": "query:q6",
+      "matched_query_text": "algorithms for whole body obstacle avoidance in complex environments",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.15638v1",
+      "source": "arxiv",
+      "title": "Contact-Aware Planning and Control of Continuum Robots in Highly Constrained Environments",
+      "abstract": "Continuum robots are well suited for navigating confined and fragile environments, such as vascular or endoluminal anatomy, where contact with surrounding structures is often unavoidable. While controlled contact can assist motion, unfavorable contact can degrade controllability, induce kinematic singularities, or introduce safety risks. We present a contact-aware planning approach that evaluates contact quality, penalizing hazardous interactions, while permitting benign contact. The planner produces kinematically feasible trajectories and contact-aware Jacobians which can be used for closed-loop control in hardware experiments. We validate the approach by testing the integrated system (planning, control, and mechanical design) on anatomical models from patient scans. The planner generates effective plans for three common anatomical environments, and, in all hardware trials, the continuum robot was able to reach the target while avoiding dangerous tip contact (100% success). Mean tracking errors were 1.9 +/- 0.5 mm, 1.2 +/- 0.1 mm, and 1.7 +/- 0.2 mm across the three different environments. Ablation studies showed that penalizing end-of-continuum-segment (ECS) contact improved manipulability and prevented hardware failures. Overall, this work enables reliable, contact-aware navigation in highly constrained environments.",
+      "authors": [
+        "Aedan Mangan",
+        "Kehan Long",
+        "Ki Myung Brian Lee",
+        "Miheer Potdar",
+        "Nikolay Atanasov",
+        "Tania K. Morimoto"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY",
+        "math.OC"
+      ],
+      "published": "2026-04-17T02:33:16+00:00",
+      "link": "https://arxiv.org/pdf/2604.15638v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "contact-aware planning for continuum robots in constrained environments",
+      "llm_evidence_cn": "受限环境下连续体机器人的接触感知规划",
+      "llm_evidence": "受限环境下连续体机器人的接触感知规划",
+      "canonical_evidence": "受限环境下连续体机器人的接触感知规划",
+      "llm_tldr_en": "Proposes a contact-aware planner for continuum robots to navigate constrained environments safely.",
+      "llm_tldr_cn": "提出一种连续体机器人接触感知规划方法，用于在受限环境中安全导航。",
+      "llm_tldr": "提出一种连续体机器人接触感知规划方法，用于在受限环境中安全导航。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2604.11587v1",
+      "source": "arxiv",
+      "title": "Optimal Kinodynamic Motion Planning Through Anytime Bidirectional Heuristic Search with Tight Termination Condition",
+      "abstract": "This paper introduces Bidirectional Tight Informed Trees (BTIT*), an asymptotically optimal kinodynamic sampling-based motion planning algorithm that integrates an anytime bidirectional heuristic search (Bi-HS) and ensures the \\emph{meet-in-the-middle} property (MMP) and optimality (MM-optimality). BTIT* is the first anytime MEET-style algorithm to utilize termination conditions that are efficient to evaluate and enable early termination \\emph{on-the-fly} in batch-wise sampling-based motion planning. Experiments show that BTIT* achieves strongly faster time-to-first-solution and improved convergence than representative \\emph{non-lazy} informed batch planners on two kinodynamic benchmarks: a 4D double-integrator model and a 10D linearized Quadrotor. The source code is available here.",
+      "authors": [
+        "Yi Wang",
+        "Bingxian Mu",
+        "Shahab Shokouhi",
+        "May-Win Thein"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-13T15:03:00+00:00",
+      "link": "https://arxiv.org/pdf/2604.11587v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "optimal kinodynamic motion planning with bidirectional heuristic search",
+      "llm_evidence_cn": "基于双向启发式搜索的最优动力学运动规划",
+      "llm_evidence": "基于双向启发式搜索的最优动力学运动规划",
+      "canonical_evidence": "基于双向启发式搜索的最优动力学运动规划",
+      "llm_tldr_en": "Introduces BTIT*, an asymptotically optimal kinodynamic motion planner with fast convergence.",
+      "llm_tldr_cn": "引入BTIT*算法，一种具有快速收敛性的渐近最优动力学采样运动规划器。",
+      "llm_tldr": "引入BTIT*算法，一种具有快速收敛性的渐近最优动力学采样运动规划器。",
+      "llm_tags": [
+        "query:q7"
+      ],
+      "matched_query_tag": "query:q7",
+      "matched_query_text": "optimization based whole body trajectory planning",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.12031v1",
+      "source": "arxiv",
+      "title": "Dynamic Modeling and Robust Gait Optimization of a Compliant Worm Robot",
+      "abstract": "Worm-inspired robots provide an effective locomotion strategy for constrained environments by combining cyclic body deformation with alternating anchoring. For compliant robots, however, the interaction between deformable anchoring structures and the environment makes predictive modeling and deployable gait optimization challenging. This paper presents an experimentally grounded modeling and optimization framework for a compliant worm robot capable of traversing corrugated pipes. First, a hybrid dynamic locomotion model is derived, in which the robot motion is represented by continuous dynamics within a corrugation groove and discrete switching of anchoring positions between adjacent grooves. A slack-aware actuation model is further introduced to map the commanded gait input to the realized body-length change, and an energy model is developed based on physics and calibrated with empirical power measurement. Based on these models, a multi-objective gait optimization problem is formulated to maximize average speed while minimizing average power. To reduce the fragility of nominal boundary-seeking solutions, a kinematic robustness margin is introduced into the anchoring-transition conditions, leading to a margin-based robust gait optimization framework. Experimental results show that the proposed framework captures the dominant locomotion and energy-consumption behavior of the robot over the tested conditions, and enables robust gait optimization for achieving speed-power trade-off.",
+      "authors": [
+        "Xinyu Zhou",
+        "Yu Mei",
+        "Faith Thomson",
+        "Christian Luedtke",
+        "Xinda Qi",
+        "Xiaobo Tan"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY"
+      ],
+      "published": "2026-04-13T20:20:03+00:00",
+      "link": "https://arxiv.org/pdf/2604.12031v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "gait optimization for robots in constrained environments",
+      "llm_evidence_cn": "受限环境下机器人的步态优化",
+      "llm_evidence": "受限环境下机器人的步态优化",
+      "canonical_evidence": "受限环境下机器人的步态优化",
+      "llm_tldr_en": "Dynamic modeling and gait optimization for a compliant worm robot in constrained pipes.",
+      "llm_tldr_cn": "受限管道内柔性蠕虫机器人的动力学建模与步态优化。",
+      "llm_tldr": "受限管道内柔性蠕虫机器人的动力学建模与步态优化。",
+      "llm_tags": [
+        "query:q7"
+      ],
+      "matched_query_tag": "query:q7",
+      "matched_query_text": "optimization based whole body trajectory planning",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.12474v1",
+      "source": "arxiv",
+      "title": "From Kinematics to Dynamics: Learning to Refine Hybrid Plans for Physically Feasible Execution",
+      "abstract": "In many robotic tasks, agents must traverse a sequence of spatial regions to complete a mission. Such problems are inherently mixed discrete-continuous: a high-level action sequence and a physically feasible continuous trajectory. The resulting trajectory and action sequence must also satisfy problem constraints such as deadlines, time windows, and velocity or acceleration limits. While hybrid temporal planners attempt to address this challenge, they typically model motion using linear (first-order) dynamics, which cannot guarantee that the resulting plan respects the robot's true physical constraints. Consequently, even when the high-level action sequence is fixed, producing a dynamically feasible trajectory becomes a bi-level optimization problem. We address this problem via reinforcement learning in continuous space. We define a Markov Decision Process that explicitly incorporates analytical second-order constraints and use it to refine first-order plans generated by a hybrid planner. Our results show that this approach can reliably recover physical feasibility and effectively bridge the gap between a planner's initial first-order trajectory and the dynamics required for real execution.",
+      "authors": [
+        "Lidor Erez",
+        "Shahaf S. Shperberg",
+        "Ayal Taitler"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-04-14T09:00:08+00:00",
+      "link": "https://arxiv.org/pdf/2604.12474v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "refining hybrid plans for physically feasible execution",
+      "llm_evidence_cn": "细化混合规划以实现物理可行执行",
+      "llm_evidence": "细化混合规划以实现物理可行执行",
+      "canonical_evidence": "细化混合规划以实现物理可行执行",
+      "llm_tldr_en": "Learns to refine hybrid plans into dynamically feasible trajectories respecting physical constraints.",
+      "llm_tldr_cn": "学习将混合规划细化为符合物理约束的动态可行轨迹。",
+      "llm_tldr": "学习将混合规划细化为符合物理约束的动态可行轨迹。",
+      "llm_tags": [
+        "query:q7"
+      ],
+      "matched_query_tag": "query:q7",
+      "matched_query_text": "optimization based whole body trajectory planning",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.12852v1",
+      "source": "arxiv",
+      "title": "PAINT: Partner-Agnostic Intent-Aware Cooperative Transport with Legged Robots",
+      "abstract": "Collaborative transport requires robots to infer partner intent through physical interaction while maintaining stable loco-manipulation. This becomes particularly challenging in complex environments, where interaction signals are difficult to capture and model. We present PAINT, a lightweight yet efficient hierarchical learning framework for partner-agonistic intent-aware collaborative legged transport that infers partner intent directly from proprioceptive feedback. PAINT decouples intent understanding from terrain-robust locomotion: A high-level policy infers the partner interaction wrench using an intent estimator and a teacher-student training scheme, while a low-level locomotion backbone ensures robust execution. This enables lightweight deployment without external force-torque sensing or payload tracking. Extensive simulation and real-world experiments demonstrate compliant cooperative transport across diverse terrains, payloads, and partners. Furthermore, we show that PAINT naturally scales to decentralized multi-robot transport and transfers across robot embodiments by swapping the underlying locomotion backbone. Our results suggest that proprioceptive signals in payload-coupled interaction provide a scalable interface for partner-agnostic intent-aware collaborative transport.",
+      "authors": [
+        "Zhihao Cao",
+        "Tianxu An",
+        "Chenhao Li",
+        "Stelian Coros",
+        "Marco Hutter"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-14T15:06:38+00:00",
+      "link": "https://arxiv.org/pdf/2604.12852v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "loco-manipulation and whole-body coordination for legged robots",
+      "llm_evidence_cn": "足式机器人的移动操作与全身协调控制",
+      "llm_evidence": "足式机器人的移动操作与全身协调控制",
+      "canonical_evidence": "足式机器人的移动操作与全身协调控制",
+      "llm_tldr_en": "A hierarchical framework for collaborative legged transport using intent estimation and robust locomotion.",
+      "llm_tldr_cn": "一种用于足式机器人协作运输的分层学习框架，通过意图估计实现稳健的全身协调运动。",
+      "llm_tldr": "一种用于足式机器人协作运输的分层学习框架，通过意图估计实现稳健的全身协调运动。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
