@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.16670v1/fig-001.webp",
+      "caption": "Fig. 1: Setup example consisting of two arms with 6 degrees of freedom. Transformations between the frames of the dual arm robotic system.",
+      "page": 2,
+      "index": 1,
+      "width": 535,
+      "height": 304
+    }
+  ]
+}
