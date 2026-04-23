@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.14026v1/fig-001.webp",
+      "caption": "Fig. 2: Visualization of scale-invariant sampling in tunnel passages of different sizes (5 units, 10 units, and 15 units). Final burn-in radius is shown as , and path are shown depending on the type of active sampler: uniform, positive principal",
+      "page": 11,
+      "index": 1,
+      "width": 717,
+      "height": 253
+    },
+    {
+      "url": "assets/figures/arxiv/2604.14026v1/fig-002.webp",
+      "caption": "Fig. 6: T-Bolt Experiment: MAB dynamics during planning. (a) UCB scores adjust dynamically as the planner gathers reward information. (b) Rapid reward accumulation for cylinder arms indicates their effectiveness in generating valid samples within the narrow passage, while the uniform arm’s reward surges once free space is reached.",
+      "page": 15,
+      "index": 2,
+      "width": 710,
+      "height": 219
+    },
+    {
+      "url": "assets/figures/arxiv/2604.14026v1/fig-003.webp",
+      "caption": "Fig. 5: Final sampling results across environments (radius set to 1e-6 vs. 25.0). Final radius from grow-shrink shown as , initial radius as . Tree edges shown as . Valid",
+      "page": 14,
+      "index": 3,
+      "width": 693,
+      "height": 406
+    },
+    {
+      "url": "assets/figures/arxiv/2604.14026v1/fig-004.webp",
+      "caption": "Fig. 1: Overview about scale-invariant sampling in MAB-RRT. As input, we use a start configuration xstart and a goal region Xgoal. We then search for a high-information entropy scale and initialize the multi-arm bandit with this scale. We then start a MABRRT loop, where an arm is chose, the chosen sampler is used for one RRT update step, and the arm reward is updated. This loop continues until a termination condition is true or a path π has been found which solves the problem.",
+      "page": 3,
+      "index": 4,
+      "width": 633,
+      "height": 360
+    },
+    {
+      "url": "assets/figures/arxiv/2604.14026v1/fig-005.webp",
+      "caption": "Fig. 4: Comparison of success rate using planners MAB-RRT (ours), RRT + Bridge Sampling [24], RRT + Gaussian Sampling [8], RRT + Obstacle Sampling [2], MateVec-TRRT [17], BK-RRT [55,52], BFS [52],",
+      "page": 13,
+      "index": 5,
+      "width": 695,
+      "height": 1013
+    },
+    {
+      "url": "assets/figures/arxiv/2604.14026v1/fig-006.webp",
+      "caption": "Fig. 3: Environment Comparison: Start vs. End states for selected environments. Each pair shows the initial (left) and final (right) configuration.",
+      "page": 12,
+      "index": 6,
+      "width": 722,
+      "height": 645
+    }
+  ]
+}
