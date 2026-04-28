@@ -1,0 +1,708 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-28T20:55:48.675258+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 20,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 48,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2604.19522v1",
+      "source": "arxiv",
+      "title": "GenerativeMPC: VLM-RAG-guided Whole-Body MPC with Virtual Impedance for Bimanual Mobile Manipulation",
+      "abstract": "Bimanual mobile manipulation requires a seamless integration between high-level semantic reasoning and safe, compliant physical interaction - a challenge that end-to-end models approach opaquely and classical controllers lack the context to address. This paper presents GenerativeMPC, a hierarchical cyber-physical framework that explicitly bridges semantic scene understanding with physical control parameters for bimanual mobile manipulators. The system utilizes a Vision-Language Model with Retrieval-Augmented Generation (VLM-RAG) to translate visual and linguistic context into grounded control constraints, specifically outputting dynamic velocity limits and safety margins for a Whole-Body Model Predictive Controller (MPC). Simultaneously, the VLM-RAG module modulates virtual stiffness and damping gains for a unified impedance-admittance controller, enabling context-aware compliance during human-robot interaction. Our framework leverages an experience-driven vector database to ensure consistent parameter grounding without retraining. Experimental results in MuJoCo, IsaacSim, and on a physical bimanual platform confirm a 60% speed reduction near humans and safe, socially-aware navigation and manipulation through semantic-to-physical parameter grounding. This work advances the field of human-centric cybernetics by grounding large-scale cognitive models into predictable, high-frequency physical control loops.",
+      "authors": [
+        "Marcelino Julio Fernando",
+        "Miguel Altamirano Cabrera",
+        "Jeffrin Sam",
+        "Yara Mahmoud",
+        "Konstantin Gubernatorov",
+        "Dzmitry Tsetserukou"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-21T14:44:38+00:00",
+      "link": "https://arxiv.org/pdf/2604.19522v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Whole-Body Model Predictive Controller (MPC)",
+      "llm_evidence_cn": "全身模型预测控制 (MPC)",
+      "llm_evidence": "全身模型预测控制 (MPC)",
+      "canonical_evidence": "全身模型预测控制 (MPC)",
+      "llm_tldr_en": "A hierarchical framework using VLM-RAG to guide whole-body MPC for bimanual mobile manipulation.",
+      "llm_tldr_cn": "一种利用VLM-RAG引导双臂移动操作全身MPC的分层框架。",
+      "llm_tldr": "一种利用VLM-RAG引导双臂移动操作全身MPC的分层框架。",
+      "llm_tags": [
+        "query:q7"
+      ],
+      "matched_query_tag": "query:q7",
+      "matched_query_text": "optimization based whole body trajectory planning",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.21189v1",
+      "source": "arxiv",
+      "title": "Full-Body Dynamic Safety for Robot Manipulators: 3D Poisson Safety Functions for CBF-Based Safety Filters",
+      "abstract": "Collision avoidance for robotic manipulators requires enforcing full-body safety constraints in high-dimensional configuration spaces. Control Barrier Function (CBF) based safety filters have proven effective in enabling safe behaviors, but enforcing the high number of constraints needed for safe manipulation leads to theoretic and computational challenges. This work presents a framework for full-body collision avoidance for manipulators in dynamic environments by leveraging 3D Poisson Safety Functions (PSFs). In particular, given environmental occupancy data, we sample the manipulator surface at a prescribed resolution and shrink free space via a Pontryagin difference according to this resolution. On this buffered domain, we synthesize a globally smooth CBF by solving Poisson's equation, yielding a single safety function for the entire environment. This safety function, evaluated at each sampled point, yields task-space CBF constraints enforced by a real-time safety filter via a multi-constraint quadratic program. We prove that keeping the sample points safe in the buffered region guarantees collision avoidance for the entire continuous robot surface. The framework is validated on a 7-degree-of-freedom manipulator in dynamic environments.",
+      "authors": [
+        "Meg Wilkinson",
+        "Gilbert Bahati",
+        "Ryan M. Bena",
+        "Emily Fourney",
+        "Joel W. Burdick",
+        "Aaron D. Ames"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-23T01:13:02+00:00",
+      "link": "https://arxiv.org/pdf/2604.21189v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Full-body dynamic safety for robot manipulators",
+      "llm_evidence_cn": "机器人操作臂的全身动态安全",
+      "llm_evidence": "机器人操作臂的全身动态安全",
+      "canonical_evidence": "机器人操作臂的全身动态安全",
+      "llm_tldr_en": "Uses 3D Poisson Safety Functions for full-body collision avoidance in high-dimensional spaces.",
+      "llm_tldr_cn": "利用3D泊松安全函数实现高维空间中的机器人全身避障。",
+      "llm_tldr": "利用3D泊松安全函数实现高维空间中的机器人全身避障。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "whole-body collision avoidance algorithms",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.17896v1",
+      "source": "arxiv",
+      "title": "Can Explicit Physical Feasibility Benefit VLA Learning? An Empirical Study",
+      "abstract": "Vision-Language-Action (VLA) models map multimodal inputs directly to robot actions and are typically trained through large-scale imitation learning. While this paradigm has shown strong performance, prevailing VLA training procedures do not explicitly supervise hard physical constraints such as obstacle avoidance or kinematic feasibility. As a result, the geometric structure underlying physically feasible behavior must be inferred only implicitly from demonstrations. In this paper, we study whether introducing explicit feasibility supervision can provide effective structured guidance for VLA policies. We formulate a simple geometry-grounded feasibility objective and integrate it into the training stage of a diffusion-based VLA policy. To evaluate this idea systematically, we use obstacle-aware manipulation as a controlled probe of geometry-dependent physical feasibility. Empirical results show that augmenting VLA training with feasibility supervision improves both physical reliability and overall task performance, while also enhancing learning efficiency in the low-data regime. These findings indicate that explicit feasibility signals can effectively complement imitation-based VLA learning, highlighting their potential for developing more reliable VLA policies.",
+      "authors": [
+        "Yubai Wei",
+        "Chen Wu",
+        "Hashem Haghbayan"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.RO"
+      ],
+      "published": "2026-04-20T07:15:12+00:00",
+      "link": "https://arxiv.org/pdf/2604.17896v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "explicit physical constraints for obstacle avoidance",
+      "llm_evidence_cn": "针对避障的显式物理约束",
+      "llm_evidence": "针对避障的显式物理约束",
+      "canonical_evidence": "针对避障的显式物理约束",
+      "llm_tldr_en": "Integrates explicit geometry-grounded feasibility and obstacle avoidance into VLA policy training.",
+      "llm_tldr_cn": "在VLA策略训练中引入显式的几何可行性目标，增强机器人的避障与物理约束能力。",
+      "llm_tldr": "在VLA策略训练中引入显式的几何可行性目标，增强机器人的避障与物理约束能力。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "whole-body collision avoidance algorithms",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.21351v1",
+      "source": "arxiv",
+      "title": "Learn Weightlessness: Imitate Non-Self-Stabilizing Motions on Humanoid Robot",
+      "abstract": "The integration of imitation and reinforcement learning has enabled remarkable advances in humanoid whole-body control, facilitating diverse human-like behaviors. However, research on environment-dependent motions remains limited. Existing methods typically enforce rigid trajectory tracking while neglecting physical interactions with the environment. We observe that humans naturally exploit a \"weightless\" state during non-self-stabilizing (NSS) motions--selectively relaxing specific joints to allow passive body--environment contact, thereby stabilizing the body and completing the motion. Inspired by this biological mechanism, we design a weightlessness-state auto-labeling strategy for dataset annotation; and we propose the Weightlessness Mechanism (WM), a method that dynamically determines which joints to relax and to what level, together enabling effective environmental interaction while executing target motions. We evaluate our approach on 3 representative NSS tasks: sitting on chairs of varying heights, lying down on beds with different inclinations, and leaning against walls via shoulder or elbow. Extensive experiments in simulation and on the Unitree G1 robot demonstrate that our WM method, trained on single-action demonstrations without any task-specific tuning, achieves strong generalization across diverse environmental configurations while maintaining motion stability. Our work bridges the gap between precise trajectory tracking and adaptive environmental interaction, offering a biologically-inspired solution for contact-rich humanoid control.",
+      "authors": [
+        "Yucheng Xin",
+        "Jiacheng Bao",
+        "Haoran Yang",
+        "Wenqiang Que",
+        "Dong Wang",
+        "Junbo Tan",
+        "Xueqian Wang",
+        "Bin Zhao",
+        "Xuelong Li"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-23T07:10:05+00:00",
+      "link": "https://arxiv.org/pdf/2604.21351v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "humanoid whole-body control and non-self-stabilizing motions",
+      "llm_evidence_cn": "类人机器人全身控制与非自稳运动",
+      "llm_evidence": "类人机器人全身控制与非自稳运动",
+      "canonical_evidence": "类人机器人全身控制与非自稳运动",
+      "llm_tldr_en": "Proposes a weightlessness mechanism for humanoid robots to perform complex environment-dependent motions.",
+      "llm_tldr_cn": "提出了一种类人机器人失重机制，用于执行复杂的环境依赖性运动。",
+      "llm_tldr": "提出了一种类人机器人失重机制，用于执行复杂的环境依赖性运动。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.22196v1",
+      "source": "arxiv",
+      "title": "V-STC: A Time-Efficient Multi-Vehicle Coordinated Trajectory Planning Approach",
+      "abstract": "Coordinating the motions of multiple autonomous vehicles (AVs) requires planning frameworks that ensure safety while making efficient use of space and time. This paper presents a new approach, termed variable-time-step spatio-temporal corridor (V-STC), that enhances the temporal efficiency of multi-vehicle coordination. An optimization model is formulated to construct a V-STC for each AV, in which both the spatial configuration of the corridor cubes and their time durations are treated as decision variables. By allowing the corridor's spatial position and time step to vary, the constructed V-STC reduces the overall temporal occupancy of each AV while maintaining collision-free separation in the spatio-temporal domain. Based on the generated V-STC, a dynamically feasible trajectory is then planned independently for each AV. Simulation studies demonstrate that the proposed method achieves safe multi-vehicle coordination and yields more time-efficient motion compared with existing STC approaches.",
+      "authors": [
+        "Pengfei Liu",
+        "Jialing Zhou",
+        "Yuezu Lv",
+        "Guanghui Wen",
+        "Tingwen Huang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.MA"
+      ],
+      "published": "2026-04-24T03:55:32+00:00",
+      "link": "https://arxiv.org/pdf/2604.22196v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "optimization-based spatio-temporal corridor for collision-free trajectory planning",
+      "llm_evidence_cn": "基于优化的时空走廊用于无碰撞轨迹规划",
+      "llm_evidence": "基于优化的时空走廊用于无碰撞轨迹规划",
+      "canonical_evidence": "基于优化的时空走廊用于无碰撞轨迹规划",
+      "llm_tldr_en": "Introduces variable-time-step spatio-temporal corridors for efficient multi-vehicle trajectory planning.",
+      "llm_tldr_cn": "提出变步长时空走廊方法，通过优化手段实现多车协同的无碰撞轨迹规划。",
+      "llm_tldr": "提出变步长时空走廊方法，通过优化手段实现多车协同的无碰撞轨迹规划。",
+      "llm_tags": [
+        "query:q7"
+      ],
+      "matched_query_tag": "query:q7",
+      "matched_query_text": "optimization based whole body trajectory planning",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.23761v1",
+      "source": "arxiv",
+      "title": "Unleashing the Agility of Wheeled-Legged Robots for High-Dynamic Reflexive Obstacle Evasion",
+      "abstract": "Wheeled-legged robots combine the energy efficiency of wheeled locomotion with the terrain adaptability of legged systems, making them promising platforms for agile mobility in complex and dynamic environments. However, enabling high-dynamic reflexive evasion against fast-moving obstacles remains challenging due to the hybrid morphology, mode coupling, and non-holonomic constraints of such platforms. In this work, we propose AWARE, Adaptive Wheeled-Legged Avoidance and Reflexive Evasion, a hierarchical reinforcement learning framework for high-dynamic obstacle avoidance in wheeled-legged robots. The proposed system naturally exhibits diverse emergent gaits and evasive behaviors, including forward lunge and lateral dodge, thereby leveraging the robot's hybrid morphology to enhance agility under highly dynamic threats. Extensive experiments in Isaac Lab simulation and real-world deployment on the M20 platform across diverse dynamic scenarios demonstrate that AWARE achieves robust and agile obstacle avoidance while revealing behaviorally distinct evasive strategies. These results highlight both the practical effectiveness of AWARE and the intrinsic reflexive agility of wheeled-legged robots.",
+      "authors": [
+        "Yongen Zhao",
+        "Zihao Xu",
+        "Wenzhi Lu",
+        "Zhen Chu",
+        "Ce Hao"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-26T15:21:33+00:00",
+      "link": "https://arxiv.org/pdf/2604.23761v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "reflexive obstacle evasion in complex and dynamic environments",
+      "llm_evidence_cn": "复杂动态环境下的反射性障碍物规避",
+      "llm_evidence": "复杂动态环境下的反射性障碍物规避",
+      "canonical_evidence": "复杂动态环境下的反射性障碍物规避",
+      "llm_tldr_en": "AWARE provides high-dynamic reflexive obstacle evasion for wheeled-legged robots using hierarchical RL.",
+      "llm_tldr_cn": "AWARE 通过分层强化学习为轮足机器人提供高动态反射式避障。",
+      "llm_tldr": "AWARE 通过分层强化学习为轮足机器人提供高动态反射式避障。",
+      "llm_tags": [
+        "query:q6"
+      ],
+      "matched_query_tag": "query:q6",
+      "matched_query_text": "algorithms for whole body obstacle avoidance in complex environments",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.17679v1",
+      "source": "arxiv",
+      "title": "A Hamilton-Jacobi Reachability-Guided Search Framework for Efficient and Safe Indoor Planar Robot Navigation",
+      "abstract": "Autonomous navigation requires planning to reach a goal safely and efficiently in complex and potentially dynamic environments. Graph search-based algorithms are widely adopted due to their generality and theoretical guarantees when equipped with admissible heuristics. However, the computational complexity of graph search grows rapidly with the dimensionality of the search space, often making real-time planning in dynamic environments intractable. In this paper, we combine offline Hamilton-Jacobi (HJ) reachability with online graph search to leverage the complementary strengths of both. Precomputed HJ value functions, used as informative heuristics and proactive safety constraints, amortize online computation of the graph search process. At the same time, graph search enables reachability-based reasoning to be incorporated into online planning, overcoming the long-standing challenge of HJ reachability requiring full knowledge of the environment. Extensive simulation studies and real-world experiments demonstrate that the proposed approach consistently outperforms baseline methods in terms of planning efficiency and navigation safety, in environments with and without human presence.",
+      "authors": [
+        "Hanyang Hu",
+        "Cameron Siu",
+        "Mo Chen"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-20T00:30:21+00:00",
+      "link": "https://arxiv.org/pdf/2604.17679v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "proactive safety constraints for efficient and safe navigation",
+      "llm_evidence_cn": "用于高效安全导航的前瞻性安全约束",
+      "llm_evidence": "用于高效安全导航的前瞻性安全约束",
+      "canonical_evidence": "用于高效安全导航的前瞻性安全约束",
+      "llm_tldr_en": "Combines HJ reachability with graph search for safe robot navigation in complex, dynamic environments.",
+      "llm_tldr_cn": "结合HJ可达性与图搜索，实现在复杂动态环境中的安全机器人导航。",
+      "llm_tldr": "结合HJ可达性与图搜索，实现在复杂动态环境中的安全机器人导航。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "whole-body collision avoidance algorithms",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2604.17880v1",
+      "source": "arxiv",
+      "title": "ST-$π$: Structured SpatioTemporal VLA for Robotic Manipulation",
+      "abstract": "Vision-language-action (VLA) models have achieved great success on general robotic tasks, but still face challenges in fine-grained spatiotemporal manipulation. Typically, existing methods mainly embed spatiotemporal knowledge into visual and action representations, and directly perform a cross-modal mapping for step-level action prediction. However, such spatiotemporal reasoning remains largely implicit, making it difficult to handle multiple sequential behaviors with explicit spatiotemporal boundaries. In this work, we propose ST-$π$, a structured spatiotemporal VLA model for robotic manipulation. Our model is guided by two key designs: 1) Spatiotemporal VLM. We encode 4D observations and task instructions into latent spaces, and feed them into the LLM to generate a sequence of causally ordered chunk-level action prompts consisting of sub-tasks, spatial grounding and temporal grounding. 2) Spatiotemporal action expert. Conditioned on chunk-level action prompts, we design a structured dual-generator guidance to jointly model spatial dependencies and temporal causality, thus predicting step-level action parameters. Within this structured framework, the VLM explicitly plans global spatiotemporal behavior, and the action expert further refines local spatiotemporal control. In addition, we propose a real-world robotic dataset with structured spatiotemporal annotations for fine-tuning. Extensive experiments have been conducted to demonstrate the effectiveness of our model. Our code link: https://github.com/chuanhaoma/ST-pi.",
+      "authors": [
+        "Chuanhao Ma",
+        "Hanyu Zhou",
+        "Shihan Peng",
+        "Yan Li",
+        "Tao Gu",
+        "Luxin Yan"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "published": "2026-04-20T06:48:47+00:00",
+      "link": "https://arxiv.org/pdf/2604.17880v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "structured spatiotemporal VLA for fine-grained manipulation",
+      "llm_evidence_cn": "用于细粒度操作的结构化时空VLA",
+      "llm_evidence": "用于细粒度操作的结构化时空VLA",
+      "canonical_evidence": "用于细粒度操作的结构化时空VLA",
+      "llm_tldr_en": "Proposes a VLA model that explicitly reasons about spatiotemporal boundaries for sequential robotic behaviors.",
+      "llm_tldr_cn": "提出了一种VLA模型，能够显式推理机器人序列行为的时空边界。",
+      "llm_tldr": "提出了一种VLA模型，能够显式推理机器人序列行为的时空边界。",
+      "llm_tags": [
+        "query:q2"
+      ],
+      "matched_query_tag": "query:q2",
+      "matched_query_text": "shape-aware",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.17787v1",
+      "source": "arxiv",
+      "title": "AnchorRefine: Synergy-Manipulation Based on Trajectory Anchor and Residual Refinement for Vision-Language-Action Models",
+      "abstract": "Precision-critical manipulation requires both global trajectory organization and local execution correction, yet most vision-language-action (VLA) policies generate actions within a single unified space. This monolithic formulation forces macro-level transport and micro-level refinement to be optimized under the same objective, causing large motions to dominate learning while suppressing small but failure-critical corrective signals. In contrast, human manipulation is structured by global movement planning together with continuous local adjustment during execution. Motivated by this principle, we propose AnchorRefine, a hierarchical framework that factorizes VLA action modeling into trajectory anchor and residual refinement. The anchor planner predicts a coarse motion scaffold, while the refinement module corrects execution-level deviations to improve geometric and contact precision. We further introduce a decision-aware gripper refinement mechanism to better capture the discrete and boundary-sensitive nature of gripper control. Experiments on LIBERO, CALVIN, and real-robot tasks demonstrate that AnchorRefine consistently improves both regression-based and diffusion-based VLA backbones, yielding gains of up to 7.8% in simulation success rate and 18% in real-world success rate.",
+      "authors": [
+        "Tingzheng Jia",
+        "Kan Guo",
+        "Lanping Qian",
+        "Yongli Hu",
+        "Daxin Tian",
+        "Guixian Qu",
+        "Chunmian Lin",
+        "Baocai Yin",
+        "Jiapu Wang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-04-20T04:25:24+00:00",
+      "link": "https://arxiv.org/pdf/2604.17787v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "hierarchical framework for trajectory anchor and residual refinement",
+      "llm_evidence_cn": "轨迹锚点与残差细化的分层框架",
+      "llm_evidence": "轨迹锚点与残差细化的分层框架",
+      "canonical_evidence": "轨迹锚点与残差细化的分层框架",
+      "llm_tldr_en": "Factorizes action modeling into global trajectory planning and local execution refinement.",
+      "llm_tldr_cn": "将动作建模分解为全局轨迹规划与局部执行细化，提升操作精度。",
+      "llm_tldr": "将动作建模分解为全局轨迹规划与局部执行细化，提升操作精度。",
+      "llm_tags": [
+        "query:q7"
+      ],
+      "matched_query_tag": "query:q7",
+      "matched_query_text": "optimization based whole body trajectory planning",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.17833v1",
+      "source": "arxiv",
+      "title": "DART: Learning-Enhanced Model Predictive Control for Dual-Arm Non-Prehensile Manipulation",
+      "abstract": "What appears effortless to a human waiter remains a major challenge for robots. Manipulating objects nonprehensilely on a tray is inherently difficult, and the complexity is amplified in dual-arm settings. Such tasks are highly relevant to service robotics in domains such as hotels and hospitality, where robots must transport and reposition diverse objects with precision. We present DART, a novel dual-arm framework that integrates nonlinear Model Predictive Control (MPC) with an optimization-based impedance controller to achieve accurate object motion relative to a dynamically controlled tray. The framework systematically evaluates three complementary strategies for modeling tray-object dynamics as the state transition function within our MPC formulation: (i) a physics-based analytical model, (ii) an online regression based identification model that adapts in real-time, and (iii) a reinforcement learning-based dynamics model that generalizes across object properties. Our pipeline is validated in simulation with objects of varying mass, geometry, and friction coefficients. Extensive evaluations highlight the trade-offs among the three modeling strategies in terms of settling time, steady-state error, control effort, and generalization across objects. To the best of our knowledge, DART constitutes the first framework for non-prehensile dual-arm manipulation of objects on a tray. Project Link: https://dart-icra.github.io/dart/",
+      "authors": [
+        "Autrio Das",
+        "Shreya Bollimuntha",
+        "Madala Venkata Renu Jeevesh",
+        "Keshab Patra",
+        "Tashmoy Gosh",
+        "Nagamanikandan G",
+        "Arun Kumar",
+        "Madhava Krishna"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-20T05:37:03+00:00",
+      "link": "https://arxiv.org/pdf/2604.17833v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "optimization-based control for dual-arm manipulation",
+      "llm_evidence_cn": "基于优化的双臂操作控制",
+      "llm_evidence": "基于优化的双臂操作控制",
+      "canonical_evidence": "基于优化的双臂操作控制",
+      "llm_tldr_en": "DART integrates nonlinear MPC with optimization-based impedance control for dual-arm manipulation.",
+      "llm_tldr_cn": "DART 将非线性 MPC 与基于优化的阻抗控制相结合，用于双臂操作。",
+      "llm_tldr": "DART 将非线性 MPC 与基于优化的阻抗控制相结合，用于双臂操作。",
+      "llm_tags": [
+        "query:q7"
+      ],
+      "matched_query_tag": "query:q7",
+      "matched_query_text": "optimization based whole body trajectory planning",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2604.18126v1",
+      "source": "arxiv",
+      "title": "Chatting about Conditional Trajectory Prediction",
+      "abstract": "Human behavior has the nature of mutual dependencies, which requires human-robot interactive systems to predict surrounding agents trajectories by modeling complex social interactions, avoiding collisions and executing safe path planning. While there exist many trajectory prediction methods, most of them do not incorporate the own motion of the ego agent and only model interactions based on static information. We are inspired by the humans theory of mind during trajectory selection and propose a Cross time domain intention-interactive method for conditional Trajectory prediction(CiT). Our proposed CiT conducts joint analysis of behavior intentions over time, and achieves information complementarity and integration across different time domains. The intention in its own time domain can be corrected by the social interaction information from the other time domain to obtain a more precise intention representation. In addition, CiT is designed to closely integrate with robotic motion planning and control modules, capable of generating a set of optional trajectory prediction results for all surrounding agents based on potential motions of the ego agent. Extensive experiments demonstrate that the proposed CiT significantly outperforms the existing methods, achieving state-of-the-art performance in the benchmarks.",
+      "authors": [
+        "Yuxiang Zhao",
+        "Wei Huang",
+        "Haipeng Zeng",
+        "Huan Zhao",
+        "Yujie Song"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "published": "2026-04-20T11:44:16+00:00",
+      "link": "https://arxiv.org/pdf/2604.18126v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "avoiding collisions and safe path planning",
+      "llm_evidence_cn": "避免碰撞与安全路径规划",
+      "llm_evidence": "避免碰撞与安全路径规划",
+      "canonical_evidence": "避免碰撞与安全路径规划",
+      "llm_tldr_en": "Proposes a conditional trajectory prediction method to model social interactions and avoid collisions.",
+      "llm_tldr_cn": "提出一种条件轨迹预测方法，通过建模社交交互来实现避障与安全路径规划。",
+      "llm_tldr": "提出一种条件轨迹预测方法，通过建模社交交互来实现避障与安全路径规划。",
+      "llm_tags": [
+        "query:q4"
+      ],
+      "matched_query_tag": "query:q4",
+      "matched_query_text": "whole-body collision avoidance algorithms",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.17807v1",
+      "source": "arxiv",
+      "title": "Re$^2$MoGen: Open-Vocabulary Motion Generation via LLM Reasoning and Physics-Aware Refinement",
+      "abstract": "Text-to-motion (T2M) generation aims to control the behavior of a target character via textual descriptions. Leveraging text-motion paired datasets, existing T2M models have achieved impressive performance in generating high-quality motions within the distribution of their training data. However, their performance deteriorates notably when the motion descriptions differ significantly from the training texts. To address this issue, we propose Re$^2$MoGen, a Reasoning and Refinement open-vocabulary Motion Generation framework that leverages enhanced Large Language Model (LLM) reasoning to generate an initial motion planning and then refine its physical plausibility via reinforcement learning (RL) post-training. Specifically, Re$^2$MoGen consists of three stages: We first employ Monte Carlo tree search to enhance the LLM's reasoning ability in generating reasonable keyframes of the motion based on text prompts, specifying only the root and several key joints' positions to ease the reasoning process. Then, we apply a human pose model as a prior to optimize the full-body poses based on the planned keyframes and use the resulting incomplete motion to supervise fine-tuning a pre-trained motion generator via a dynamic temporal matching objective, enabling spatiotemporal completion. Finally, we use post-training with physics-aware reward to refine motion quality to eliminate physical implausibility in LLM-planned motions. Extensive experiments demonstrate that our framework can generate semantically consistent and physically plausible motions and achieve state-of-the-art performance in open-vocabulary motion generation.",
+      "authors": [
+        "Jiakun Zheng",
+        "Ting Xiao",
+        "Shiqin Cao",
+        "Xinran Li",
+        "Zhe Wang",
+        "Chenjia Bai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.RO"
+      ],
+      "published": "2026-04-20T04:59:28+00:00",
+      "link": "https://arxiv.org/pdf/2604.17807v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "physics-aware refinement for open-vocabulary motion generation",
+      "llm_evidence_cn": "针对开放词汇运动生成的物理感知优化",
+      "llm_evidence": "针对开放词汇运动生成的物理感知优化",
+      "canonical_evidence": "针对开放词汇运动生成的物理感知优化",
+      "llm_tldr_en": "Combines LLM reasoning with RL refinement to generate physically plausible character motions.",
+      "llm_tldr_cn": "结合大模型推理与强化学习优化，生成符合物理规律的开放词汇角色运动。",
+      "llm_tldr": "结合大模型推理与强化学习优化，生成符合物理规律的开放词汇角色运动。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.17833v2",
+      "source": "arxiv",
+      "title": "DART: Learning-Enhanced Model Predictive Control for Dual-Arm Non-Prehensile Manipulation",
+      "abstract": "What appears effortless to a human waiter remains a major challenge for robots. Manipulating objects nonprehensilely on a tray is inherently difficult, and the complexity is amplified in dual-arm settings. Such tasks are highly relevant to service robotics in domains such as hotels and hospitality, where robots must transport and reposition diverse objects with precision. We present DART, a novel dual-arm framework that integrates nonlinear Model Predictive Control (MPC) with an optimization-based impedance controller to achieve accurate object motion relative to a dynamically controlled tray. The framework systematically evaluates three complementary strategies for modeling tray-object dynamics as the state transition function within our MPC formulation: (i) a physics-based analytical model, (ii) an online regression based identification model that adapts in real-time, and (iii) a reinforcement learning-based dynamics model that generalizes across object properties. Our pipeline is validated in simulation with objects of varying mass, geometry, and friction coefficients. Extensive evaluations highlight the trade-offs among the three modeling strategies in terms of settling time, steady-state error, control effort, and generalization across objects. To the best of our knowledge, DART constitutes the first framework for non-prehensile dual-arm manipulation of objects on a tray. Project Link: https://dart-icra.github.io/dart/",
+      "authors": [
+        "Autrio Das",
+        "Shreya Bollimuntha",
+        "Madala Venkata Renu Jeevesh",
+        "Keshab Patra",
+        "Tashmoy Ghosh",
+        "Nagamanikandan Govindan",
+        "Arun Kumar Singh",
+        "K Madhava Krishna"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-20T05:37:03+00:00",
+      "link": "https://arxiv.org/pdf/2604.17833v2",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "dual-arm framework integrating nonlinear MPC and optimization-based control",
+      "llm_evidence_cn": "集成非线性MPC与优化控制的双臂框架",
+      "llm_evidence": "集成非线性MPC与优化控制的双臂框架",
+      "canonical_evidence": "集成非线性MPC与优化控制的双臂框架",
+      "llm_tldr_en": "Combines MPC and optimization for precise dual-arm manipulation and trajectory planning.",
+      "llm_tldr_cn": "结合模型预测控制与优化算法，实现精确的双臂操作与轨迹规划。",
+      "llm_tldr": "结合模型预测控制与优化算法，实现精确的双臂操作与轨迹规划。",
+      "llm_tags": [
+        "query:profile-1:composite"
+      ],
+      "matched_query_tag": "query:profile-1:composite",
+      "matched_query_text": "Papers central to 机器人整身规划与避障相关论文检索, especially work that connects or combines: swept volume; shape-aware; whole-body motion planning for robots; whole-body collision avoidance algorithms; state of the art in robot whole body motion planning; algorithms for whole body obstacle avoidance in complex environments; optimization based whole body trajectory planning.",
+      "matched_requirement_id": "req-composite-profile-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2604.18484v1",
+      "source": "arxiv",
+      "title": "XEmbodied: A Foundation Model with Enhanced Geometric and Physical Cues for Large-Scale Embodied Environments",
+      "abstract": "Vision-Language-Action (VLA) models drive next-generation autonomous systems, but training them requires scalable, high-quality annotations from complex environments. Current cloud pipelines rely on generic vision-language models (VLMs) that lack geometric reasoning and domain semantics due to their 2D image-text pretraining. To address this mismatch, we propose XEmbodied, a cloud-side foundation model that endows VLMs with intrinsic 3D geometric awareness and interaction with physical cues (e.g., occupancy grids, 3D boxes). Instead of treating geometry as auxiliary input, XEmbodied integrates geometric representations via a structured 3D Adapter and distills physical signals into context tokens using an Efficient Image-Embodied Adapter. Through progressive domain curriculum and reinforcement learning post-training, XEmbodied preserves general capabilities while demonstrating robust performance across 18 public benchmarks. It significantly improves spatial reasoning, traffic semantics, embodied affordance, and out-of-distribution generalization for large-scale scenario mining and embodied VQA.",
+      "authors": [
+        "Kangan Qian",
+        "ChuChu Xie",
+        "Yang Zhong",
+        "Jingrui Pang",
+        "Siwen Jiao",
+        "Sicong Jiang",
+        "Zilin Huang",
+        "Yunlong Wang",
+        "Kun Jiang",
+        "Mengmeng Yang",
+        "Hao Ye",
+        "Guanghao Zhang",
+        "Hangjun Ye",
+        "Guang Chen",
+        "Long Chen",
+        "Diange Yang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.MM",
+        "cs.RO"
+      ],
+      "published": "2026-04-20T16:37:16+00:00",
+      "link": "https://arxiv.org/pdf/2604.18484v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "intrinsic 3D geometric awareness and interaction with occupancy grids",
+      "llm_evidence_cn": "内在3D几何感知与占据栅格交互",
+      "llm_evidence": "内在3D几何感知与占据栅格交互",
+      "canonical_evidence": "内在3D几何感知与占据栅格交互",
+      "llm_tldr_en": "Enhances VLA models with 3D geometric awareness and physical cues like occupancy grids for embodied AI.",
+      "llm_tldr_cn": "通过3D适配器增强VLA模型的几何感知能力，支持占据栅格等物理信号交互。",
+      "llm_tldr": "通过3D适配器增强VLA模型的几何感知能力，支持占据栅格等物理信号交互。",
+      "llm_tags": [
+        "query:q2"
+      ],
+      "matched_query_tag": "query:q2",
+      "matched_query_text": "shape-aware",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.17830v1",
+      "source": "arxiv",
+      "title": "SYMBOLIZER: Symbolic Model-free Task Planning with VLMs",
+      "abstract": "Traditional Task and Motion Planning (TAMP) systems depend on physics models for motion planning and discrete symbolic models for task planning. Although physics model are often available, symbolic models (consisting of symbolic state interpretation and action models) must be meticulously handcrafted or learned from labeled data. This process is both resource-intensive and constrains the solution to the specific domain, limiting scalability and adaptability. On the other hand, Visual Language Models (VLMs) show desirable zero-shot visual understanding (due to their extensive training on heterogeneous data), but still achieve limited planning capabilities. Therefore, integrating VLMs with classical planning for long-horizon reasoning in TAMP problems offers high potential. Recent works in this direction still lack generality and depend on handcrafted, task-specific solutions, e.g. describing all possible objects in advance, or using symbolic action models. We propose a framework that generalizes well to unseen problem instances. The method requires only lifted predicates describing relations among objects and uses VLMs to ground them from images to obtain the symbolic state. Planning is performed with domain-independent heuristic search using goal-count and width-based heuristics, without need for action models. Symbolic search over VLM-grounded state-space outperforms direct VLM-based planning and performs on par with approaches that use a VLM-derived heuristic. This shows that domain-independent search can effectively solve problems across domains with large combinatorial state spaces. We extensively evaluate on extensively evaluate our method and achieve state-of-the-art results on the ProDG and ViPlan benchmarks.",
+      "authors": [
+        "Sami Azirar",
+        "Zlatan Ajanovic",
+        "Hermann Blum"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-20T05:32:47+00:00",
+      "link": "https://arxiv.org/pdf/2604.17830v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Task and Motion Planning (TAMP)",
+      "llm_evidence_cn": "任务与运动规划 (TAMP)",
+      "llm_evidence": "任务与运动规划 (TAMP)",
+      "canonical_evidence": "任务与运动规划 (TAMP)",
+      "llm_tldr_en": "Integrates VLMs with classical planning for long-horizon reasoning in task and motion planning.",
+      "llm_tldr_cn": "将VLM与经典规划相结合，用于任务和运动规划中的长程推理。",
+      "llm_tldr": "将VLM与经典规划相结合，用于任务和运动规划中的长程推理。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.17888v1",
+      "source": "arxiv",
+      "title": "SpaceDex: Generalizable Dexterous Grasping in Tiered Workspaces",
+      "abstract": "Generalizable grasping with high-degree-of-freedom (DoF) dexterous hands remains challenging in tiered workspaces, where occlusion, narrow clearances, and height-dependent constraints are substantially stronger than in open tabletop scenes. Most existing methods are evaluated in relatively unoccluded settings and typically do not explicitly model the distinct control requirements of arm navigation and hand articulation under spatial constraints. We present SpaceDex, a hierarchical framework for dexterous manipulation in constrained 3D environments. At the high level, a Vision-Language Model (VLM) planner parses user intent, reasons about occlusion and height relations across multiple camera views, and generates target bounding boxes for zero-shot segmentation and mask tracking. This stage provides structured spatial guidance for downstream control instead of relying on single-view target selection. At the low level, we introduce an arm-hand Feature Separation Network that decouples global trajectory control for the arm from geometry-aware grasp mode selection for the hand, reducing feature interference between reaching and grasping objectives. The controller further integrates multi-view perception, fingertip tactile sensing, and a small set of recovery demonstrations to improve robustness to partial observability and off-nominal contacts. In 100 real-world trials involving over 30 unseen objects across four categories, SpaceDex achieves a 63.0\\% success rate, compared with 39.0\\% for a strong tabletop baseline. These results indicate that combining hierarchical spatial planning with arm-hand representation decoupling improves dexterous grasping performance in spatially constrained environments.",
+      "authors": [
+        "Wensheng Wang",
+        "Chuanjun Guo",
+        "Wei Wei",
+        "Tong Wu",
+        "Ning Tan"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-04-20T07:01:21+00:00",
+      "link": "https://arxiv.org/pdf/2604.17888v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "arm navigation and hand articulation under spatial constraints",
+      "llm_evidence_cn": "空间约束下的手臂导航与手部关节运动",
+      "llm_evidence": "空间约束下的手臂导航与手部关节运动",
+      "canonical_evidence": "空间约束下的手臂导航与手部关节运动",
+      "llm_tldr_en": "A hierarchical framework for dexterous manipulation in constrained 3D environments with narrow clearances.",
+      "llm_tldr_cn": "一种用于在具有狭窄间隙的受限3D环境中进行灵巧操作的分层框架。",
+      "llm_tldr": "一种用于在具有狭窄间隙的受限3D环境中进行灵巧操作的分层框架。",
+      "llm_tags": [
+        "query:q6"
+      ],
+      "matched_query_tag": "query:q6",
+      "matched_query_text": "algorithms for whole body obstacle avoidance in complex environments",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2604.18887v1",
+      "source": "arxiv",
+      "title": "HALO: Hybrid Auto-encoded Locomotion with Learned Latent Dynamics, Poincaré Maps, and Regions of Attraction",
+      "abstract": "Reduced-order models are powerful for analyzing and controlling high-dimensional dynamical systems. Yet constructing these models for complex hybrid systems such as legged robots remains challenging. Classical approaches rely on hand-designed template models (e.g., LIP, SLIP), which, though insightful, only approximate the underlying dynamics. In contrast, data-driven methods can extract more accurate low-dimensional representations, but it remains unclear when stability and safety properties observed in the latent space meaningfully transfer back to the full-order system. To bridge this gap, we introduce HALO (Hybrid Auto-encoded Locomotion), a framework for learning latent reduced-order models of periodic hybrid dynamics directly from trajectory data. HALO employs an autoencoder to identify a low-dimensional latent state together with a learned latent Poincaré map that captures step-to-step locomotion dynamics. This enables Lyapunov analysis and the construction of an associated region of attraction in the latent space, both of which can be lifted back to the full-order state space through the decoder. Experiments on a simulated hopping robot and full-body humanoid locomotion demonstrate that HALO yields low-dimensional models that retain meaningful stability structure and predict full-order region-of-attraction boundaries.",
+      "authors": [
+        "Blake Werner",
+        "Sergio A. Esteban",
+        "Massimiliano De Sa",
+        "Max H. Cohen",
+        "Aaron D. Ames"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY"
+      ],
+      "published": "2026-04-20T22:09:27+00:00",
+      "link": "https://arxiv.org/pdf/2604.18887v1",
+      "tags": [
+        "keyword:机器人规划",
+        "query:机器人规划"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "reduced-order models for legged robot locomotion",
+      "llm_evidence_cn": "足式机器人运动的降阶模型",
+      "llm_evidence": "足式机器人运动的降阶模型",
+      "canonical_evidence": "足式机器人运动的降阶模型",
+      "llm_tldr_en": "Learns latent reduced-order models for hybrid dynamical systems to ensure stable legged locomotion.",
+      "llm_tldr_cn": "学习混合动力系统的潜空间降阶模型，以确保足式机器人运动的稳定性与安全性。",
+      "llm_tldr": "学习混合动力系统的潜空间降阶模型，以确保足式机器人运动的稳定性与安全性。",
+      "llm_tags": [
+        "query:q3"
+      ],
+      "matched_query_tag": "query:q3",
+      "matched_query_text": "whole-body motion planning for robots",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
